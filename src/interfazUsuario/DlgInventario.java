@@ -27,18 +27,18 @@ public class DlgInventario extends javax.swing.JDialog {
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
     public DlgInventario(java.awt.Frame parent,String title, boolean modal, PublicacionED publicacionED, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
-        super(parent, modal);
+        super(parent,title, modal);
         this.publicacionED = publicacionED;
         this.listaLibros = listaLibros;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
 
-        
-        if (operacion == ConstantesGUI.INVENTARIAR) {
+        // Si la operación es Inventariar
+        if (operacion == ConstantesGUI.AGREGAR) {
             botonAceptar.setText("Inventariar");
-        } // Si la operación es actualizar
-        else if (operacion == ConstantesGUI.DESINVENTARIAR) {
+        } // Si la operación es Desinventariar
+        else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Desinventariar");
         }
         
@@ -95,6 +95,11 @@ public class DlgInventario extends javax.swing.JDialog {
         jLabel1.setText("Libro");
 
         cajaCombinadaLibros.setModel(listaLibros);
+        cajaCombinadaLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cajaCombinadaLibrosActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Cantidad");
 
@@ -167,10 +172,10 @@ public class DlgInventario extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es inventariar o desinventariar
-        if (operacion == ConstantesGUI.INVENTARIAR) {
+        if (operacion == ConstantesGUI.AGREGAR) {
             
         }
-        if (operacion == ConstantesGUI.DESINVENTARIAR) {
+        if (operacion == ConstantesGUI.ELIMINAR) {
             
         }
         // Borra el contenido de respuesta
@@ -181,10 +186,10 @@ public class DlgInventario extends javax.swing.JDialog {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
-        if (operacion == ConstantesGUI.INVENTARIAR) {
+        if (operacion == ConstantesGUI.AGREGAR) {
         campoTextoCantidad.setText("");
         }
-        if (operacion == ConstantesGUI.DESINVENTARIAR) {
+        if (operacion == ConstantesGUI.ELIMINAR) {
             campoTextoCantidad.setText(Integer.toString(publicacionED.getDisponibilidad()));
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
@@ -193,6 +198,10 @@ public class DlgInventario extends javax.swing.JDialog {
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void cajaCombinadaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCombinadaLibrosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajaCombinadaLibrosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
