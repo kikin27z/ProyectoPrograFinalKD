@@ -29,7 +29,8 @@ public class DlgLibro extends javax.swing.JDialog {
         this.libro = libro;
         this.operacion = operacion;
         this.respuesta = respuesta;
-        initComponents();
+        initComponents();      
+        
 
         // Modifica el título del botón botonAceptar y establece si los
         // botones botonRestaurar y botonCancelar estarán habilitados.
@@ -243,7 +244,7 @@ public class DlgLibro extends javax.swing.JDialog {
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // Si la operación es Agregar o Actualizar
-        if (operacion == ConstantesGUI.AGREGAR) {
+        if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ACTUALIZAR) {
             // Toma los valores capturados en los campos de texto y en la caja
             // combinada y almacénalos en el parámetro cancion.
             libro.setTitulo(campoTextoTitulo.getText());

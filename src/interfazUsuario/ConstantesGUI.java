@@ -14,8 +14,7 @@ public class ConstantesGUI {
     public static int ACTUALIZAR = 1;
     public static int ELIMINAR = 2;
     public static int DESPLEGAR = 3;
-    public static int INVENTARIAR = 4;
-    public static int DESINVENTARIAR = 5;
+    
     // Tipo de boton presionado al salir de los cuadros de dialogos
     public static String ACEPTAR = "Aceptar";
     public static String CANCELAR = "Cancelar";

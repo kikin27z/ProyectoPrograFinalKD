@@ -1,6 +1,11 @@
 
 package interfazUsuario;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import javax.swing.DefaultComboBoxModel;
+import objetosNegocio.Prestamo;
+
 /**
  *
  * @author lv1013
@@ -8,11 +13,67 @@ package interfazUsuario;
 public class DlgPrestamo extends javax.swing.JDialog {
 
     /**
-     * Creates new form DlgPrestamo
+     * Constructor que establece las características del cuadro de diálogo y la
+     * operación a realizar con él
+     *
+     * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
+     * @param title Título del cuadro de diálogo
+     * @param modal true si permite acceder fuera de los límites del cuadro de
+     * diálogo, false en caso contrario
+     * @param prestamo Contiene la información del prestamo para agregar o eliminar del catálogo de prestamos
+     * @param listaLibros Es la lista de libros del catálogo de libros
+     * @param listaUsuarios  Es la lista de usuarios del catálogo de usuarios
+     * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
+     * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
+     * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
+     * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPrestamo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaLibros, DefaultComboBoxModel listaUsuarios, int operacion, StringBuffer respuesta) {
+        super(parent, title, modal);
+        this.prestamo = prestamo;
+        this.listaLibros = listaLibros;
+        this.listaUsuarios = listaUsuarios;
+        this.operacion = operacion;
+        this.respuesta = respuesta;
         initComponents();
+
+        
+        if (operacion == ConstantesGUI.AGREGAR) {
+            botonAceptar.setText("Prestar");
+        } // Si la operación es actualizar
+        else if (operacion == ConstantesGUI.ELIMINAR) {
+            botonAceptar.setText("Devolver");
+        }
+        
+        
+        
+        // Establece el valor por omisión para respuesta, por si se cierra el
+        // cuadro de diálogo presionando el botón cerrar o el botón cancelar
+        respuesta.append(ConstantesGUI.CANCELAR);
+
+        // centra el cuadro de dialogo sobre la ventana de la aplicación
+        centraCuadroDialogo(parent);
+
+        // Muestra el cuadro de diálogo
+        setVisible(true);
+    }
+    
+    /**
+     * Este método centra el cuadro de dialogo sobre la ventana de la
+     * aplicación.
+     *
+     * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
+     */
+    private void centraCuadroDialogo(java.awt.Frame parent) {
+        // Obtiene el tamaño y posición de la ventana de la aplicación
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
+        // Obtiene el tamaño del cuadro de diálogo
+        Dimension dlgSize = getPreferredSize();
+
+        // Centra el cuadro de diálogo sobre la ventana padre
+        setLocation((frameSize.width - dlgSize.width) / 2 + loc.x,
+                (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
 
     /**
@@ -27,18 +88,50 @@ public class DlgPrestamo extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cajaCombinadaUsuarios = new javax.swing.JComboBox<>();
+        cajaCombinadaLibros = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        botonAceptar = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        botonRestaurar = new javax.swing.JButton();
+        campoTextoTiempo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Usuario:");
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Libro:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cajaCombinadaUsuarios.setModel(listaUsuarios);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cajaCombinadaLibros.setModel(listaLibros);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Tiempo:");
+
+        botonAceptar.setText("Aceptar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
+
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+
+        botonRestaurar.setText("Restaurar");
+        botonRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRestaurarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -46,27 +139,55 @@ public class DlgPrestamo extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonAceptar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(65, 65, 65)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 12, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cajaCombinadaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cajaCombinadaLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoTextoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(botonRestaurar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(botonCancelar)
+                        .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cajaCombinadaUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(174, Short.MAX_VALUE))
+                    .addComponent(cajaCombinadaLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(campoTextoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar)
+                    .addComponent(botonCancelar)
+                    .addComponent(botonRestaurar))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,16 +204,40 @@ public class DlgPrestamo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonRestaurarActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+         // Destruye el cuadro de díalogo
+        dispose();
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonRestaurar;
+    private javax.swing.JComboBox<String> cajaCombinadaLibros;
+    private javax.swing.JComboBox<String> cajaCombinadaUsuarios;
+    private javax.swing.JTextField campoTextoTiempo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+    private DefaultComboBoxModel listaLibros;
+    private DefaultComboBoxModel listaUsuarios;
+    private int operacion;
+    private Prestamo prestamo;
+    private StringBuffer respuesta;
 }

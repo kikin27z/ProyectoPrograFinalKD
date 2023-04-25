@@ -80,10 +80,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuAgregarLibro = new javax.swing.JMenuItem();
         opcionMenuActualizarLibro = new javax.swing.JMenuItem();
         opcionMenuEliminarLibro = new javax.swing.JMenuItem();
-        menuCatalogoUsuarios = new javax.swing.JMenu();
-        opcionMenuAgregarUsuario = new javax.swing.JMenuItem();
-        opcionMenuActualizarUsuario = new javax.swing.JMenuItem();
-        opcionMenuEliminarUsuario = new javax.swing.JMenuItem();
         separador = new javax.swing.JPopupMenu.Separator();
         opcionMenuSalir = new javax.swing.JMenuItem();
         menuInventarios = new javax.swing.JMenu();
@@ -112,6 +108,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuConsultaPrestamosLibrosPeriodo = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         opcionMenuAcercaDe = new javax.swing.JMenuItem();
+        menuCatalogoUsuarios = new javax.swing.JMenu();
+        opcionMenuAgregarUsuario = new javax.swing.JMenuItem();
+        opcionMenuActualizarUsuario = new javax.swing.JMenuItem();
+        opcionMenuEliminarUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Biblioteca");
@@ -151,34 +151,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         menuCatalogoLibros.add(opcionMenuEliminarLibro);
 
         menuCatalogos.add(menuCatalogoLibros);
-
-        menuCatalogoUsuarios.setText("Usuarios");
-
-        opcionMenuAgregarUsuario.setText("Agregar");
-        opcionMenuAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuAgregarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuAgregarUsuario);
-
-        opcionMenuActualizarUsuario.setText("Actualizar");
-        opcionMenuActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuActualizarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuActualizarUsuario);
-
-        opcionMenuEliminarUsuario.setText("Eliminar");
-        opcionMenuEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuEliminarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuEliminarUsuario);
-
-        menuCatalogos.add(menuCatalogoUsuarios);
         menuCatalogos.add(separador);
 
         opcionMenuSalir.setMnemonic('x');
@@ -359,6 +331,34 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         menuAyuda.add(opcionMenuAcercaDe);
 
         menuBar.add(menuAyuda);
+
+        menuCatalogoUsuarios.setText("Usuarios");
+
+        opcionMenuAgregarUsuario.setText("Agregar");
+        opcionMenuAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuAgregarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuAgregarUsuario);
+
+        opcionMenuActualizarUsuario.setText("Actualizar");
+        opcionMenuActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuActualizarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuActualizarUsuario);
+
+        opcionMenuEliminarUsuario.setText("Eliminar");
+        opcionMenuEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuEliminarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuEliminarUsuario);
+
+        menuBar.add(menuCatalogoUsuarios);
 
         setJMenuBar(menuBar);
 

@@ -12,7 +12,18 @@ import objetosServicio.Periodo;
 public class DlgPeriodo extends javax.swing.JDialog {
 
     /**
-     * Creates new form DlgPeriodo
+     * Constructor que establece las características del cuadro de diálogo y la
+     * operación a realizar con él
+     *
+     * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
+     * @param title Título del cuadro de diálogo
+     * @param modal true si permite acceder fuera de los límites del cuadro de
+     * diálogo, false en caso contrario
+     * @param periodo Contiene la información del periodo vinculado a los libros
+     * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
+     * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
+     * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
+     * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
     public DlgPeriodo(java.awt.Frame parent, String title, boolean modal, Periodo periodo, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
