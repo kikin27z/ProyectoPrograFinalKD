@@ -2,13 +2,13 @@ package interfazUsuario;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import objetosNegocio.Libro;
+import objetosNegocio.Usuario;
 
 /**
  *
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
-public class DlgLibro extends javax.swing.JDialog {
+public class DlgUsuario extends javax.swing.JDialog {
 
     /**
      * Constructor que establece las características del cuadro de diálogo y la
@@ -18,15 +18,15 @@ public class DlgLibro extends javax.swing.JDialog {
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
-     * @param libro Libro a capturar, editar o desplegar
+     * @param usuario Usuario a capturar, editar o desplegar
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgLibro(java.awt.Frame parent, String title, boolean modal, Libro libro, int operacion, StringBuffer respuesta) {
+    public DlgUsuario(java.awt.Frame parent, String title, boolean modal, Usuario usuario, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
-        this.libro = libro;
+        this.usuario = usuario;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
@@ -50,27 +50,23 @@ public class DlgLibro extends javax.swing.JDialog {
             botonCancelar.setEnabled(false);
         }
 
-        // Despliega el ISBN del libro
-        campoTextoISBN.setText(libro.getIsbn());
+        // Despliega el número de credencial del usuario
+        campoTextoNumCredencial.setText(usuario.getNumCredencial());
 
         // Si la operación es de actualizar, eliminar o desplegar,
         if ((operacion == ConstantesGUI.ELIMINAR) || (operacion == ConstantesGUI.ACTUALIZAR) || (operacion == ConstantesGUI.DESPLEGAR)) {
             // despliega el resto de los datos de la canción
-            campoTextoTitulo.setText(libro.getTitulo());
-            campoTextoAutor.setText(libro.getAutor());
-            campoTextoEditorial.setText(libro.getEditorial());
-            campoTextoEdicion.setText(libro.getEdicion());
-            campoTextoClasificacion.setText(libro.getClasificacion());
+            campoTextoNombre.setText(usuario.getNombre());
+            campoTextoDireccion.setText(usuario.getDireccion());
+            campoTextoTelefono.setText(usuario.getTelefono());
         }
 
         // Si la operación es de eliminar o desplegar
         if ((operacion == ConstantesGUI.ELIMINAR) || (operacion == ConstantesGUI.DESPLEGAR)) {
             // hace los campos de texto de sólo lectura
-            campoTextoTitulo.setEditable(false);
-            campoTextoAutor.setEditable(false);
-            campoTextoEditorial.setEditable(false);
-            campoTextoEdicion.setEditable(false);
-            campoTextoClasificacion.setEditable(false);
+            campoTextoNombre.setEditable(false);
+            campoTextoDireccion.setEditable(false);
+            campoTextoTelefono.setEditable(false);
         }
 
         // Establece el valor por omisión para respuesta, por si se cierra el
@@ -114,36 +110,27 @@ public class DlgLibro extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        campoTextoISBN = new javax.swing.JTextField();
-        campoTextoTitulo = new javax.swing.JTextField();
-        campoTextoAutor = new javax.swing.JTextField();
-        campoTextoEditorial = new javax.swing.JTextField();
-        campoTextoEdicion = new javax.swing.JTextField();
-        campoTextoClasificacion = new javax.swing.JTextField();
+        campoTextoNumCredencial = new javax.swing.JTextField();
+        campoTextoNombre = new javax.swing.JTextField();
+        campoTextoDireccion = new javax.swing.JTextField();
+        campoTextoTelefono = new javax.swing.JTextField();
         botonAceptar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         botonRestaurar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("ISBN");
+        jLabel1.setText("Núm. Credencial");
 
-        jLabel2.setText("Título");
-        jLabel2.setToolTipText("");
+        jLabel2.setText("Nombre");
 
-        jLabel3.setText("Autor");
+        jLabel3.setText("Dirección");
 
-        jLabel4.setText("Editorial");
+        jLabel4.setText("Teléfono");
 
-        jLabel5.setText("Edición");
+        campoTextoNumCredencial.setEditable(false);
 
-        jLabel6.setText("Clasificación");
-
-        campoTextoISBN.setEditable(false);
-
-        campoTextoAutor.setToolTipText("");
+        campoTextoDireccion.setToolTipText("");
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,65 +159,59 @@ public class DlgLibro extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoTextoNombre)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonAceptar)
                         .addGap(56, 56, 56)
                         .addComponent(botonRestaurar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                         .addComponent(botonCancelar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoTextoTitulo)
-                                .addComponent(campoTextoAutor)
-                                .addComponent(campoTextoEditorial)
-                                .addComponent(campoTextoEdicion)
-                                .addComponent(campoTextoClasificacion)))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                            .addComponent(campoTextoTelefono)
+                            .addComponent(campoTextoDireccion))))
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(campoTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(campoTextoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoTextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(campoTextoAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoTextoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(campoTextoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(campoTextoEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(campoTextoClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(campoTextoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar)
                     .addComponent(botonCancelar)
                     .addComponent(botonRestaurar))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -243,14 +224,13 @@ public class DlgLibro extends javax.swing.JDialog {
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // Si la operación es Agregar o Actualizar
-        if (operacion == ConstantesGUI.AGREGAR) {
+        if ((operacion == ConstantesGUI.AGREGAR)
+                || (operacion == ConstantesGUI.ACTUALIZAR)) {
             // Toma los valores capturados en los campos de texto y en la caja
             // combinada y almacénalos en el parámetro cancion.
-            libro.setTitulo(campoTextoTitulo.getText());
-            libro.setAutor(campoTextoAutor.getText());
-            libro.setEditorial(campoTextoEditorial.getText());
-            libro.setEdicion(campoTextoEdicion.getText());
-            libro.setClasificacion(campoTextoClasificacion.getText());
+            usuario.setNombre(campoTextoNombre.getText());
+            usuario.setDireccion(campoTextoDireccion.getText());
+            usuario.setTelefono(campoTextoTelefono.getText());
         }
         // Borra el contenido de respuesta
         respuesta.delete(0, respuesta.length());
@@ -264,20 +244,16 @@ public class DlgLibro extends javax.swing.JDialog {
         // Restaura el contenido de los campos de texto a su valor original
         // Si la operación es Agregar
         if (operacion == ConstantesGUI.AGREGAR) {
-            campoTextoTitulo.setText("");
-            campoTextoAutor.setText("");
-            campoTextoEditorial.setText("");
-            campoTextoEdicion.setText("");
-            campoTextoClasificacion.setText("");
+            campoTextoNombre.setText("");
+            campoTextoDireccion.setText("");
+            campoTextoTelefono.setText("");
         }
 
         // Si la operación es Actualizar
         if (operacion == ConstantesGUI.ACTUALIZAR) {
-            campoTextoTitulo.setText(libro.getTitulo());
-            campoTextoAutor.setText(libro.getAutor());
-            campoTextoEditorial.setText(libro.getEditorial());
-            campoTextoEdicion.setText(libro.getEdicion());
-            campoTextoClasificacion.setText(libro.getClasificacion());
+            campoTextoNombre.setText(usuario.getNombre());
+            campoTextoDireccion.setText(usuario.getDireccion());
+            campoTextoTelefono.setText(usuario.getTelefono());
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
@@ -290,20 +266,16 @@ public class DlgLibro extends javax.swing.JDialog {
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonRestaurar;
-    private javax.swing.JTextField campoTextoAutor;
-    private javax.swing.JTextField campoTextoClasificacion;
-    private javax.swing.JTextField campoTextoEdicion;
-    private javax.swing.JTextField campoTextoEditorial;
-    private javax.swing.JTextField campoTextoISBN;
-    private javax.swing.JTextField campoTextoTitulo;
+    private javax.swing.JTextField campoTextoDireccion;
+    private javax.swing.JTextField campoTextoNombre;
+    private javax.swing.JTextField campoTextoNumCredencial;
+    private javax.swing.JTextField campoTextoTelefono;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
-    private Libro libro;
+    private Usuario usuario;
     private int operacion;
     private StringBuffer respuesta;
 }
