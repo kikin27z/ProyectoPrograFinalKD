@@ -478,9 +478,19 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuEliminarUsuarioActionPerformed
-
+    
+    /**
+     * Método oyente que inventaría un libro en el inventario
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuInventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuInventariarLibroActionPerformed
-        // TODO add your handling code here:
+        // Inventaría el nuevo libro
+        if (control.inventariaLibro(this)) {
+            // Obtiene la lista del inventario
+            Tabla tablaInventario = control.getTablaInventario(this);
+            // Despliega la lista del inventario
+            despliegaTabla(tablaInventario);
+        }
     }//GEN-LAST:event_opcionMenuInventariarLibroActionPerformed
 
     private void opcionMenuDesinventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDesinventariarLibroActionPerformed

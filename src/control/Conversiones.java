@@ -83,7 +83,7 @@ public class Conversiones {
      * @param listaPrestamos   Lista de prestamos a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los prestamos.
      */
-    public DefaultTableModel prestamosTaleModel(List<Prestamo> listaPrestamos) {
+    public DefaultTableModel prestamosTableModel(List<Prestamo> listaPrestamos) {
         Object tabla[][];
         if (listaPrestamos != null) {
             tabla = new Object[listaPrestamos.size()][8];
@@ -113,7 +113,7 @@ public class Conversiones {
      * @param listaPublicacionesED    Lista de publlicacionesED a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los publicacionesED.
      */
-    public DefaultTableModel publicacionesEDTaleModel(List<PublicacionED> listaPublicacionesED) {
+    public DefaultTableModel publicacionesEDTableModel(List<PublicacionED> listaPublicacionesED) {
         Object tabla[][];
         if (listaPublicacionesED != null) {
             tabla = new Object[listaPublicacionesED.size()][6];
@@ -166,6 +166,24 @@ public class Conversiones {
             for (int i = 0; i < listaUsuarios.size(); i++) {
                 // Agregalo a la instancia de la clase DefaultComboBoxModel
                 defaultComboBoxModel.addElement(listaUsuarios.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
+    
+    /**
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del inventario.
+     * @param listaLibros Lista del inventario
+     * @return Regresa el defaultComboBoxModel con los libros del inventario o null.
+     */
+    public DefaultComboBoxModel<PublicacionED> inventarioComboBoxModel(List<PublicacionED> listaInventario) {
+        DefaultComboBoxModel<PublicacionED> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (listaInventario != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < listaInventario.size(); i++) {
+                // Agregalo a la instancia de la clase DefaultComboBoxModel
+                defaultComboBoxModel.addElement(listaInventario.get(i));
             }
             return defaultComboBoxModel;
         }
