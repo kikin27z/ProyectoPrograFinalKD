@@ -227,7 +227,7 @@ public class DlgUsuario extends javax.swing.JDialog {
         if ((operacion == ConstantesGUI.AGREGAR)
                 || (operacion == ConstantesGUI.ACTUALIZAR)) {
             // Toma los valores capturados en los campos de texto y en la caja
-            // combinada y almacénalos en el parámetro cancion.
+            // combinada y almacénalos en el parámetro usuario.
             usuario.setNombre(campoTextoNombre.getText());
             usuario.setDireccion(campoTextoDireccion.getText());
             usuario.setTelefono(campoTextoTelefono.getText());
