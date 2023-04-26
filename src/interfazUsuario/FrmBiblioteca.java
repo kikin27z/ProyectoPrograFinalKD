@@ -1,5 +1,6 @@
 package interfazUsuario;
 
+import control.Control;
 import control.Tabla;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -17,7 +18,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         initComponents();
         centraVentana();
     }
-    
+
     /**
      * Este método centra la ventana de la aplicación sobre la pantalla
      */
@@ -41,7 +42,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         setLocation((screenSize.width - frameSize.width) / 2,
                 (screenSize.height - frameSize.height) / 2);
     }
-    
+
     /**
      * Este método crea un objeto del tipo JTable dentro de un panel con barras
      * de deslizamiento y la despliega.
@@ -388,20 +389,53 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método oyente que cierra el programa si el usuario da clic en salir.
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_opcionMenuSalirActionPerformed
 
+    /**
+     * Método oyente que agrega un libro al catálogo de libros
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarLibroActionPerformed
-        
+        // Agrega el nuevo libro
+        if (control.agregaLibro(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = control.getTablaLibros(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaLibros);
+        }
     }//GEN-LAST:event_opcionMenuAgregarLibroActionPerformed
 
+    /**
+     * Método oyente que actualiza un libro del catálogo de libros
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarLibroActionPerformed
-        // TODO add your handling code here:
+        // Actualiza el libro
+        if (control.actualizaLibro(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = control.getTablaLibros(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaLibros);
+        }
     }//GEN-LAST:event_opcionMenuActualizarLibroActionPerformed
 
+    /**
+     * Método oyente que elimina un libro del catálogo de libros
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarLibroActionPerformed
-        // TODO add your handling code here:
+        if (control.eliminaLibro(this)) {
+            // Obtiene la lista de libros
+            Tabla tablaLibros = control.getTablaLibros(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaLibros);
+        }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
@@ -432,8 +466,17 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_opcionMenuDevolverLibroActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros
+        Tabla tablaLibros = control.getTablaLibros(this);
+        // Despliega la lista de libros
+        if (tablaLibros != null) {
+            despliegaTabla(tablaLibros);
+        }
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
 
     private void opcionMenuConsultaLibrosAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosAutorActionPerformed
@@ -557,6 +600,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator separador;
     private javax.swing.JLabel tituloTabla;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JTable jtabla; 
-    
+    private javax.swing.JTable jtabla;
+    Control control = new Control();
 }

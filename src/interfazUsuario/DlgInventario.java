@@ -3,6 +3,7 @@ package interfazUsuario;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
+import objetosNegocio.Publicacion;
 import objetosNegocio.PublicacionED;
 
 /**
@@ -95,11 +96,6 @@ public class DlgInventario extends javax.swing.JDialog {
         jLabel1.setText("Libro");
 
         cajaCombinadaLibros.setModel(listaLibros);
-        cajaCombinadaLibros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaCombinadaLibrosActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Cantidad");
 
@@ -198,10 +194,6 @@ public class DlgInventario extends javax.swing.JDialog {
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
-
-    private void cajaCombinadaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCombinadaLibrosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCombinadaLibrosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;

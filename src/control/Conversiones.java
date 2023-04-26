@@ -5,11 +5,11 @@
 package control;
 
 import java.util.List;
-//import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
-//import objetosNegocio.Usuario;
-//import objetosNegocio.PublicacionED;
+import objetosNegocio.Usuario;
+import objetosNegocio.PublicacionED;
 
 /**
  * Esta clase contiene métodos que generan objetos del tipo DefaultTableModel y
@@ -26,12 +26,10 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * libros.
-     *
      * @param listaLibros Lista de libros a convertir
-     * @return Objeto de tipo DefaultTableModel con los atributos de las
-     * canciones.
+     * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
-    public DefaultTableModel cancionesTableModel(List<Libro> listaLibros) {
+    public DefaultTableModel librosTableModel(List<Libro> listaLibros) {
         Object tabla[][];
         if (listaLibros != null) {
             tabla = new Object[listaLibros.size()][6];
@@ -52,4 +50,22 @@ public class Conversiones {
         return null;
     }
 
+    /**
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
+     * libros.
+     * @param listaLibros Lista de libros
+     * @return Regresa el defaultComboBoxModel con los libros agregados o null.
+     */
+    public DefaultComboBoxModel<Libro> librosComboBoxModel(List<Libro> listaLibros) {
+        DefaultComboBoxModel<Libro> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (listaLibros != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < listaLibros.size(); i++) {
+                // Agregalo a la instancia de la clase DefaultComboBoxModel
+                defaultComboBoxModel.addElement(listaLibros.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
 }
