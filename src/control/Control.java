@@ -7,6 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import objetosNegocio.Libro;
+import objetosNegocio.Usuario;
 import persistencia.PersistenciaListas;
 
 /**
@@ -94,6 +95,76 @@ public class Control {
         }
         return true;
     }
+    
+    
+    /**
+     * Agrega un usuario al catálogo de usuarios
+     *
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * capturar los datos del usuario
+     * @return Regresa true si se pudo agregar el usuario, false en caso contrario
+     */
+    public boolean agregaUsuario(JFrame frame) {
+        Usuario usuario, bUsuario;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgUsuario dlgUsuario;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
+        // Captura el Num Credencial del usuario
+        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
+                "Agrega Usuario",
+                JOptionPane.QUESTION_MESSAGE);
+        // Si el usuario presionó el botón Cancelar
+        if (numCredencial == null) {
+            return false;
+        }
+        // Crea un objeto Usuario con solo el num de credencial
+        usuario = new Usuario(numCredencial);
+        try {
+            // Obten el usuario del catálogo de usuarios
+            bUsuario = persistencia.obten(usuario);
+
+            // Obtiene la lista de usuarios
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+        // Si el usuario existe, despliega sus datos
+        if (bUsuario != null) {
+            dlgUsuario = new DlgUsuario(frame,
+                    "El Usuario ya está en el catalogo",
+                    true, bUsuario,
+                    ConstantesGUI.DESPLEGAR, respuesta);
+            return false;
+        }
+        // Si el usuario no existe captura los datos del nuevo usuario
+        dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true,
+                usuario, ConstantesGUI.AGREGAR, respuesta);
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+        // Agrega el nuevo usuario al catalogo de usuarios
+        try {
+            persistencia.agregar(usuario);
+        } catch (Exception e) {
+            // Si ocurrio un error al escribir al catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 
     /**
      * Actualiza un libro del catálogo de libros
@@ -159,6 +230,78 @@ public class Control {
             persistencia.actualizar(libro);
         } catch (Exception e) {
             // Si ocurrio un error al escribir al catálogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Actualiza un usuario del catálogo de usuarios
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * editar los datos del usuario
+     * @return Regresa true si se pudo actualizar el usuario, false en caso
+     * contrario
+     */
+    public boolean actualizarUsuario(JFrame frame) {
+        Usuario usuario;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgUsuario dlgUsuario;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
+        // Captura el Num de Credencial del usuario
+        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
+                "Actualizar usuario",
+                JOptionPane.QUESTION_MESSAGE);
+        // Si el usuario presiono el boton Cancelar
+        if (numCredencial == null) {
+            return false;
+        }
+        // Crea un objeto Usuario con solo el numero de credencial
+        usuario = new Usuario(numCredencial);
+        try {
+            // Obten el usuario del catalogo de usuarios
+            usuario = persistencia.obten(usuario);
+        } catch (Exception e) {
+            // Si ocurrió un error al leer del catálogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Si el usuario no existe, despliega un mensaje de error
+        if (usuario == null) {
+            JOptionPane.showMessageDialog(frame,
+                    "El usuario no existe", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            // Obtiene la lista de usuarios
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrió un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+        // Si el usuario existe, edita los datos del libro
+        dlgUsuario = new DlgUsuario(frame, "Editar Datos Usuario", true, usuario,
+                ConstantesGUI.ACTUALIZAR, respuesta);
+        // Si el usuario presionó el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+        // Actualiza el usuario del catálogo de usuarios
+        try {
+            persistencia.actualizar(usuario);
+        } catch (Exception e) {
+            // Si ocurrio un error al escribir al catálogo de usuarios,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
                     JOptionPane.ERROR_MESSAGE);
@@ -237,6 +380,79 @@ public class Control {
         return true;
     }
 
+    
+    /**
+     * Elimina un usuario del catálogo de usuarios
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * desplegar los datos del usuario
+     * @return Regresa true si se pudo eliminar el usuario, false en caso
+     * contrario
+     */
+    public boolean eliminaUsuario(JFrame frame) {
+        Usuario usuario;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgUsuario dlgUsuario;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
+        // Captura el Num de Credencial del usuario
+        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
+                "Eliminar usuario",
+                JOptionPane.QUESTION_MESSAGE);
+        // Si el usuario presiono el boton Cancelar
+        if (numCredencial == null) {
+            return false;
+        }
+        // Crea un objeto Usuario con solo el numero de credencial
+        usuario = new Usuario(numCredencial);
+        try {
+            // Obten el usuario del catalogo de usuarios
+            usuario = persistencia.obten(usuario);
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de usuarios
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Si el usuario no existe en el catalogo de usuarios
+        if (usuario == null) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "El usuario no existe",
+                    "¡Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            // Obtiene la lista de usurios
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrió un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+        // Si existe el usuario, despliega los datos del usuario
+        dlgUsuario = new DlgUsuario(frame, "Usuario a borrar", true, usuario, ConstantesGUI.ELIMINAR, respuesta);
+        // Si el usuario presionó el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+        try {
+            // Elimina el usuario del catálogo de usuarios
+            persistencia.eliminar(usuario);
+        } catch (Exception e) {
+            // Si ocurrio un error al borrar del catalogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     /**
      * Regresa un objeto Tabla con todos los libros
      * @param frame Ventana sobre la que se despliega el mensaje de error
@@ -256,5 +472,26 @@ public class Control {
         }
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Libros", conversiones.librosTableModel(listaLibros));
+    }
+    
+    /**
+     * Regresa un objeto Tabla con todos los usuarios
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con todos los usuarios, null si hay un error
+     */
+    public Tabla getTablaUsuarios(JFrame frame) {
+        List<Usuario> listaUsuarios;
+        try {
+            // Obtiene la lista de libros
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        // Regresa el objeto Tabla con todos los libros
+        return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
     }
 }
