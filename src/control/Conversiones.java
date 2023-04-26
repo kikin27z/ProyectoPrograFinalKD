@@ -9,6 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Libro;
 import objetosNegocio.Usuario;
+import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
 
 /**
@@ -20,9 +21,11 @@ import objetosNegocio.PublicacionED;
 public class Conversiones {
     // Arreglos con los nombres de las columnas de las tablas
 
-    String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Clasificacion", "Autor", "Edicion"};
+    String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion","Clasificacion"};
     String nombresColumnasTablasUsuarios[] = {"Num. Cred.", "Nombre", "Direccion", "Teléfono"};
-
+    String nombresColumnasTablasPrestamos[] = {"Num. Cred.","Nombre","Teléfono","ISBN","Titulo","Clasificacion","Duración","Fecha"};
+    String nombresColumnasTablasPublicacionesED[] = {"ISBN", "Titulo", "Editorial", "Clasificacion","Existencia","Disponibilidad"};
+    
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * libros.
@@ -40,16 +43,97 @@ public class Conversiones {
                 tabla[i][0] = libro.getIsbn();
                 tabla[i][1] = libro.getTitulo();
                 tabla[i][2] = libro.getEditorial();
-                tabla[i][3] = libro.getClasificacion();
-                tabla[i][4] = libro.getAutor();
-                tabla[i][5] = libro.getEdicion();
+                tabla[i][3] = libro.getAutor();
+                tabla[i][4] = libro.getEdicion();
+                tabla[i][5] = libro.getClasificacion();
 
             }
             return new DefaultTableModel(tabla, nombresColumnasTablasLibros);
         }
         return null;
     }
+    
+     /**
+     * Genera un objeto de tipo DefaultTableModel a partir de una lista de
+     * usuarios.
+     * @param listaUsuarios  Lista de usuarios a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los usuarios.
+     */
+    public DefaultTableModel usuariosTableModel(List<Usuario> listaUsuarios) {
+        Object tabla[][];
+        if (listaUsuarios != null) {
+            tabla = new Object[listaUsuarios.size()][4];
+            for (int i = 0; i < listaUsuarios.size(); i++) {
+                // Obten un usuario de la lista de usuarios
+                Usuario usuario = listaUsuarios.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = usuario.getNumCredencial();
+                tabla[i][1] = usuario.getNombre();
+                tabla[i][2] = usuario.getDireccion();
+                tabla[i][3] = usuario.getTelefono();
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablasUsuarios);
+        }
+        return null;
+    }
 
+     /**
+     * Genera un objeto de tipo DefaultTableModel a partir de una lista de
+     * prestamos.
+     * @param listaPrestamos   Lista de prestamos a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los prestamos.
+     */
+    public DefaultTableModel prestamosTaleModel(List<Prestamo> listaPrestamos) {
+        Object tabla[][];
+        if (listaPrestamos != null) {
+            tabla = new Object[listaPrestamos.size()][8];
+            for (int i = 0; i < listaPrestamos.size(); i++) {
+                // Obten un prestamo de la lista de prestamos
+                Prestamo prestamo = listaPrestamos.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = prestamo.getUsuario().getNumCredencial();
+                tabla[i][1] = prestamo.getUsuario().getNombre();
+                tabla[i][2] = prestamo.getUsuario().getTelefono();
+                tabla[i][3] = prestamo.getPublicacion().getIsbn();
+                tabla[i][4] = prestamo.getPublicacion().getTitulo();
+                tabla[i][5] = prestamo.getPublicacion().getClasificacion();
+                tabla[i][6] = prestamo.getTiempoPrestamo();
+                tabla[i][7] = prestamo.getFechaPrestamo().toString();
+                
+                
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablasPrestamos);
+        }
+        return null;
+    }
+    
+    /**
+     * Genera un objeto de tipo DefaultTableModel a partir de una lista de
+     * publicacionesED.
+     * @param listaPublicacionesED    Lista de publlicacionesED a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los publicacionesED.
+     */
+    public DefaultTableModel publicacionesEDTaleModel(List<PublicacionED> listaPublicacionesED) {
+        Object tabla[][];
+        if (listaPublicacionesED != null) {
+            tabla = new Object[listaPublicacionesED.size()][6];
+            for (int i = 0; i < listaPublicacionesED.size(); i++) {
+                // Obten un publicacionED de la lista de publicacionesED
+                PublicacionED publicacionED = listaPublicacionesED.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = publicacionED.getPublicacion().getIsbn();
+                tabla[i][1] = publicacionED.getPublicacion().getTitulo();
+                tabla[i][2] = publicacionED.getPublicacion().getEditorial();
+                tabla[i][3] = publicacionED.getPublicacion().getClasificacion();
+                tabla[i][4] = publicacionED.getExistencia();
+                tabla[i][5] = publicacionED.getDisponibilidad();            
+                
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablasPublicacionesED);
+        }
+        return null;
+    }
+    
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * libros.
@@ -63,6 +147,25 @@ public class Conversiones {
             for (int i = 0; i < listaLibros.size(); i++) {
                 // Agregalo a la instancia de la clase DefaultComboBoxModel
                 defaultComboBoxModel.addElement(listaLibros.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
+    
+    /**
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
+     * usuarios.
+     * @param listaUsuarios  Lista de usuarios
+     * @return Regresa el defaultComboBoxModel con los usuarios agregados o null.
+     */
+    public DefaultComboBoxModel<Usuario> usuariosComboBoxModel(List<Usuario> listaUsuarios) {
+        DefaultComboBoxModel<Usuario> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (listaUsuarios != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < listaUsuarios.size(); i++) {
+                // Agregalo a la instancia de la clase DefaultComboBoxModel
+                defaultComboBoxModel.addElement(listaUsuarios.get(i));
             }
             return defaultComboBoxModel;
         }
