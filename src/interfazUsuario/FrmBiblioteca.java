@@ -81,6 +81,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuAgregarLibro = new javax.swing.JMenuItem();
         opcionMenuActualizarLibro = new javax.swing.JMenuItem();
         opcionMenuEliminarLibro = new javax.swing.JMenuItem();
+        menuCatalogoUsuarios = new javax.swing.JMenu();
+        opcionMenuAgregarUsuario = new javax.swing.JMenuItem();
+        opcionMenuActualizarUsuario = new javax.swing.JMenuItem();
+        opcionMenuEliminarUsuario = new javax.swing.JMenuItem();
         separador = new javax.swing.JPopupMenu.Separator();
         opcionMenuSalir = new javax.swing.JMenuItem();
         menuInventarios = new javax.swing.JMenu();
@@ -109,10 +113,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         opcionMenuConsultaPrestamosLibrosPeriodo = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         opcionMenuAcercaDe = new javax.swing.JMenuItem();
-        menuCatalogoUsuarios = new javax.swing.JMenu();
-        opcionMenuAgregarUsuario = new javax.swing.JMenuItem();
-        opcionMenuActualizarUsuario = new javax.swing.JMenuItem();
-        opcionMenuEliminarUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Biblioteca");
@@ -152,6 +152,34 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         menuCatalogoLibros.add(opcionMenuEliminarLibro);
 
         menuCatalogos.add(menuCatalogoLibros);
+
+        menuCatalogoUsuarios.setText("Usuarios");
+
+        opcionMenuAgregarUsuario.setText("Agregar");
+        opcionMenuAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuAgregarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuAgregarUsuario);
+
+        opcionMenuActualizarUsuario.setText("Actualizar");
+        opcionMenuActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuActualizarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuActualizarUsuario);
+
+        opcionMenuEliminarUsuario.setText("Eliminar");
+        opcionMenuEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuEliminarUsuarioActionPerformed(evt);
+            }
+        });
+        menuCatalogoUsuarios.add(opcionMenuEliminarUsuario);
+
+        menuCatalogos.add(menuCatalogoUsuarios);
         menuCatalogos.add(separador);
 
         opcionMenuSalir.setMnemonic('x');
@@ -333,34 +361,6 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
         menuBar.add(menuAyuda);
 
-        menuCatalogoUsuarios.setText("Usuarios");
-
-        opcionMenuAgregarUsuario.setText("Agregar");
-        opcionMenuAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuAgregarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuAgregarUsuario);
-
-        opcionMenuActualizarUsuario.setText("Actualizar");
-        opcionMenuActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuActualizarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuActualizarUsuario);
-
-        opcionMenuEliminarUsuario.setText("Eliminar");
-        opcionMenuEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMenuEliminarUsuarioActionPerformed(evt);
-            }
-        });
-        menuCatalogoUsuarios.add(opcionMenuEliminarUsuario);
-
-        menuBar.add(menuCatalogoUsuarios);
-
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,16 +438,45 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
+     /**
+     * Método oyente que agrega un usuario al catálogo de usuarios
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
-        // TODO add your handling code here:
+        // Agrega el nuevo usuario
+        if (control.agregaUsuario(this)) {
+            // Obtiene la lista de usuarios
+            Tabla tablaUsuarios = control.getTablaUsuarios(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaUsuarios);
+        }
     }//GEN-LAST:event_opcionMenuAgregarUsuarioActionPerformed
 
+    /**
+     * Método oyente que actualiza un usuario del catálogo de usuarios
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarUsuarioActionPerformed
-        // TODO add your handling code here:
+        // Actualiza el usuario
+        if (control.actualizarUsuario(this)) {
+            // Obtiene la lista de usuarios
+            Tabla tablaUsuarios = control.getTablaUsuarios(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaUsuarios);
+        }
     }//GEN-LAST:event_opcionMenuActualizarUsuarioActionPerformed
 
+    /**
+     * Método oyente que elimina un usuario del catálogo de usuarios
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarUsuarioActionPerformed
-        // TODO add your handling code here:
+        if (control.eliminaUsuario(this)) {
+            // Obtiene la lista de usuarios
+            Tabla tablaUsuarios = control.getTablaUsuarios(this);
+            // Despliega la lista de libros
+            despliegaTabla(tablaUsuarios);
+        }
     }//GEN-LAST:event_opcionMenuEliminarUsuarioActionPerformed
 
     private void opcionMenuInventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuInventariarLibroActionPerformed
