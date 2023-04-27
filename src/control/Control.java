@@ -464,18 +464,7 @@ public class Control {
         DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
         int cantidad;
 
-//        // Captura el ISBN del libro
-//        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
-//        // Si el usuario presionó el botón Cancelar
-//        if (isbn == null) {
-//            return false;
-//        }
-//        // Crea un objeto Libro con solo el ISBN
-//        libro = new Libro(isbn);
         try {
-//            // Obten el libro del catálogo de libros
-//            bLibro = persistencia.obten(libro);
-
             // Obtiene la lista de libros
             listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
@@ -499,9 +488,10 @@ public class Control {
         todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
         // Si el libro no existe captura los datos del nuevo libro
         dlgInventario = new DlgInventario(frame, "Inventariar Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
-        libro = dlgInventario.getCajaCombinadaLibrosSelectedItem();
-        cantidad = dlgInventario.getCantidad();
 
+        libro = (Libro) publicacionED.getPublicacion();
+        cantidad = publicacionED.getExistencia();
+        
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
@@ -530,11 +520,12 @@ public class Control {
      */
     public boolean desinventariarLibro(JFrame frame) {
         Libro libro;
-        PublicacionED publicacionED;
+        PublicacionED publicacionED = new PublicacionED(new Libro());
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
         List<Libro> listaLibros;
         DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        int cantidad;
 
         try {
             // Obtiene la lista de libros
@@ -556,13 +547,10 @@ public class Control {
         }
 
         todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
-        
-        libro = new Libro();
-        publicacionED = new PublicacionED(libro);
-        
         dlgInventario = new DlgInventario(frame, "Desinventaria Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.ELIMINAR, respuesta);
-        libro = dlgInventario.getCajaCombinadaLibrosSelectedItem();
-        int cantidad = dlgInventario.getCantidad();
+
+        libro = (Libro) publicacionED.getPublicacion();
+        cantidad = publicacionED.getExistencia();
         
         if(libro == null) {
             return false;
