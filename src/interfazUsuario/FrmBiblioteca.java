@@ -391,6 +391,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que cierra el programa si el usuario da clic en salir.
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuSalirActionPerformed
@@ -399,6 +400,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que agrega un libro al catálogo de libros
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarLibroActionPerformed
@@ -413,6 +415,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que actualiza un libro del catálogo de libros
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarLibroActionPerformed
@@ -427,6 +430,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que elimina un libro del catálogo de libros
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarLibroActionPerformed
@@ -438,8 +442,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
-     /**
+    /**
      * Método oyente que agrega un usuario al catálogo de usuarios
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
@@ -454,6 +459,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que actualiza un usuario del catálogo de usuarios
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarUsuarioActionPerformed
@@ -468,6 +474,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que elimina un usuario del catálogo de usuarios
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarUsuarioActionPerformed
@@ -478,9 +485,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuEliminarUsuarioActionPerformed
-    
+
     /**
      * Método oyente que inventaría un libro en el inventario
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuInventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuInventariarLibroActionPerformed
@@ -495,6 +503,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que desinventaría un libro del inventario
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuDesinventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDesinventariarLibroActionPerformed
@@ -507,18 +516,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuDesinventariarLibroActionPerformed
 
-    /**
-     * Método oyente que presta un libro a un usuario
-     * @param evt Evento al que escucha
-     */
     private void opcionMenuPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuPrestarLibroActionPerformed
-//        // Presta el nuevo libro
-//        if (control.prestarLibro(this)) {
-//            // Obtiene la lista de préstamos
-//            Tabla tablaPrestamos = control.getTablaPrestamos(this);
-//            // Despliega la lista de préstamos
-//            despliegaTabla(tablaPrestamos);
-//        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_opcionMenuPrestarLibroActionPerformed
 
     private void opcionMenuDevolverLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDevolverLibroActionPerformed
@@ -527,6 +526,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que obtiene y despliega la lista de libros
+     *
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosActionPerformed
@@ -537,25 +537,62 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
-
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * un autor del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaLibrosAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosAutorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_opcionMenuConsultaLibrosAutorActionPerformed
 
+        // Obtiene la lista de libros por autor
+        Tabla tablaLibrosAutor = control.getTablaLibrosAutor(this);
+        // Despliega la lista de libros por autor
+        despliegaTabla(tablaLibrosAutor);
+
+    }//GEN-LAST:event_opcionMenuConsultaLibrosAutorActionPerformed
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una clasificacion del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaLibrosClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
-        // TODO add your handling code here:
+//         Obtiene la lista de libros por clasificación
+        Tabla tablaLibrosClasificacion = control.getTablaLibrosClasificacion(this);
+//        Despliega la lista de libros por clasificación 
+        despliegaTabla(tablaLibrosClasificacion);
     }//GEN-LAST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaLibrosEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosEditorialActionPerformed
-        // TODO add your handling code here:
+//         Obtiene la lista de libros por editorial
+        Tabla tablaLibrosEditorial = control.getTablaLibrosEditorial(this);
+//             Despliega la lista de libros por editorial
+        despliegaTabla(tablaLibrosEditorial);
     }//GEN-LAST:event_opcionMenuConsultaLibrosEditorialActionPerformed
 
     private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de usuarios
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaUsuariosActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de usuarios
+        Tabla tablaUsuarios = control.getTablaUsuarios(this);
+        // Despliega la lista de usuarios
+
+        despliegaTabla(tablaUsuarios);
+
     }//GEN-LAST:event_opcionMenuConsultaUsuariosActionPerformed
 
     private void opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
