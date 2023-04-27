@@ -7,8 +7,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import objetosNegocio.Libro;
+import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
 import objetosNegocio.Usuario;
+import objetosServicio.Fecha;
 import persistencia.PersistenciaListas;
 
 /**
@@ -457,7 +459,7 @@ public class Control {
      */
     public boolean inventariarLibro(JFrame frame) {
         Libro libro;
-        PublicacionED publicacionED = new PublicacionED(new Libro());
+        PublicacionED publicacionED = new PublicacionED();
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
         List<Libro> listaLibros;
@@ -475,7 +477,7 @@ public class Control {
             return false;
         }
 
-        // Si el libro existe, despliega sus datos
+        // Si la lista de libros está vacía, desplegar el mensaje
         if (listaLibros.isEmpty()) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -483,7 +485,6 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         
         todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
         // Si el libro no existe captura los datos del nuevo libro
@@ -509,7 +510,6 @@ public class Control {
         }
         return true;
     }
-
     
     /**
      * Elimina un libro del inventario
@@ -520,7 +520,7 @@ public class Control {
      */
     public boolean desinventariarLibro(JFrame frame) {
         Libro libro;
-        PublicacionED publicacionED = new PublicacionED(new Libro());
+        PublicacionED publicacionED = new PublicacionED();
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
         List<Libro> listaLibros;
@@ -574,8 +574,75 @@ public class Control {
         return true;
     }
     
-    
+    /**
+     * Presta un libro a un usuario
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * capturar los datos del libro a prestar y el usuario al que se le prestará
+     * @return Regresa true si se pudo prestar el libro, false en caso
+     * contrario
+     */
+    public boolean prestarLibro(JFrame frame) {
+        Usuario usuario;
+        Libro libro;
+        Prestamo prestamo = new Prestamo();
+        StringBuffer respuesta = new StringBuffer("");
+        DlgPrestamo dlgPrestamo;
+        List<Libro> listaLibros;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
+        int tiempo;
 
+        try {
+            // Obtiene la lista de libros
+            listaUsuarios = persistencia.consultarUsuarios();
+            // Obtiene la lista de libros
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Si la lista de libros está vacía, desplegar el mensaje
+        if (listaLibros.isEmpty() && listaUsuarios.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "Favor de agregar al menos un libro y un usuario a sus respectivos catálogos.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+        // Si el libro no existe captura los datos del nuevo libro
+        dlgPrestamo = new DlgPrestamo(frame, "Inventariar Libro", true, prestamo, todosUsuariosComboBoxModel, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
+
+        usuario = prestamo.getUsuario();
+        libro = (Libro) prestamo.getPublicacion();
+        tiempo = prestamo.getTiempoPrestamo();
+        prestamo = new Prestamo(usuario, libro, new Fecha(), tiempo);
+        
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+
+        // Agrega el nuevo libro al catalogo de libros
+        try {
+            persistencia.prestarLibro(prestamo);
+        } catch (Exception e) {
+            // Si ocurrio un error al escribir al catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Regresa un objeto Tabla con todos los libros
      *

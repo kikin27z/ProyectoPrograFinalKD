@@ -3,7 +3,6 @@ package interfazUsuario;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
-import objetosNegocio.Libro;
 import objetosNegocio.Publicacion;
 import objetosNegocio.PublicacionED;
 

@@ -507,8 +507,18 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuDesinventariarLibroActionPerformed
 
+    /**
+     * Método oyente que presta un libro a un usuario
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuPrestarLibroActionPerformed
-        // TODO add your handling code here:
+//        // Presta el nuevo libro
+//        if (control.prestarLibro(this)) {
+//            // Obtiene la lista de préstamos
+//            Tabla tablaPrestamos = control.getTablaPrestamos(this);
+//            // Despliega la lista de préstamos
+//            despliegaTabla(tablaPrestamos);
+//        }
     }//GEN-LAST:event_opcionMenuPrestarLibroActionPerformed
 
     private void opcionMenuDevolverLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDevolverLibroActionPerformed
