@@ -61,7 +61,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="cajaCombinadaUsuarios" min="-2" pref="180" max="-2" attributes="0"/>
                               <Component id="cajaCombinadaLibros" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="campoTextoTiempo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="campoTextoTiempo" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>

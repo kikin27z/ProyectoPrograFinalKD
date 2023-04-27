@@ -128,18 +128,18 @@ public class DlgLibro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("ISBN");
+        jLabel1.setText("ISBN:");
 
-        jLabel2.setText("Título");
+        jLabel2.setText("Título:");
         jLabel2.setToolTipText("");
 
-        jLabel3.setText("Autor");
+        jLabel3.setText("Autor:");
 
-        jLabel4.setText("Editorial");
+        jLabel4.setText("Editorial:");
 
-        jLabel5.setText("Edición");
+        jLabel5.setText("Edición:");
 
-        jLabel6.setText("Clasificación");
+        jLabel6.setText("Clasificación:");
 
         campoTextoISBN.setEditable(false);
 
@@ -196,7 +196,7 @@ public class DlgLibro extends javax.swing.JDialog {
                                 .addComponent(campoTextoEditorial)
                                 .addComponent(campoTextoEdicion)
                                 .addComponent(campoTextoClasificacion)))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +230,7 @@ public class DlgLibro extends javax.swing.JDialog {
                     .addComponent(botonAceptar)
                     .addComponent(botonCancelar)
                     .addComponent(botonRestaurar))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

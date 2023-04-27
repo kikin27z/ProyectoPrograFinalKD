@@ -120,13 +120,13 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Núm. Credencial");
+        jLabel1.setText("Núm. Credencial:");
 
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Nombre:");
 
-        jLabel3.setText("Dirección");
+        jLabel3.setText("Dirección:");
 
-        jLabel4.setText("Teléfono");
+        jLabel4.setText("Teléfono:");
 
         campoTextoNumCredencial.setEditable(false);
 
@@ -166,9 +166,7 @@ public class DlgUsuario extends javax.swing.JDialog {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoTextoNombre)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonAceptar)
