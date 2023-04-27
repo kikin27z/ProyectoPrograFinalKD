@@ -29,9 +29,8 @@ public class DlgLibro extends javax.swing.JDialog {
         this.libro = libro;
         this.operacion = operacion;
         this.respuesta = respuesta;
-        initComponents();      
+        initComponents();
         
-
         // Modifica el título del botón botonAceptar y establece si los
         // botones botonRestaurar y botonCancelar estarán habilitados.
         // Si la operación es agregar

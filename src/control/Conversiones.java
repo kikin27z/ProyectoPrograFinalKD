@@ -4,6 +4,7 @@
  */
 package control;
 
+import interfaces.IPersistencia;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,7 @@ import objetosNegocio.Libro;
 import objetosNegocio.Usuario;
 import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
+import persistencia.PersistenciaListas;
 
 /**
  * Esta clase contiene métodos que generan objetos del tipo DefaultTableModel y
@@ -76,6 +78,36 @@ public class Conversiones {
         }
         return null;
     }
+    
+    /**
+     * Genera un objeto de tipo DefaultTableModel a partir de la lista de libros
+     * del inventario.
+     * @param listaInventario Lista de libros a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
+     */
+    public DefaultTableModel inventarioTableModel(List<PublicacionED> listaInventario) {
+        IPersistencia persistencia = new PersistenciaListas();
+        Libro libro;
+        String isbn;
+        Object tabla[][];
+        if (listaInventario != null) {
+            tabla = new Object[listaInventario.size()][6];
+            for (int i = 0; i < listaInventario.size(); i++) {
+                // Obtén un libro de la lista de libros
+                PublicacionED publicacionED = listaInventario.get(i);
+                // Almacena sus atributos en la fila del arreglo
+                tabla[i][0] = publicacionED.getPublicacion().getIsbn();
+                tabla[i][1] = publicacionED.getPublicacion().getTitulo();
+                tabla[i][2] = publicacionED.getPublicacion().getEditorial();
+                tabla[i][3] = publicacionED.getPublicacion().getClasificacion();
+                tabla[i][4] = publicacionED.getExistencia();
+                tabla[i][5] = publicacionED.getDisponibilidad();
+
+            }
+            return new DefaultTableModel(tabla, nombresColumnasTablasPublicacionesED);
+        }
+        return null;
+    }
 
      /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
@@ -99,8 +131,6 @@ public class Conversiones {
                 tabla[i][5] = prestamo.getPublicacion().getClasificacion();
                 tabla[i][6] = prestamo.getTiempoPrestamo();
                 tabla[i][7] = prestamo.getFechaPrestamo().toString();
-                
-                
             }
             return new DefaultTableModel(tabla, nombresColumnasTablasPrestamos);
         }
@@ -174,7 +204,7 @@ public class Conversiones {
     
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del inventario.
-     * @param listaLibros Lista del inventario
+     * @param listaInventario  Lista del inventario
      * @return Regresa el defaultComboBoxModel con los libros del inventario o null.
      */
     public DefaultComboBoxModel<PublicacionED> inventarioComboBoxModel(List<PublicacionED> listaInventario) {

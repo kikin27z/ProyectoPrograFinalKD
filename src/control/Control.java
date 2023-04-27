@@ -33,6 +33,7 @@ public class Control {
 
     /**
      * Agrega un libro al catálogo de libros
+     *
      * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
      * capturar los datos del libro
      * @return Regresa true si se pudo agregar el libro, false en caso contrario
@@ -42,8 +43,7 @@ public class Control {
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
-        
+
         // Captura el ISBN del libro
         String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
         // Si el usuario presionó el botón Cancelar
@@ -66,22 +66,20 @@ public class Control {
             return false;
         }
 
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
-        
         // Si el libro existe, despliega sus datos
         if (bLibro != null) {
-            dlgLibro = new DlgLibro(frame,
-                    "El libro ya está en el catalogo",
-                    true, bLibro,
-                    ConstantesGUI.DESPLEGAR, respuesta);
+            dlgLibro = new DlgLibro(frame, "El libro ya está en el catalogo", true, bLibro, ConstantesGUI.DESPLEGAR, respuesta);
             return false;
         }
+
         // Si el libro no existe captura los datos del nuevo libro
         dlgLibro = new DlgLibro(frame, "Captura Datos Libro", true, libro, ConstantesGUI.AGREGAR, respuesta);
+
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
         }
+
         // Agrega el nuevo libro al catalogo de libros
         try {
             persistencia.agregar(libro);
@@ -451,23 +449,35 @@ public class Control {
     }
 
     /**
-     * Inventaría un libro en el inventario
+     * Agrega un libro al inventario
+     *
      * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
      * capturar los datos del libro a inventariar
-     * @return Regresa true si se pudo inventariar el libro, false en caso contrario
+     * @return Regresa true si se pudo inventariar el libro, false en caso
+     * contrario
      */
-    public boolean inventariaLibro(JFrame frame) {
-        PublicacionED publicacionED;
+    public boolean inventariarLibro(JFrame frame) {
+        Libro libro, bLibro;
+        PublicacionED publicacionED = null;
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
-        List<PublicacionED> listaInventario;
-        DefaultComboBoxModel<PublicacionED> listaInventarioComboBoxModel;
+        List<Libro> listaLibros;
+        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
 
+//        // Captura el ISBN del libro
+//        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
+//        // Si el usuario presionó el botón Cancelar
+//        if (isbn == null) {
+//            return false;
+//        }
+//        // Crea un objeto Libro con solo el ISBN
+//        libro = new Libro(isbn);
         try {
+            // Obten el libro del catálogo de libros
+//            bLibro = persistencia.obten(libro);
+
             // Obtiene la lista de libros
-            listaInventario = persistencia.consultarInventarioLibros();
-            // Asigna el primer libro de la lista publicacionED
-            publicacionED = listaInventario.get(0);
+            listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -476,15 +486,29 @@ public class Control {
             return false;
         }
 
-        listaInventarioComboBoxModel = conversiones.inventarioComboBoxModel(listaInventario);
-        dlgInventario = new DlgInventario(frame, "Inventariar Libro", true, publicacionED, listaInventarioComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
+        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+//        // Si el libro existe, despliega sus datos
+//        if (bLibro != null) {
+//            dlgLibro = new DlgLibro(frame, "El libro ya está en el catalogo", true, bLibro, ConstantesGUI.DESPLEGAR, respuesta);
+//            return false;
+//        }
+        // Si el libro no existe captura los datos del nuevo libro
+        
+        libro = new Libro("");
+        publicacionED = new PublicacionED(libro);
+        
+        dlgInventario = new DlgInventario(frame, "Inventaria Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
+        libro = dlgInventario.getCajaCombinadaLibrosSelectedItem();
+        int cantidad = dlgInventario.getCantidad();
+
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
         }
+
         // Agrega el nuevo libro al catalogo de libros
         try {
-            persistencia.agregar(libro);
+            persistencia.inventariar(libro, cantidad);
         } catch (Exception e) {
             // Si ocurrio un error al escribir al catalogo de libros,
             // despliega mensaje de error
@@ -537,5 +561,27 @@ public class Control {
         }
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
+    }
+
+    /**
+     * Regresa un objeto Tabla con todos los libros
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con todos los libros, null si hay un error
+     */
+    public Tabla getTablaInventario(JFrame frame) {
+        List<PublicacionED> listaInventario;
+        try {
+            // Obtiene la lista de libros
+            listaInventario = persistencia.consultarInventarioLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        // Regresa el objeto Tabla con todos los libros
+        return new Tabla("Lista del Inventario", conversiones.inventarioTableModel(listaInventario));
     }
 }

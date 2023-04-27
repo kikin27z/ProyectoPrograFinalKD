@@ -3,6 +3,7 @@ package interfazUsuario;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
+import objetosNegocio.Libro;
 import objetosNegocio.Publicacion;
 import objetosNegocio.PublicacionED;
 
@@ -21,16 +22,16 @@ public class DlgInventario extends javax.swing.JDialog {
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
      * @param publicacionED Contiene la información del libro a agregar o eliminar del inventario de libros
-     * @param listaLibros Es la lista de libros del catálogo de libros
+     * @param listaInventario la lista de libros del catálogo de libros
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgInventario(java.awt.Frame parent,String title, boolean modal, PublicacionED publicacionED, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
-        super(parent,title, modal);
+    public DlgInventario(java.awt.Frame parent,String title, boolean modal, PublicacionED publicacionED, DefaultComboBoxModel listaInventario, int operacion, StringBuffer respuesta) {
+        super(parent, title, modal);
         this.publicacionED = publicacionED;
-        this.listaLibros = listaLibros;
+        this.listaInventario = listaInventario;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
@@ -42,8 +43,6 @@ public class DlgInventario extends javax.swing.JDialog {
         else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Desinventariar");
         }
-        
-        
         
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
@@ -73,6 +72,14 @@ public class DlgInventario extends javax.swing.JDialog {
         setLocation((frameSize.width - dlgSize.width) / 2 + loc.x,
                 (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
+    
+    public int getCantidad() {
+        return Integer.parseInt(campoTextoCantidad.getText());
+    }
+    
+    public Libro getCajaCombinadaLibrosSelectedItem() {
+        return (Libro)cajaCombinadaLibros.getSelectedItem();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +102,7 @@ public class DlgInventario extends javax.swing.JDialog {
 
         jLabel1.setText("Libro");
 
-        cajaCombinadaLibros.setModel(listaLibros);
+        cajaCombinadaLibros.setModel(listaInventario);
 
         jLabel2.setText("Cantidad");
 
@@ -134,8 +141,10 @@ public class DlgInventario extends javax.swing.JDialog {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoTextoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cajaCombinadaLibros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cajaCombinadaLibros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoTextoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botonAceptar)
                         .addGap(61, 61, 61)
@@ -169,7 +178,8 @@ public class DlgInventario extends javax.swing.JDialog {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es inventariar o desinventariar
         if (operacion == ConstantesGUI.AGREGAR) {
-            
+            publicacionED.setPublicacion((Libro)cajaCombinadaLibros.getSelectedItem());
+            publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
         }
         if (operacion == ConstantesGUI.ELIMINAR) {
             
@@ -179,6 +189,7 @@ public class DlgInventario extends javax.swing.JDialog {
         // Establece que se presionó el botón botonAceptar
         respuesta.append(ConstantesGUI.ACEPTAR);
         // Destruye el cuadro de díalogo
+        dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
@@ -205,7 +216,7 @@ public class DlgInventario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
     private PublicacionED publicacionED;
-    private DefaultComboBoxModel listaLibros;
+    private DefaultComboBoxModel listaInventario;
     private int operacion;
     private StringBuffer respuesta;
 }

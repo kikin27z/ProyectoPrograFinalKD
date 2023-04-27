@@ -485,7 +485,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuInventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuInventariarLibroActionPerformed
         // Inventaría el nuevo libro
-        if (control.inventariaLibro(this)) {
+        if (control.inventariarLibro(this)) {
             // Obtiene la lista del inventario
             Tabla tablaInventario = control.getTablaInventario(this);
             // Despliega la lista del inventario
