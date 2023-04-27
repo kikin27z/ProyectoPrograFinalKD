@@ -450,19 +450,19 @@ public class Control {
 
     /**
      * Agrega un libro al inventario
-     *
      * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
      * capturar los datos del libro a inventariar
      * @return Regresa true si se pudo inventariar el libro, false en caso
      * contrario
      */
     public boolean inventariarLibro(JFrame frame) {
-        Libro libro, bLibro;
-        PublicacionED publicacionED = null;
+        Libro libro;
+        PublicacionED publicacionED = new PublicacionED(new Libro());
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
         List<Libro> listaLibros;
         DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        int cantidad;
 
 //        // Captura el ISBN del libro
 //        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
@@ -473,7 +473,7 @@ public class Control {
 //        // Crea un objeto Libro con solo el ISBN
 //        libro = new Libro(isbn);
         try {
-            // Obten el libro del catálogo de libros
+//            // Obten el libro del catálogo de libros
 //            bLibro = persistencia.obten(libro);
 
             // Obtiene la lista de libros
@@ -486,20 +486,21 @@ public class Control {
             return false;
         }
 
+        // Si el libro existe, despliega sus datos
+        if (listaLibros.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "Favor de agregar al menos un libro al catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        
         todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
-//        // Si el libro existe, despliega sus datos
-//        if (bLibro != null) {
-//            dlgLibro = new DlgLibro(frame, "El libro ya está en el catalogo", true, bLibro, ConstantesGUI.DESPLEGAR, respuesta);
-//            return false;
-//        }
         // Si el libro no existe captura los datos del nuevo libro
-        
-        libro = new Libro("");
-        publicacionED = new PublicacionED(libro);
-        
-        dlgInventario = new DlgInventario(frame, "Inventaria Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
+        dlgInventario = new DlgInventario(frame, "Inventariar Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
         libro = dlgInventario.getCajaCombinadaLibrosSelectedItem();
-        int cantidad = dlgInventario.getCantidad();
+        cantidad = dlgInventario.getCantidad();
 
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
@@ -518,6 +519,74 @@ public class Control {
         }
         return true;
     }
+
+    
+    /**
+     * Elimina un libro del inventario
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * capturar los datos del libro a desinventariar
+     * @return Regresa true si se pudo desinventariar el libro, false en caso
+     * contrario
+     */
+    public boolean desinventariarLibro(JFrame frame) {
+        Libro libro;
+        PublicacionED publicacionED;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgInventario dlgInventario;
+        List<Libro> listaLibros;
+        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+
+        try {
+            // Obtiene la lista de libros
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "No hay libros en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+        
+        libro = new Libro();
+        publicacionED = new PublicacionED(libro);
+        
+        dlgInventario = new DlgInventario(frame, "Desinventaria Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.ELIMINAR, respuesta);
+        libro = dlgInventario.getCajaCombinadaLibrosSelectedItem();
+        int cantidad = dlgInventario.getCantidad();
+        
+        if(libro == null) {
+            return false;
+        }
+
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+
+        // Agrega el nuevo libro al catalogo de libros
+        try {
+            persistencia.desinventariar(libro, cantidad);
+        } catch (Exception e) {
+            // Si ocurrio un error al escribir al catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     /**
      * Regresa un objeto Tabla con todos los libros
@@ -582,6 +651,6 @@ public class Control {
             return null;
         }
         // Regresa el objeto Tabla con todos los libros
-        return new Tabla("Lista del Inventario", conversiones.inventarioTableModel(listaInventario));
+        return new Tabla("Lista del Inventario", conversiones.inventarioLibrosTableModel(listaInventario));
     }
 }

@@ -493,8 +493,18 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuInventariarLibroActionPerformed
 
+    /**
+     * Método oyente que desinventaría un libro del inventario
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuDesinventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDesinventariarLibroActionPerformed
-        // TODO add your handling code here:
+        // Desinventaría el nuevo libro
+        if (control.desinventariarLibro(this)) {
+            // Obtiene la lista del inventario
+            Tabla tablaInventario = control.getTablaInventario(this);
+            // Despliega la lista del inventario
+            despliegaTabla(tablaInventario);
+        }
     }//GEN-LAST:event_opcionMenuDesinventariarLibroActionPerformed
 
     private void opcionMenuPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuPrestarLibroActionPerformed

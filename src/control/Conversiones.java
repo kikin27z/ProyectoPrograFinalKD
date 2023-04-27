@@ -82,19 +82,16 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de la lista de libros
      * del inventario.
-     * @param listaInventario Lista de libros a convertir
+     * @param listaInventarioLibros Lista de libros a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
-    public DefaultTableModel inventarioTableModel(List<PublicacionED> listaInventario) {
-        IPersistencia persistencia = new PersistenciaListas();
-        Libro libro;
-        String isbn;
+    public DefaultTableModel inventarioLibrosTableModel(List<PublicacionED> listaInventarioLibros) {
         Object tabla[][];
-        if (listaInventario != null) {
-            tabla = new Object[listaInventario.size()][6];
-            for (int i = 0; i < listaInventario.size(); i++) {
+        if (listaInventarioLibros != null) {
+            tabla = new Object[listaInventarioLibros.size()][6];
+            for (int i = 0; i < listaInventarioLibros.size(); i++) {
                 // Obtén un libro de la lista de libros
-                PublicacionED publicacionED = listaInventario.get(i);
+                PublicacionED publicacionED = listaInventarioLibros.get(i);
                 // Almacena sus atributos en la fila del arreglo
                 tabla[i][0] = publicacionED.getPublicacion().getIsbn();
                 tabla[i][1] = publicacionED.getPublicacion().getTitulo();
@@ -136,34 +133,7 @@ public class Conversiones {
         }
         return null;
     }
-    
-    /**
-     * Genera un objeto de tipo DefaultTableModel a partir de una lista de
-     * publicacionesED.
-     * @param listaPublicacionesED    Lista de publlicacionesED a convertir
-     * @return Objeto de tipo DefaultTableModel con los atributos de los publicacionesED.
-     */
-    public DefaultTableModel publicacionesEDTableModel(List<PublicacionED> listaPublicacionesED) {
-        Object tabla[][];
-        if (listaPublicacionesED != null) {
-            tabla = new Object[listaPublicacionesED.size()][6];
-            for (int i = 0; i < listaPublicacionesED.size(); i++) {
-                // Obten un publicacionED de la lista de publicacionesED
-                PublicacionED publicacionED = listaPublicacionesED.get(i);
-                // Almacena sus atributos en la fila del arreglo
-                tabla[i][0] = publicacionED.getPublicacion().getIsbn();
-                tabla[i][1] = publicacionED.getPublicacion().getTitulo();
-                tabla[i][2] = publicacionED.getPublicacion().getEditorial();
-                tabla[i][3] = publicacionED.getPublicacion().getClasificacion();
-                tabla[i][4] = publicacionED.getExistencia();
-                tabla[i][5] = publicacionED.getDisponibilidad();            
-                
-            }
-            return new DefaultTableModel(tabla, nombresColumnasTablasPublicacionesED);
-        }
-        return null;
-    }
-    
+        
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * libros.

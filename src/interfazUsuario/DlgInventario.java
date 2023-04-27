@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
 import objetosNegocio.Libro;
-import objetosNegocio.Publicacion;
 import objetosNegocio.PublicacionED;
 
 /**
@@ -177,12 +176,9 @@ public class DlgInventario extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es inventariar o desinventariar
-        if (operacion == ConstantesGUI.AGREGAR) {
-            publicacionED.setPublicacion((Libro)cajaCombinadaLibros.getSelectedItem());
-            publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
-        }
-        if (operacion == ConstantesGUI.ELIMINAR) {
-            
+        if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
+            publicacionED.setPublicacion(getCajaCombinadaLibrosSelectedItem());
+            publicacionED.setExistencia(getCantidad());
         }
         // Borra el contenido de respuesta
         respuesta.delete(0, respuesta.length());
