@@ -23,14 +23,15 @@ import persistencia.PersistenciaListas;
 public class Conversiones {
     // Arreglos con los nombres de las columnas de las tablas
 
-    String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion","Clasificacion"};
+    String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion", "Clasificacion"};
     String nombresColumnasTablasUsuarios[] = {"Num. Cred.", "Nombre", "Direccion", "Teléfono"};
-    String nombresColumnasTablasPrestamos[] = {"Num. Cred.","Nombre","Teléfono","ISBN","Titulo","Clasificacion","Duración","Fecha"};
-    String nombresColumnasTablasPublicacionesED[] = {"ISBN", "Titulo", "Editorial", "Clasificacion","Existencia","Disponibilidad"};
-    
+    String nombresColumnasTablasPrestamos[] = {"Num. Cred.", "Nombre", "Teléfono", "ISBN", "Titulo", "Editorial", "Clasificacion", "Duración", "Fecha"};
+    String nombresColumnasTablasPublicacionesED[] = {"ISBN", "Titulo", "Editorial", "Clasificacion", "Existencia", "Disponibilidad"};
+
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * libros.
+     *
      * @param listaLibros Lista de libros a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
@@ -54,12 +55,14 @@ public class Conversiones {
         }
         return null;
     }
-    
-     /**
+
+    /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * usuarios.
-     * @param listaUsuarios  Lista de usuarios a convertir
-     * @return Objeto de tipo DefaultTableModel con los atributos de los usuarios.
+     *
+     * @param listaUsuarios Lista de usuarios a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los
+     * usuarios.
      */
     public DefaultTableModel usuariosTableModel(List<Usuario> listaUsuarios) {
         Object tabla[][];
@@ -78,10 +81,11 @@ public class Conversiones {
         }
         return null;
     }
-    
+
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de la lista de libros
      * del inventario.
+     *
      * @param listaInventarioLibros Lista de libros a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
@@ -106,16 +110,18 @@ public class Conversiones {
         return null;
     }
 
-     /**
+    /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * prestamos.
-     * @param listaPrestamos   Lista de prestamos a convertir
-     * @return Objeto de tipo DefaultTableModel con los atributos de los prestamos.
+     *
+     * @param listaPrestamos Lista de prestamos a convertir
+     * @return Objeto de tipo DefaultTableModel con los atributos de los
+     * prestamos.
      */
     public DefaultTableModel prestamosTableModel(List<Prestamo> listaPrestamos) {
         Object tabla[][];
         if (listaPrestamos != null) {
-            tabla = new Object[listaPrestamos.size()][8];
+            tabla = new Object[listaPrestamos.size()][9];
             for (int i = 0; i < listaPrestamos.size(); i++) {
                 // Obten un prestamo de la lista de prestamos
                 Prestamo prestamo = listaPrestamos.get(i);
@@ -125,18 +131,20 @@ public class Conversiones {
                 tabla[i][2] = prestamo.getUsuario().getTelefono();
                 tabla[i][3] = prestamo.getPublicacion().getIsbn();
                 tabla[i][4] = prestamo.getPublicacion().getTitulo();
-                tabla[i][5] = prestamo.getPublicacion().getClasificacion();
-                tabla[i][6] = prestamo.getTiempoPrestamo();
-                tabla[i][7] = prestamo.getFechaPrestamo().toString();
+                tabla[i][5] = prestamo.getPublicacion().getEditorial();
+                tabla[i][6] = prestamo.getPublicacion().getClasificacion();
+                tabla[i][7] = prestamo.getTiempoPrestamo();
+                tabla[i][8] = prestamo.getFechaPrestamo().toString();
             }
             return new DefaultTableModel(tabla, nombresColumnasTablasPrestamos);
         }
         return null;
     }
-        
+
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * libros.
+     *
      * @param listaLibros Lista de libros
      * @return Regresa el defaultComboBoxModel con los libros agregados o null.
      */
@@ -152,12 +160,14 @@ public class Conversiones {
         }
         return null;
     }
-    
+
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * usuarios.
-     * @param listaUsuarios  Lista de usuarios
-     * @return Regresa el defaultComboBoxModel con los usuarios agregados o null.
+     *
+     * @param listaUsuarios Lista de usuarios
+     * @return Regresa el defaultComboBoxModel con los usuarios agregados o
+     * null.
      */
     public DefaultComboBoxModel<Usuario> usuariosComboBoxModel(List<Usuario> listaUsuarios) {
         DefaultComboBoxModel<Usuario> defaultComboBoxModel = new DefaultComboBoxModel<>();
@@ -171,11 +181,14 @@ public class Conversiones {
         }
         return null;
     }
-    
+
     /**
-     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del inventario.
-     * @param listaInventario  Lista del inventario
-     * @return Regresa el defaultComboBoxModel con los libros del inventario o null.
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
+     * inventario.
+     *
+     * @param listaInventario Lista del inventario
+     * @return Regresa el defaultComboBoxModel con los libros del inventario o
+     * null.
      */
     public DefaultComboBoxModel<PublicacionED> inventarioComboBoxModel(List<PublicacionED> listaInventario) {
         DefaultComboBoxModel<PublicacionED> defaultComboBoxModel = new DefaultComboBoxModel<>();

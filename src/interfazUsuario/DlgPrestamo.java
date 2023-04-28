@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
 import objetosNegocio.Prestamo;
-import objetosNegocio.Publicacion;
+import objetosNegocio.PublicacionED;
 import objetosNegocio.Usuario;
 
 /**
@@ -30,11 +30,11 @@ public class DlgPrestamo extends javax.swing.JDialog {
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaLibros, DefaultComboBoxModel listaUsuarios, int operacion, StringBuffer respuesta) {
+    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
         this.prestamo = prestamo;
-        this.listaLibros = listaLibros;
         this.listaUsuarios = listaUsuarios;
+        this.listaLibros = listaLibros;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
@@ -204,8 +204,9 @@ public class DlgPrestamo extends javax.swing.JDialog {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es prestar o devolver
         if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
-            prestamo.setPublicacion((Publicacion) cajaCombinadaLibros.getSelectedItem());
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
+            PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+            prestamo.setPublicacion(pubED.getPublicacion());
             prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
         }
         // Borra el contenido de respuesta
