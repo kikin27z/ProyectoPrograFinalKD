@@ -686,7 +686,124 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
     }
+/**
+     * Regresa un objeto Tabla con todos los libros que coinciden con un autor
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con los libros que coinciden con el autor, null si hay un error
+     */
+    public Tabla getTablaLibrosAutor(JFrame frame) {
+        List<Libro> listaLibrosAutor;
+        
+        // Captura el autor del libro
+        String autor = JOptionPane.showInputDialog(frame, "Autor del libro:",
+                "Libro a buscar por autor:",
+                JOptionPane.QUESTION_MESSAGE);
+        
+        
+        try {
+            // Obtiene la lista de libros por el autor
+            listaLibrosAutor = persistencia.consultarLibrosAutor(autor);
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibrosAutor.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "No hay ningún libro con ese autor en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
 
+        
+        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        return new Tabla("Lista de Libros por autor:", conversiones.librosTableModel(listaLibrosAutor));
+    }
+
+    
+    /**
+     * Regresa un objeto Tabla con todos los libros que coinciden con una editorial
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con los libros que coinciden con la editorial, null si hay un error
+     */
+    public Tabla getTablaLibrosEditorial(JFrame frame) {
+        List<Libro> listaLibrosEditorial;
+        
+        // Captura la editorial del libro
+        String editorial = JOptionPane.showInputDialog(frame, "Editorial del libro:",
+                "Libro a buscar por editorial:",
+                JOptionPane.QUESTION_MESSAGE);
+        
+        
+        try {
+            // Obtiene la lista de libros por la editorial
+            listaLibrosEditorial = persistencia.consultarLibrosEditorial(editorial);
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibrosEditorial.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa editorial en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
+
+        
+        // Regresa el objeto Tabla con todos los libros que tienen una misma editorial
+        return new Tabla("Lista de Libros por editorial:", conversiones.librosTableModel(listaLibrosEditorial));
+    }
+    
+     /**
+     * Regresa un objeto Tabla con todos los libros que coinciden con una clasificación
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con los libros que coinciden con la clasificación, null si hay un error
+     */
+    public Tabla getTablaLibrosClasificacion(JFrame frame) {
+        List<Libro> listaLibrosClasificacion;
+        
+        // Captura la clasificación del libro
+        String clasificacion = JOptionPane.showInputDialog(frame, "Clasificación del libro:",
+                "Libro a buscar por clasificación:",
+                JOptionPane.QUESTION_MESSAGE);
+        
+        
+        try {
+            // Obtiene la lista de libros por la clasificación
+            listaLibrosClasificacion = persistencia.consultarLibrosClasificacion(clasificacion);
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibrosClasificacion.isEmpty()) {
+            // Si ocurrio un error al leer del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa clasificación en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
+
+        
+        // Regresa el objeto Tabla con todos los libros que tienen una misma clasificación
+        return new Tabla("Lista de Libros por clasificación:", conversiones.librosTableModel(listaLibrosClasificacion));
+    }
+    
     /**
      * Regresa un objeto Tabla con todos los libros
      *
