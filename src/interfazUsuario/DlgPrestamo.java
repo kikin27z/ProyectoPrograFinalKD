@@ -23,18 +23,18 @@ public class DlgPrestamo extends javax.swing.JDialog {
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
      * @param prestamo Contiene la información del prestamo para agregar o eliminar del catálogo de prestamos
-     * @param listaLibros Es la lista de libros del catálogo de libros
+     * @param librosDisponibles Es la lista de libros del catálogo de libros
      * @param listaUsuarios  Es la lista de usuarios del catálogo de usuarios
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
+    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel librosDisponibles, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
         this.prestamo = prestamo;
         this.listaUsuarios = listaUsuarios;
-        this.listaLibros = listaLibros;
+        this.librosDisponibles = librosDisponibles;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
@@ -107,7 +107,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
 
         cajaCombinadaUsuarios.setModel(listaUsuarios);
 
-        cajaCombinadaLibros.setModel(listaLibros);
+        cajaCombinadaLibros.setModel(librosDisponibles);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Tiempo:");
@@ -205,7 +205,8 @@ public class DlgPrestamo extends javax.swing.JDialog {
         //Si la opcion es prestar o devolver
         if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
-            PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+            PublicacionED pubED = new PublicacionED();
+            pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
             prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
         }
@@ -244,7 +245,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    private DefaultComboBoxModel listaLibros;
+    private DefaultComboBoxModel librosDisponibles;
     private DefaultComboBoxModel listaUsuarios;
     private int operacion;
     private Prestamo prestamo;

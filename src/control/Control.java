@@ -587,9 +587,9 @@ public class Control {
         Prestamo prestamo = new Prestamo();
         StringBuffer respuesta = new StringBuffer("");
         DlgPrestamo dlgPrestamo;
-        List<Libro> listaLibros;
+        List<PublicacionED> librosDisponibles;
         List<Usuario> listaUsuarios;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        DefaultComboBoxModel<PublicacionED> librosDisponiblesComboBoxModel;
         DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
         int tiempo;
 
@@ -597,7 +597,7 @@ public class Control {
             // Obtiene la lista de libros
             listaUsuarios = persistencia.consultarUsuarios();
             // Obtiene la lista de libros
-            listaLibros = persistencia.consultarLibros();
+            librosDisponibles = persistencia.consultarLibrosDisponibles();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -607,7 +607,7 @@ public class Control {
         }
 
         // Si la lista de libros está vacía, desplegar el mensaje
-        if (listaLibros.isEmpty() && listaUsuarios.isEmpty()) {
+        if (librosDisponibles.isEmpty() && listaUsuarios.isEmpty()) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "Favor de agregar al menos un libro y un usuario a sus respectivos catálogos.", "¡Error!",
@@ -615,10 +615,10 @@ public class Control {
             return false;
         }
         
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+        librosDisponiblesComboBoxModel = conversiones.librosDisponiblesComboBoxModel(librosDisponibles);
         todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
         // Si el libro no existe captura los datos del nuevo libro
-        dlgPrestamo = new DlgPrestamo(frame, "Inventariar Libro", true, prestamo, todosUsuariosComboBoxModel, todosLibrosComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
+        dlgPrestamo = new DlgPrestamo(frame, "Prestar Libro", true, prestamo, todosUsuariosComboBoxModel, librosDisponiblesComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
 
         usuario = prestamo.getUsuario();
         libro = (Libro) prestamo.getPublicacion();
@@ -686,7 +686,8 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
     }
-/**
+    
+    /**
      * Regresa un objeto Tabla con todos los libros que coinciden con un autor
      *
      * @param frame Ventana sobre la que se despliega el mensaje de error
@@ -724,7 +725,6 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Libros por autor:", conversiones.librosTableModel(listaLibrosAutor));
     }
-
     
     /**
      * Regresa un objeto Tabla con todos los libros que coinciden con una editorial
@@ -824,5 +824,27 @@ public class Control {
         }
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista del Inventario", conversiones.inventarioLibrosTableModel(listaInventario));
+    }
+    
+    /**
+     * Regresa un objeto Tabla con todos los libros
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con todos los libros, null si hay un error
+     */
+    public Tabla getTablaPrestamos(JFrame frame) {
+        List<PublicacionED> listaPrestamos;
+        try {
+            // Obtiene la lista de libros
+            listaPrestamos = persistencia.consultarLibrosPrestados();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        // Regresa el objeto Tabla con todos los libros
+        return new Tabla("Lista de Préstamos", conversiones.inventarioLibrosTableModel(listaPrestamos));
     }
 }
