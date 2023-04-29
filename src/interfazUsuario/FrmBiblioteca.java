@@ -62,6 +62,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Hace visible la tabla dentro del panel con barras de
         // deslizamiento
         jScrollPane1.setViewportView(jtabla);
+        jtabla.setEnabled(false);
     }
 
     /**
