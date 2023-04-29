@@ -221,4 +221,25 @@ public class Conversiones {
         }
         return null;
     }
+    
+    /**
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
+     * inventario.
+     *
+     * @param librosPrestados Lista del inventario
+     * @return Regresa el defaultComboBoxModel con los libros del inventario o
+     * null.
+     */
+    public DefaultComboBoxModel<PublicacionED> librosPrestadosComboBoxModel(List<PublicacionED> librosPrestados) {
+        DefaultComboBoxModel<PublicacionED> defaultComboBoxModel = new DefaultComboBoxModel<>();
+        if (librosPrestados != null) {
+            // Para cada elemento de la Lista
+            for (int i = 0; i < librosPrestados.size(); i++) {
+                // Agregalo a la instancia de la clase DefaultComboBoxModel
+                defaultComboBoxModel.addElement(librosPrestados.get(i));
+            }
+            return defaultComboBoxModel;
+        }
+        return null;
+    }
 }

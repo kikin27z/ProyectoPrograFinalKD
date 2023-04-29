@@ -20,14 +20,15 @@ public class DlgInventario extends javax.swing.JDialog {
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
-     * @param publicacionED Contiene la información del libro a agregar o eliminar del inventario de libros
+     * @param publicacionED Contiene la información del libro a agregar o
+     * eliminar del inventario de libros
      * @param listaInventario la lista de libros del catálogo de libros
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgInventario(java.awt.Frame parent,String title, boolean modal, PublicacionED publicacionED, DefaultComboBoxModel listaInventario, int operacion, StringBuffer respuesta) {
+    public DlgInventario(java.awt.Frame parent, String title, boolean modal, PublicacionED publicacionED, DefaultComboBoxModel listaInventario, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
         this.publicacionED = publicacionED;
         this.listaInventario = listaInventario;
@@ -42,7 +43,7 @@ public class DlgInventario extends javax.swing.JDialog {
         else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Desinventariar");
         }
-        
+
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
         respuesta.append(ConstantesGUI.CANCELAR);
@@ -183,11 +184,8 @@ public class DlgInventario extends javax.swing.JDialog {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
-        if (operacion == ConstantesGUI.AGREGAR) {
-        campoTextoCantidad.setText("");
-        }
-        if (operacion == ConstantesGUI.ELIMINAR) {
-            campoTextoCantidad.setText(Integer.toString(publicacionED.getDisponibilidad()));
+        if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
+            campoTextoCantidad.setText("");
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 

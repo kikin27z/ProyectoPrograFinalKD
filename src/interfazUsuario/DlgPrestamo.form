@@ -49,7 +49,7 @@
                               </Group>
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                   <Component id="botonAceptar" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <Component id="etiquetaTiempo" min="-2" pref="71" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -89,7 +89,7 @@
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="etiquetaTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="campoTextoTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
         <Component class="javax.swing.JComboBox" name="cajaCombinadaLibros">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="librosDisponibles" type="code"/>
+              <Connection code="listaLibros" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -138,7 +138,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="etiquetaTiempo">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Tiempo:"/>

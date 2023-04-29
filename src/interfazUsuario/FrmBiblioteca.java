@@ -532,7 +532,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuPrestarLibroActionPerformed
 
     private void opcionMenuDevolverLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDevolverLibroActionPerformed
-        // TODO add your handling code here:
+        // Devuelve el nuevo libro
+        if (control.devolverLibro(this)) {
+            // Obtiene la lista de los préstamos
+            Tabla tablaPrestamos = control.getTablaPrestamos(this);
+            // Despliega la lista de los préstamos
+            despliegaTabla(tablaPrestamos);
+        }
     }//GEN-LAST:event_opcionMenuDevolverLibroActionPerformed
 
     /**
@@ -569,9 +575,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaLibrosClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
-//         Obtiene la lista de libros por clasificación
+        // Obtiene la lista de libros por clasificación
         Tabla tablaLibrosClasificacion = control.getTablaLibrosClasificacion(this);
-//        Despliega la lista de libros por clasificación 
+        // Despliega la lista de libros por clasificación 
         despliegaTabla(tablaLibrosClasificacion);
     }//GEN-LAST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
 
@@ -589,7 +595,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuConsultaLibrosEditorialActionPerformed
 
     private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por editorial
+        Tabla tablaInventario = control.getTablaInventario(this);
+        // Despliega la lista de libros por editorial
+        despliegaTabla(tablaInventario);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
 
     /**
@@ -601,33 +610,85 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de usuarios
         Tabla tablaUsuarios = control.getTablaUsuarios(this);
         // Despliega la lista de usuarios
-
         despliegaTabla(tablaUsuarios);
-
     }//GEN-LAST:event_opcionMenuConsultaUsuariosActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por editorial
+        Tabla tablaInventarioLibrosPrestados = control.getTablaInventarioLibrosPrestados(this);
+        // Despliega la lista de libros por editorial
+        despliegaTabla(tablaInventarioLibrosPrestados);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por editorial
+        Tabla tablaInventarioLibrosDisponibles = control.getTablaInventarioLibrosDisponibles(this);
+        // Despliega la lista de libros por editorial
+        despliegaTabla(tablaInventarioLibrosDisponibles);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaPrestamosLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por editorial
+        Tabla tablaPrestamos = control.getTablaPrestamos(this);
+        // Despliega la lista de libros por editorial
+        despliegaTabla(tablaPrestamos);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por autor
+        Tabla tablaPrestamosUsuario = control.getTablaPrestamosUsuario(this);
+        // Despliega la lista de libros por autor
+        despliegaTabla(tablaPrestamosUsuario);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
 
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaPrestamosLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibroActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de libros por autor
+        Tabla tablaPrestamosLibro = control.getTablaPrestamosLibro(this);
+        // Despliega la lista de libros por autor
+        despliegaTabla(tablaPrestamosLibro);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibroActionPerformed
-
+    
+    /**
+     * Método oyente que obtiene y despliega la lista de libros con respecto a
+     * una editorial del libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
-        // TODO add your handling code here:
+        // Obtiene la lista de usuarios
+        Tabla tablaPrestamosPeriodo = control.getTablaPrestamosLibrosPeriodo(this);
+        // Despliega la lista de libros
+        despliegaTabla(tablaPrestamosPeriodo);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
 
     /**

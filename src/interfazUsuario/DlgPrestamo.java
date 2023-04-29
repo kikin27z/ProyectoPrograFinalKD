@@ -10,7 +10,7 @@ import objetosNegocio.Usuario;
 
 /**
  *
- * @author lv1013
+ * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class DlgPrestamo extends javax.swing.JDialog {
 
@@ -23,18 +23,18 @@ public class DlgPrestamo extends javax.swing.JDialog {
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
      * @param prestamo Contiene la información del prestamo para agregar o eliminar del catálogo de prestamos
-     * @param librosDisponibles Es la lista de libros del catálogo de libros
+     * @param listaLibros Es la lista de libros del catálogo de libros
      * @param listaUsuarios  Es la lista de usuarios del catálogo de usuarios
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel librosDisponibles, int operacion, StringBuffer respuesta) {
+    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
         this.prestamo = prestamo;
         this.listaUsuarios = listaUsuarios;
-        this.librosDisponibles = librosDisponibles;
+        this.listaLibros = listaLibros;
         this.operacion = operacion;
         this.respuesta = respuesta;
         initComponents();
@@ -45,6 +45,8 @@ public class DlgPrestamo extends javax.swing.JDialog {
         } // Si la operación es actualizar
         else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Devolver");
+            campoTextoTiempo.hide();
+            etiquetaTiempo.hide();
         }
         
         // Establece el valor por omisión para respuesta, por si se cierra el
@@ -91,7 +93,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
         cajaCombinadaUsuarios = new javax.swing.JComboBox<>();
         cajaCombinadaLibros = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        etiquetaTiempo = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         botonRestaurar = new javax.swing.JButton();
@@ -107,10 +109,10 @@ public class DlgPrestamo extends javax.swing.JDialog {
 
         cajaCombinadaUsuarios.setModel(listaUsuarios);
 
-        cajaCombinadaLibros.setModel(librosDisponibles);
+        cajaCombinadaLibros.setModel(listaLibros);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Tiempo:");
+        etiquetaTiempo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        etiquetaTiempo.setText("Tiempo:");
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +149,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(botonAceptar)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(etiquetaTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoTextoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,7 +179,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(etiquetaTiempo)
                     .addComponent(campoTextoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -203,11 +205,15 @@ public class DlgPrestamo extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es prestar o devolver
-        if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
+        if (operacion == ConstantesGUI.AGREGAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
             PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
             prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
+        } else if (operacion == ConstantesGUI.ELIMINAR) {
+            prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
+            PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+            prestamo.setPublicacion(pubED.getPublicacion());
         }
         // Borra el contenido de respuesta
         respuesta.delete(0, respuesta.length());
@@ -218,11 +224,13 @@ public class DlgPrestamo extends javax.swing.JDialog {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
-        // TODO add your handling code here:
+        if (operacion == ConstantesGUI.AGREGAR) {
+            campoTextoTiempo.setText("");
+        }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-         // Destruye el cuadro de díalogo
+        // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
@@ -238,13 +246,13 @@ public class DlgPrestamo extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cajaCombinadaLibros;
     private javax.swing.JComboBox<String> cajaCombinadaUsuarios;
     private javax.swing.JTextField campoTextoTiempo;
+    private javax.swing.JLabel etiquetaTiempo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    private DefaultComboBoxModel librosDisponibles;
+    private DefaultComboBoxModel listaLibros;
     private DefaultComboBoxModel listaUsuarios;
     private int operacion;
     private Prestamo prestamo;

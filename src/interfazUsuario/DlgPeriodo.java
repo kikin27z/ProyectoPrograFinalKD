@@ -22,19 +22,18 @@ public class DlgPeriodo extends javax.swing.JDialog {
      * @param periodo Contiene la información del periodo vinculado a los libros
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
-     * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPeriodo(java.awt.Frame parent, String title, boolean modal, Periodo periodo, int operacion, StringBuffer respuesta) {
+    public DlgPeriodo(java.awt.Frame parent, String title, boolean modal, Periodo periodo, int operacion) {
         super(parent, title, modal);
         this.periodo = periodo;
         this.operacion = operacion;
-        this.respuesta = respuesta;
+//        this.respuesta = respuesta;
         initComponents();
 
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
-        respuesta.append(ConstantesGUI.CANCELAR);
+//        respuesta.append(ConstantesGUI.CANCELAR);
         // centra el cuadro de dialogo sobre la ventana de la aplicación
         centraCuadroDialogo(parent);
 
@@ -158,12 +157,12 @@ public class DlgPeriodo extends javax.swing.JDialog {
         // Toma los valores capturados en los campos de texto y en la caja
         // combinada y almacénalos en el parámetro cancion.
         periodo.setDesde(new Fecha(campoTextoDesde.getText()));
-        periodo.setHasta(new Fecha(campoTextoDesde.getText()));
+        periodo.setHasta(new Fecha(campoTextoHasta.getText()));
 
-        // Borra el contenido de respuesta
-        respuesta.delete(0, respuesta.length());
-        // Establece que se presionó el botón botonAceptar
-        respuesta.append(ConstantesGUI.ACEPTAR);
+//        // Borra el contenido de respuesta
+//        respuesta.delete(0, respuesta.length());
+//        // Establece que se presionó el botón botonAceptar
+//        respuesta.append(ConstantesGUI.ACEPTAR);
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
@@ -199,5 +198,4 @@ public class DlgPeriodo extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private Periodo periodo;
     private int operacion;
-    private StringBuffer respuesta;
 }
