@@ -205,8 +205,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
         //Si la opcion es prestar o devolver
         if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
-            PublicacionED pubED = new PublicacionED();
-            pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+            PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
             prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
         }

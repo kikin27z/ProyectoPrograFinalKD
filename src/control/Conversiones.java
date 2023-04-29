@@ -4,7 +4,6 @@
  */
 package control;
 
-import interfaces.IPersistencia;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +11,6 @@ import objetosNegocio.Libro;
 import objetosNegocio.Usuario;
 import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
-import persistencia.PersistenciaListas;
 
 /**
  * Esta clase contiene métodos que generan objetos del tipo DefaultTableModel y
@@ -25,7 +23,7 @@ public class Conversiones {
 
     String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion", "Clasificacion"};
     String nombresColumnasTablasUsuarios[] = {"Num. Cred.", "Nombre", "Direccion", "Teléfono"};
-    String nombresColumnasTablasPrestamos[] = {"Num. Cred.", "Nombre", "Teléfono", "ISBN", "Titulo", "Editorial", "Clasificacion", "Duración", "Fecha"};
+    String nombresColumnasTablasPrestamos[] = {"Num. Cred.", "Nombre", "Teléfono", "ISBN", "Titulo", "Editorial", "Clasificacion", "Tiempo", "Fecha"};
     String nombresColumnasTablasPublicacionesED[] = {"ISBN", "Titulo", "Editorial", "Clasificacion", "Existencia", "Disponibilidad"};
 
     /**
@@ -207,7 +205,7 @@ public class Conversiones {
      * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
      * inventario.
      *
-     * @param listaInventario Lista del inventario
+     * @param librosDisponibles Lista del inventario
      * @return Regresa el defaultComboBoxModel con los libros del inventario o
      * null.
      */

@@ -833,10 +833,10 @@ public class Control {
      * @return Objeto Tabla con todos los libros, null si hay un error
      */
     public Tabla getTablaPrestamos(JFrame frame) {
-        List<PublicacionED> listaPrestamos;
+        List<Prestamo> listaPrestamos;
         try {
             // Obtiene la lista de libros
-            listaPrestamos = persistencia.consultarLibrosPrestados();
+            listaPrestamos = persistencia.consultarPrestamosLibros();
         } catch (Exception e) {
             // Si ocurrio un error al obtener la lista de la base de datos,
             // despliega mensaje de error
@@ -845,6 +845,6 @@ public class Control {
             return null;
         }
         // Regresa el objeto Tabla con todos los libros
-        return new Tabla("Lista de Préstamos", conversiones.inventarioLibrosTableModel(listaPrestamos));
+        return new Tabla("Lista de Préstamos", conversiones.prestamosTableModel(listaPrestamos));
     }
 }
