@@ -643,11 +643,6 @@ public class Control {
         // Si el libro no existe captura los datos del nuevo libro
         dlgPrestamo = new DlgPrestamo(frame, "Prestar Libro", true, prestamo, todosUsuariosComboBoxModel, librosDisponiblesComboBoxModel, ConstantesGUI.AGREGAR, respuesta);
 
-        usuario = prestamo.getUsuario();
-        libro = (Libro) prestamo.getPublicacion();
-        tiempo = prestamo.getTiempoPrestamo();
-        prestamo = new Prestamo(usuario, libro, new Fecha(), tiempo);
-
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;

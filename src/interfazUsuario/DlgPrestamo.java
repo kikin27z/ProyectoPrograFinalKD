@@ -7,6 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
 import objetosNegocio.Usuario;
+import objetosServicio.Fecha;
 
 /**
  *
@@ -209,6 +210,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
             PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
+            prestamo.setFechaPrestamo(new Fecha());
             prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
         } else if (operacion == ConstantesGUI.ELIMINAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
