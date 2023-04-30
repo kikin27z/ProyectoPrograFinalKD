@@ -21,10 +21,10 @@ import objetosNegocio.PublicacionED;
 public class Conversiones {
     // Arreglos con los nombres de las columnas de las tablas
 
-    String nombresColumnasTablasLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion", "Clasificacion"};
-    String nombresColumnasTablasUsuarios[] = {"Num. Cred.", "Nombre", "Direccion", "Teléfono"};
-    String nombresColumnasTablasPrestamos[] = {"Num. Cred.", "Nombre", "Teléfono", "ISBN", "Titulo", "Editorial", "Clasificacion", "Tiempo", "Fecha"};
-    String nombresColumnasTablasPublicacionesED[] = {"ISBN", "Titulo", "Editorial", "Clasificacion", "Existencia", "Disponibilidad"};
+    private String nombresColumnasTablaLibros[] = {"ISBN", "Titulo", "Editorial", "Autor", "Edicion", "Clasificacion"};
+    private String nombresColumnasTablaUsuarios[] = {"Num. Cred.", "Nombre", "Direccion", "Teléfono"};
+    private String nombresColumnasTablaInventarioLibros[] = {"ISBN", "Titulo", "Editorial", "Clasificacion", "Existencia", "Disponibilidad"};
+    private String nombresColumnasTablaPrestamosLibros[] = {"Num. Cred.", "Nombre", "Teléfono", "ISBN", "Titulo", "Editorial", "Clasificacion", "Tiempo", "Fecha"};
 
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
@@ -49,7 +49,7 @@ public class Conversiones {
                 tabla[i][5] = libro.getClasificacion();
 
             }
-            return new DefaultTableModel(tabla, nombresColumnasTablasLibros);
+            return new DefaultTableModel(tabla, nombresColumnasTablaLibros);
         }
         return null;
     }
@@ -75,7 +75,7 @@ public class Conversiones {
                 tabla[i][2] = usuario.getDireccion();
                 tabla[i][3] = usuario.getTelefono();
             }
-            return new DefaultTableModel(tabla, nombresColumnasTablasUsuarios);
+            return new DefaultTableModel(tabla, nombresColumnasTablaUsuarios);
         }
         return null;
     }
@@ -103,7 +103,7 @@ public class Conversiones {
                 tabla[i][5] = publicacionED.getDisponibilidad();
 
             }
-            return new DefaultTableModel(tabla, nombresColumnasTablasPublicacionesED);
+            return new DefaultTableModel(tabla, nombresColumnasTablaInventarioLibros);
         }
         return null;
     }
@@ -134,7 +134,7 @@ public class Conversiones {
                 tabla[i][7] = prestamo.getTiempoPrestamo();
                 tabla[i][8] = prestamo.getFechaPrestamo().toString();
             }
-            return new DefaultTableModel(tabla, nombresColumnasTablasPrestamos);
+            return new DefaultTableModel(tabla, nombresColumnasTablaPrestamosLibros);
         }
         return null;
     }

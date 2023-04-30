@@ -41,7 +41,7 @@ public class Control {
      * capturar los datos del libro
      * @return Regresa true si se pudo agregar el libro, false en caso contrario
      */
-    public boolean agregaLibro(JFrame frame) {
+    public boolean agregarLibro(JFrame frame) {
         Libro libro, bLibro;
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
@@ -95,74 +95,7 @@ public class Control {
         }
         return true;
     }
-
-    /**
-     * Agrega un usuario al catálogo de usuarios
-     *
-     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
-     * capturar los datos del usuario
-     * @return Regresa true si se pudo agregar el usuario, false en caso
-     * contrario
-     */
-    public boolean agregaUsuario(JFrame frame) {
-        Usuario usuario, bUsuario;
-        StringBuffer respuesta = new StringBuffer("");
-        DlgUsuario dlgUsuario;
-        List<Usuario> listaUsuarios;
-        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
-        // Captura el Num Credencial del usuario
-        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
-                "Agrega Usuario",
-                JOptionPane.QUESTION_MESSAGE);
-        // Si el usuario presionó el botón Cancelar
-        if (numCredencial == null) {
-            return false;
-        }
-        // Crea un objeto Usuario con solo el num de credencial
-        usuario = new Usuario(numCredencial);
-        try {
-            // Obten el usuario del catálogo de usuarios
-            bUsuario = persistencia.obten(usuario);
-
-            // Obtiene la lista de usuarios
-            listaUsuarios = persistencia.consultarUsuarios();
-        } catch (Exception e) {
-            // Si ocurrio un error al leer del catalogo de usuarios,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
-        // Si el usuario existe, despliega sus datos
-        if (bUsuario != null) {
-            dlgUsuario = new DlgUsuario(frame,
-                    "El Usuario ya está en el catalogo",
-                    true, bUsuario,
-                    ConstantesGUI.DESPLEGAR, respuesta);
-            return false;
-        }
-        // Si el usuario no existe captura los datos del nuevo usuario
-        dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true,
-                usuario, ConstantesGUI.AGREGAR, respuesta);
-        // Si el usuario presiono el boton Cancelar
-        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
-            return false;
-        }
-        // Agrega el nuevo usuario al catalogo de usuarios
-        try {
-            persistencia.agregar(usuario);
-        } catch (Exception e) {
-            // Si ocurrio un error al escribir al catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-
+    
     /**
      * Actualiza un libro del catálogo de libros
      *
@@ -171,7 +104,7 @@ public class Control {
      * @return Regresa true si se pudo actualizar el libro, false en caso
      * contrario
      */
-    public boolean actualizaLibro(JFrame frame) {
+    public boolean actualizarLibro(JFrame frame) {
         Libro libro;
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
@@ -230,6 +163,144 @@ public class Control {
             // Si ocurrio un error al escribir al catálogo de libros,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error!!.",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Elimina un libro del catálogo de libros
+     *
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * desplegar los datos del libro
+     * @return Regresa true si se pudo eliminar el libro, false en caso
+     * contrario
+     */
+    public boolean eliminarLibro(JFrame frame) {
+        Libro libro;
+        StringBuffer respuesta = new StringBuffer();
+        DlgLibro dlgLibro;
+        List<Libro> listaLibros;
+        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        // Captura el ISBN del libro
+        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
+                "Eliminar libro",
+                JOptionPane.QUESTION_MESSAGE);
+        // Si el usuario presionó el botón Cancelar
+        if (isbn == null) {
+            return false;
+        }
+        // Crea un objeto Libro con solo el ISBN
+        libro = new Libro(isbn);
+        try {
+            // Obten el libro del catalogo de libros
+            libro = persistencia.obten(libro);
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de libros
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Si el libro no existe en el catalogo de libros
+        if (libro == null) {
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, "El libro no existe",
+                    "¡Error!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            // Obtiene la lista de libros
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrió un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+        // Si existe el libro, despliega los datos del libro
+        dlgLibro = new DlgLibro(frame, "Libro a borrar", true, libro, ConstantesGUI.ELIMINAR, respuesta);
+        // Si el usuario presionó el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+        try {
+            // Elimina el libro del catálogo de libros
+            persistencia.eliminar(libro);
+        } catch (Exception e) {
+            // Si ocurrio un error al borrar del catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Agrega un usuario al catálogo de usuarios
+     *
+     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
+     * capturar los datos del usuario
+     * @return Regresa true si se pudo agregar el usuario, false en caso
+     * contrario
+     */
+    public boolean agregarUsuario(JFrame frame) {
+        Usuario usuario, bUsuario;
+        StringBuffer respuesta = new StringBuffer("");
+        DlgUsuario dlgUsuario;
+        List<Usuario> listaUsuarios;
+        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
+        // Captura el Num Credencial del usuario
+        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
+                "Agrega Usuario",
+                JOptionPane.QUESTION_MESSAGE);
+        // Si el usuario presionó el botón Cancelar
+        if (numCredencial == null) {
+            return false;
+        }
+        // Crea un objeto Usuario con solo el num de credencial
+        usuario = new Usuario(numCredencial);
+        try {
+            // Obten el usuario del catálogo de usuarios
+            bUsuario = persistencia.obten(usuario);
+
+            // Obtiene la lista de usuarios
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+        // Si el usuario existe, despliega sus datos
+        if (bUsuario != null) {
+            dlgUsuario = new DlgUsuario(frame,
+                    "El Usuario ya está en el catalogo",
+                    true, bUsuario,
+                    ConstantesGUI.DESPLEGAR, respuesta);
+            return false;
+        }
+        // Si el usuario no existe captura los datos del nuevo usuario
+        dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true,
+                usuario, ConstantesGUI.AGREGAR, respuesta);
+        // Si el usuario presiono el boton Cancelar
+        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
+            return false;
+        }
+        // Agrega el nuevo usuario al catalogo de usuarios
+        try {
+            persistencia.agregar(usuario);
+        } catch (Exception e) {
+            // Si ocurrio un error al escribir al catalogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -310,77 +381,6 @@ public class Control {
     }
 
     /**
-     * Elimina un libro del catálogo de libros
-     *
-     * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
-     * desplegar los datos del libro
-     * @return Regresa true si se pudo eliminar el libro, false en caso
-     * contrario
-     */
-    public boolean eliminaLibro(JFrame frame) {
-        Libro libro;
-        StringBuffer respuesta = new StringBuffer();
-        DlgLibro dlgLibro;
-        List<Libro> listaLibros;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
-        // Captura el ISBN del libro
-        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
-                "Eliminar libro",
-                JOptionPane.QUESTION_MESSAGE);
-        // Si el usuario presionó el botón Cancelar
-        if (isbn == null) {
-            return false;
-        }
-        // Crea un objeto Libro con solo el ISBN
-        libro = new Libro(isbn);
-        try {
-            // Obten el libro del catalogo de libros
-            libro = persistencia.obten(libro);
-        } catch (Exception e) {
-            // Si ocurrio un error al leer del catalogo de libros
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        // Si el libro no existe en el catalogo de libros
-        if (libro == null) {
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "El libro no existe",
-                    "¡Error!", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        try {
-            // Obtiene la lista de libros
-            listaLibros = persistencia.consultarLibros();
-        } catch (Exception e) {
-            // Si ocurrió un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
-        // Si existe el libro, despliega los datos del libro
-        dlgLibro = new DlgLibro(frame, "Libro a borrar", true, libro, ConstantesGUI.ELIMINAR, respuesta);
-        // Si el usuario presionó el boton Cancelar
-        if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
-            return false;
-        }
-        try {
-            // Elimina el libro del catálogo de libros
-            persistencia.eliminar(libro);
-        } catch (Exception e) {
-            // Si ocurrio un error al borrar del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Elimina un usuario del catálogo de usuarios
      *
      * @param frame Ventana sobre la que se despliega el cuadro de dialogo para
@@ -388,7 +388,7 @@ public class Control {
      * @return Regresa true si se pudo eliminar el usuario, false en caso
      * contrario
      */
-    public boolean eliminaUsuario(JFrame frame) {
+    public boolean eliminarUsuario(JFrame frame) {
         Usuario usuario;
         StringBuffer respuesta = new StringBuffer("");
         DlgUsuario dlgUsuario;
@@ -763,28 +763,6 @@ public class Control {
     }
 
     /**
-     * Regresa un objeto Tabla con todos los usuarios
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
-     * @return Objeto Tabla con todos los usuarios, null si hay un error
-     */
-    public Tabla getTablaUsuarios(JFrame frame) {
-        List<Usuario> listaUsuarios;
-        try {
-            // Obtiene la lista de libros
-            listaUsuarios = persistencia.consultarUsuarios();
-        } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-        // Regresa el objeto Tabla con todos los libros
-        return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
-    }
-
-    /**
      * Regresa un objeto Tabla con todos los libros que coinciden con un autor
      *
      * @param frame Ventana sobre la que se despliega el mensaje de error
@@ -899,6 +877,28 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros que tienen una misma clasificación
         return new Tabla("Lista de Libros por clasificación:", conversiones.librosTableModel(listaLibrosClasificacion));
     }
+    
+    /**
+     * Regresa un objeto Tabla con todos los usuarios
+     *
+     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * @return Objeto Tabla con todos los usuarios, null si hay un error
+     */
+    public Tabla getTablaUsuarios(JFrame frame) {
+        List<Usuario> listaUsuarios;
+        try {
+            // Obtiene la lista de libros
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        // Regresa el objeto Tabla con todos los libros
+        return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
+    }
 
     /**
      * Regresa un objeto Tabla con todos los libros
@@ -906,7 +906,7 @@ public class Control {
      * @param frame Ventana sobre la que se despliega el mensaje de error
      * @return Objeto Tabla con todos los libros, null si hay un error
      */
-    public Tabla getTablaInventario(JFrame frame) {
+    public Tabla getTablaInventarioLibros(JFrame frame) {
         List<PublicacionED> listaInventario;
         try {
             // Obtiene la lista de libros
@@ -928,7 +928,7 @@ public class Control {
      * @param frame Ventana sobre la que se despliega el mensaje de error
      * @return Objeto Tabla con todos los libros, null si hay un error
      */
-    public Tabla getTablaInventarioLibrosPrestados(JFrame frame) {
+    public Tabla getTablaLibrosPrestados(JFrame frame) {
         List<PublicacionED> librosPrestados;
         try {
             // Obtiene la lista de libros
@@ -950,7 +950,7 @@ public class Control {
      * @param frame Ventana sobre la que se despliega el mensaje de error
      * @return Objeto Tabla con todos los libros, null si hay un error
      */
-    public Tabla getTablaInventarioLibrosDisponibles(JFrame frame) {
+    public Tabla getTablaLibrosDisponibles(JFrame frame) {
         List<PublicacionED> librosDisponibles;
         try {
             // Obtiene la lista de libros
@@ -972,7 +972,7 @@ public class Control {
      * @param frame Ventana sobre la que se despliega el mensaje de error
      * @return Objeto Tabla con todos los libros, null si hay un error
      */
-    public Tabla getTablaPrestamos(JFrame frame) {
+    public Tabla getTablaPrestamosLibros(JFrame frame) {
         List<Prestamo> listaPrestamos;
         try {
             // Obtiene la lista de libros
@@ -995,7 +995,7 @@ public class Control {
      * @return Objeto Tabla con los libros que coinciden con el autor, null si
      * hay un error
      */
-    public Tabla getTablaPrestamosUsuario(JFrame frame) {
+    public Tabla getTablaPrestamosLibrosUsuario(JFrame frame) {
         List<Prestamo> listaPrestamosUsuario;
 
         // Captura el número de credencial del usuario del préstamo

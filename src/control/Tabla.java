@@ -47,7 +47,7 @@ public class Tabla {
      * Regresa los datos de la tabla
      * @return Objeto TableModel con los datos de la tabla
      */
-    public DefaultTableModel getModeloTabla() {
+    public DefaultTableModel getModelo() {
         return modeloTabla;
     }
 
@@ -55,7 +55,7 @@ public class Tabla {
      * Establece los datos de la tabla
      * @param modeloTabla Objeto TableModel con los datos de la tabla
      */
-    public void setModeloTabla(DefaultTableModel modeloTabla) {
+    public void setModelo(DefaultTableModel modeloTabla) {
         this.modeloTabla = modeloTabla;
     }
 }

@@ -52,7 +52,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     public void despliegaTabla(Tabla tabla) {
         // Crea la tabla a partir del modelo de la tabla con los valores
         // de los titulos de las columnas y los valores de las celdas
-        jtabla = new javax.swing.JTable(tabla.getModeloTabla());
+        jtabla = new javax.swing.JTable(tabla.getModelo());
         // Establece el título de la tabla
         tituloTabla.setText(tabla.getTitulo());
         // Hace que el control del tamaño de la tabla y la porción visible
@@ -406,7 +406,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarLibroActionPerformed
         // Agrega el nuevo libro
-        if (control.agregaLibro(this)) {
+        if (control.agregarLibro(this)) {
             // Obtiene la lista de libros
             Tabla tablaLibros = control.getTablaLibros(this);
             // Despliega la lista de libros
@@ -421,7 +421,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarLibroActionPerformed
         // Actualiza el libro
-        if (control.actualizaLibro(this)) {
+        if (control.actualizarLibro(this)) {
             // Obtiene la lista de libros
             Tabla tablaLibros = control.getTablaLibros(this);
             // Despliega la lista de libros
@@ -435,7 +435,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarLibroActionPerformed
-        if (control.eliminaLibro(this)) {
+        if (control.eliminarLibro(this)) {
             // Obtiene la lista de libros
             Tabla tablaLibros = control.getTablaLibros(this);
             // Despliega la lista de libros
@@ -450,7 +450,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
         // Agrega el nuevo usuario
-        if (control.agregaUsuario(this)) {
+        if (control.agregarUsuario(this)) {
             // Obtiene la lista de usuarios
             Tabla tablaUsuarios = control.getTablaUsuarios(this);
             // Despliega la lista de libros
@@ -479,7 +479,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarUsuarioActionPerformed
-        if (control.eliminaUsuario(this)) {
+        if (control.eliminarUsuario(this)) {
             // Obtiene la lista de usuarios
             Tabla tablaUsuarios = control.getTablaUsuarios(this);
             // Despliega la lista de libros
@@ -496,7 +496,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Inventaría el nuevo libro
         if (control.inventariarLibro(this)) {
             // Obtiene la lista del inventario
-            Tabla tablaInventario = control.getTablaInventario(this);
+            Tabla tablaInventario = control.getTablaInventarioLibros(this);
             // Despliega la lista del inventario
             despliegaTabla(tablaInventario);
         }
@@ -511,7 +511,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Desinventaría el nuevo libro
         if (control.desinventariarLibro(this)) {
             // Obtiene la lista del inventario
-            Tabla tablaInventario = control.getTablaInventario(this);
+            Tabla tablaInventario = control.getTablaInventarioLibros(this);
             // Despliega la lista del inventario
             despliegaTabla(tablaInventario);
         }
@@ -526,7 +526,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Presta el nuevo libro
         if (control.prestarLibro(this)) {
             // Obtiene la lista de los préstamos
-            Tabla tablaPrestamos = control.getTablaPrestamos(this);
+            Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
             // Despliega la lista de los préstamos
             despliegaTabla(tablaPrestamos);
         }
@@ -536,7 +536,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Devuelve el nuevo libro
         if (control.devolverLibro(this)) {
             // Obtiene la lista de los préstamos
-            Tabla tablaPrestamos = control.getTablaPrestamos(this);
+            Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
             // Despliega la lista de los préstamos
             despliegaTabla(tablaPrestamos);
         }
@@ -597,7 +597,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
         // Obtiene la lista de libros por editorial
-        Tabla tablaInventario = control.getTablaInventario(this);
+        Tabla tablaInventario = control.getTablaInventarioLibros(this);
         // Despliega la lista de libros por editorial
         despliegaTabla(tablaInventario);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
@@ -622,9 +622,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
         // Obtiene la lista de libros por editorial
-        Tabla tablaInventarioLibrosPrestados = control.getTablaInventarioLibrosPrestados(this);
+        Tabla tablaLibrosPrestados = control.getTablaLibrosPrestados(this);
         // Despliega la lista de libros por editorial
-        despliegaTabla(tablaInventarioLibrosPrestados);
+        despliegaTabla(tablaLibrosPrestados);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
 
     /**
@@ -635,9 +635,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
         // Obtiene la lista de libros por editorial
-        Tabla tablaInventarioLibrosDisponibles = control.getTablaInventarioLibrosDisponibles(this);
+        Tabla tablaLibrosDisponibles = control.getTablaLibrosDisponibles(this);
         // Despliega la lista de libros por editorial
-        despliegaTabla(tablaInventarioLibrosDisponibles);
+        despliegaTabla(tablaLibrosDisponibles);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
 
     /**
@@ -648,7 +648,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuConsultaPrestamosLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
         // Obtiene la lista de libros por editorial
-        Tabla tablaPrestamos = control.getTablaPrestamos(this);
+        Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
         // Despliega la lista de libros por editorial
         despliegaTabla(tablaPrestamos);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
@@ -661,7 +661,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      */
     private void opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
         // Obtiene la lista de libros por autor
-        Tabla tablaPrestamosUsuario = control.getTablaPrestamosUsuario(this);
+        Tabla tablaPrestamosUsuario = control.getTablaPrestamosLibrosUsuario(this);
         // Despliega la lista de libros por autor
         despliegaTabla(tablaPrestamosUsuario);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
