@@ -551,9 +551,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de libros
         Tabla tablaLibros = control.getTablaLibros(this);
         // Despliega la lista de libros
-        if (tablaLibros != null) {
-            despliegaTabla(tablaLibros);
-        }
+        despliegaTabla(tablaLibros);
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
     /**
      * Método oyente que obtiene y despliega la lista de libros con respecto a

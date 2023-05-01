@@ -758,6 +758,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Libros", conversiones.librosTableModel(listaLibros));
     }
@@ -793,7 +794,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No hay ningún libro con ese autor en el catálogo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-
+            return null;
         }
 
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
@@ -832,7 +833,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa editorial en el catálogo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-
+            return null;
         }
 
         // Regresa el objeto Tabla con todos los libros que tienen una misma editorial
@@ -871,7 +872,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa clasificación en el catálogo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-
+            return null;
         }
 
         // Regresa el objeto Tabla con todos los libros que tienen una misma clasificación
@@ -1021,6 +1022,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No se ha hecho ningún préstamo al usuario.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
+            return null;
         }
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por usuario:", conversiones.prestamosTableModel(listaPrestamosUsuario));
@@ -1059,6 +1061,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No se ha prestado ese libro.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
+            return null;
         }
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por libro:", conversiones.prestamosTableModel(listaPrestamosLibro));
@@ -1094,6 +1097,7 @@ public class Control {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No hay préstamos de ese periodo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
+            return null;
         }
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por periodo:", conversiones.prestamosTableModel(listaPrestamosLibroPeriodo));
