@@ -3,6 +3,7 @@ package interfazUsuario;
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import objetosNegocio.Publicacion;
 import objetosNegocio.PublicacionED;
 
@@ -171,16 +172,22 @@ public class DlgInventario extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es inventariar o desinventariar
-        if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
-            publicacionED.setPublicacion((Publicacion) cajaCombinadaLibros.getSelectedItem());
-            publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
+        int cantidad = Integer.parseInt(campoTextoCantidad.getText());
+        if (cantidad > 0) {
+            if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
+                publicacionED.setPublicacion((Publicacion) cajaCombinadaLibros.getSelectedItem());
+                publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
+            }
+            // Borra el contenido de respuesta
+            respuesta.delete(0, respuesta.length());
+            // Establece que se presionó el botón botonAceptar
+            respuesta.append(ConstantesGUI.ACEPTAR);
+            // Destruye el cuadro de díalogo
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Introduzca una cantidad válida.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            campoTextoCantidad.setText("");
         }
-        // Borra el contenido de respuesta
-        respuesta.delete(0, respuesta.length());
-        // Establece que se presionó el botón botonAceptar
-        respuesta.append(ConstantesGUI.ACEPTAR);
-        // Destruye el cuadro de díalogo
-        dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed

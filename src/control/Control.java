@@ -46,9 +46,16 @@ public class Control {
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
+        String isbn = "";
 
         // Captura el ISBN del libro
-        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
+        while (isbn != null && isbn.equals("")) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
+            if (isbn != null && isbn.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
         // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
@@ -95,7 +102,7 @@ public class Control {
         }
         return true;
     }
-    
+
     /**
      * Actualiza un libro del catálogo de libros
      *
@@ -168,7 +175,7 @@ public class Control {
         }
         return true;
     }
-    
+
     /**
      * Elimina un libro del catálogo de libros
      *
@@ -759,6 +766,10 @@ public class Control {
             return null;
         }
         
+        if(listaLibros.isEmpty()) {
+            return null;
+        }
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Libros", conversiones.librosTableModel(listaLibros));
     }
@@ -771,12 +782,41 @@ public class Control {
      * hay un error
      */
     public Tabla getTablaLibrosAutor(JFrame frame) {
-        List<Libro> listaLibrosAutor;
-
+        List<Libro> listaLibrosAutor, listaLibros;
+        String autor = "";
+        
+        try {
+            // Obtiene la lista de libros por el autor
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay libros en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
         // Captura el autor del libro
-        String autor = JOptionPane.showInputDialog(frame, "Autor del libro:",
+        while (autor != null && autor.equals("")) {
+            autor = JOptionPane.showInputDialog(frame, "Autor del libro:",
                 "Libro a buscar por autor:",
                 JOptionPane.QUESTION_MESSAGE);
+            if (autor != null && autor.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce un autor válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
+        if (autor == null) {
+            return null;
+        }
+        
 
         try {
             // Obtiene la lista de libros por el autor
@@ -790,9 +830,7 @@ public class Control {
         }
 
         if (listaLibrosAutor.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay ningún libro con ese autor en el catálogo.", "¡Error!",
+            JOptionPane.showMessageDialog(frame, "No hay ningún libro del autor en el catálogo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
@@ -878,7 +916,7 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros que tienen una misma clasificación
         return new Tabla("Lista de Libros por clasificación:", conversiones.librosTableModel(listaLibrosClasificacion));
     }
-    
+
     /**
      * Regresa un objeto Tabla con todos los usuarios
      *
@@ -1027,7 +1065,7 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por usuario:", conversiones.prestamosTableModel(listaPrestamosUsuario));
     }
-    
+
     /**
      * Regresa un objeto Tabla con todos los libros que coinciden con un autor
      *
@@ -1066,7 +1104,7 @@ public class Control {
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por libro:", conversiones.prestamosTableModel(listaPrestamosLibro));
     }
-    
+
     /**
      * Regresa un objeto Tabla con todos los libros que coinciden con un autor
      *
@@ -1080,7 +1118,7 @@ public class Control {
         List<Prestamo> listaPrestamosLibroPeriodo;
 
         dlgPeriodo = new DlgPeriodo(frame, "Captura Datos Periodo", true, periodo, ConstantesGUI.AGREGAR);
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaPrestamosLibroPeriodo = persistencia.consultarPrestamosLibros(periodo);

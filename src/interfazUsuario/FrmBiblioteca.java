@@ -4,6 +4,7 @@ import control.Control;
 import control.Tabla;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -439,7 +440,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             // Obtiene la lista de libros
             Tabla tablaLibros = control.getTablaLibros(this);
             // Despliega la lista de libros
-            despliegaTabla(tablaLibros);
+            if (tablaLibros != null) {
+                despliegaTabla(tablaLibros);
+            }
         }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
@@ -551,8 +554,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de libros
         Tabla tablaLibros = control.getTablaLibros(this);
         // Despliega la lista de libros
-        despliegaTabla(tablaLibros);
+        if (tablaLibros != null) {
+            despliegaTabla(tablaLibros);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
+    
     /**
      * Método oyente que obtiene y despliega la lista de libros con respecto a
      * un autor del libro
@@ -560,13 +569,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaLibrosAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosAutorActionPerformed
-
         // Obtiene la lista de libros por autor
         Tabla tablaLibrosAutor = control.getTablaLibrosAutor(this);
         // Despliega la lista de libros por autor
-        despliegaTabla(tablaLibrosAutor);
-
+        if (tablaLibrosAutor != null) {
+            despliegaTabla(tablaLibrosAutor);
+        }
     }//GEN-LAST:event_opcionMenuConsultaLibrosAutorActionPerformed
+ 
     /**
      * Método oyente que obtiene y despliega la lista de libros con respecto a
      * una clasificacion del libro
