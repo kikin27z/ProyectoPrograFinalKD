@@ -533,13 +533,13 @@ public class Control {
         PublicacionED publicacionED = new PublicacionED();
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
-        List<Libro> listaLibros;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        List<PublicacionED> listaInventarioLibros;
+        DefaultComboBoxModel<PublicacionED> inventarioLibrosComboBoxModel;
         int cantidad;
 
         try {
             // Obtiene la lista de libros
-            listaLibros = persistencia.consultarLibros();
+            listaInventarioLibros = persistencia.consultarInventarioLibros();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -548,15 +548,7 @@ public class Control {
             return false;
         }
 
-        if (listaLibros.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay libros en el catálogo.", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (persistencia.consultarInventarioLibros().isEmpty()) {
+        if (listaInventarioLibros.isEmpty()) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No hay libros en el inventario.", "¡Error!",
@@ -564,8 +556,8 @@ public class Control {
             return false;
         }
 
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
-        dlgInventario = new DlgInventario(frame, "Desinventaria Libro", true, publicacionED, todosLibrosComboBoxModel, ConstantesGUI.ELIMINAR, respuesta);
+        inventarioLibrosComboBoxModel = conversiones.inventarioComboBoxModel(listaInventarioLibros);
+        dlgInventario = new DlgInventario(frame, "Desinventaria Libro", true, publicacionED, inventarioLibrosComboBoxModel, ConstantesGUI.ELIMINAR, respuesta);
 
         libro = (Libro) publicacionED.getPublicacion();
         cantidad = publicacionED.getExistencia();

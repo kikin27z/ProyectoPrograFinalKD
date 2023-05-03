@@ -174,8 +174,12 @@ public class DlgInventario extends javax.swing.JDialog {
         //Si la opcion es inventariar o desinventariar
         int cantidad = Integer.parseInt(campoTextoCantidad.getText());
         if (cantidad > 0) {
-            if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ELIMINAR) {
+            if (operacion == ConstantesGUI.AGREGAR) {
                 publicacionED.setPublicacion((Publicacion) cajaCombinadaLibros.getSelectedItem());
+                publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
+            } else if (operacion == ConstantesGUI.ELIMINAR) {
+                PublicacionED pubEDtmp = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+                publicacionED.setPublicacion(pubEDtmp.getPublicacion());
                 publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
             }
             // Borra el contenido de respuesta
