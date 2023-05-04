@@ -163,9 +163,17 @@ public class DlgPeriodo extends javax.swing.JDialog {
             }
         } while (!desde.matches("\\d{2}/\\d{2}/\\d{4}") || !hasta.matches("\\d{2}/\\d{2}/\\d{4}"));
         if (desde.matches("\\d{2}/\\d{2}/\\d{4}") && hasta.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            periodo.setDesde(new Fecha(desde));
-            periodo.setHasta(new Fecha(hasta));
-            dispose();
+            Fecha desdeFecha = new Fecha(desde);
+            Fecha hastaFecha = new Fecha(hasta);
+            if (desdeFecha.before(hastaFecha)) {
+                periodo.setDesde(new Fecha(desde));
+                periodo.setHasta(new Fecha(hasta));
+                dispose();
+            } else if (desdeFecha.equals(hastaFecha)) {
+                JOptionPane.showMessageDialog(this, "Las fechas son iguales.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "La fecha hasta es anterior a la de desde.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 

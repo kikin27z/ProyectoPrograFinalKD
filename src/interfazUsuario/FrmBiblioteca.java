@@ -359,6 +359,11 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         menuAyuda.setText("Ayuda");
 
         opcionMenuAcercaDe.setText("Acerca de");
+        opcionMenuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuAcercaDeActionPerformed(evt);
+            }
+        });
         menuAyuda.add(opcionMenuAcercaDe);
 
         menuBar.add(menuAyuda);
@@ -773,6 +778,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
+
+    private void opcionMenuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAcercaDeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opcionMenuAcercaDeActionPerformed
 
     /**
      * @param args the command line arguments

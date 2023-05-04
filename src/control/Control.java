@@ -53,6 +53,9 @@ public class Control {
             if (isbn != null && isbn.equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            if (isbn.trim().equals("")) {
+                isbn = "";
+            }
         }
 
         // Si el usuario presionó el botón Cancelar
@@ -1317,6 +1320,10 @@ public class Control {
 
         dlgPeriodo = new DlgPeriodo(frame, "Captura Datos Periodo", true, periodo, ConstantesGUI.AGREGAR);
 
+        if (periodo.getDesde().equals(periodo.getHasta())) {
+            return null;
+        }
+        
         try {
             // Obtiene la lista de libros por el autor
             listaPrestamosLibroPeriodo = persistencia.consultarPrestamosLibros(periodo);
