@@ -54,12 +54,12 @@ public class Control {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
         }
-        
+
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
@@ -114,7 +114,7 @@ public class Control {
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
         String isbn = "";
-        
+
         try {
             // Obten el libro del catalogo de libros
             listaLibros = persistencia.consultarLibros();
@@ -125,7 +125,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         if (listaLibros.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay líbros en el catálogo.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -138,12 +138,12 @@ public class Control {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
         }
-        
+
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
@@ -205,7 +205,7 @@ public class Control {
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
         String isbn = "";
-        
+
         try {
             // Obten el libro del catalogo de libros
             listaLibros = persistencia.consultarLibros();
@@ -216,7 +216,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         if (listaLibros.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay líbros en el catálogo.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -229,12 +229,12 @@ public class Control {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
         }
-        
+
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
@@ -247,14 +247,14 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         // Si el libro no existe en el catalogo de libros
         if (libro == null) {
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, "No se encontró el libro en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-                
+
         // Si existe el libro, despliega los datos del libro
         dlgLibro = new DlgLibro(frame, "Borrar Libro", true, libro, ConstantesGUI.ELIMINAR, respuesta);
         // Si el usuario presionó el boton Cancelar
@@ -290,16 +290,25 @@ public class Control {
 
         // Captura el ISBN del libro
         while (numCredencial != null && numCredencial.equals("")) {
-            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+            do {
+                numCredencial = JOptionPane.showInputDialog(null, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+                if (numCredencial == null) {
+                    break;
+                }
+                if (!numCredencial.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } while (!numCredencial.matches("\\d+"));
             if (numCredencial != null && numCredencial.equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
         }
+
         // Crea un objeto Usuario con solo el num de credencial
         usuario = new Usuario(numCredencial);
         try {
@@ -318,7 +327,7 @@ public class Control {
             dlgUsuario = new DlgUsuario(frame, "El Usuario ya está registrado.", true, bUsuario, ConstantesGUI.DESPLEGAR, respuesta);
             return false;
         }
-        
+
         // Si el usuario no existe captura los datos del nuevo usuario
         dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true, usuario, ConstantesGUI.AGREGAR, respuesta);
         // Si el usuario presiono el boton Cancelar
@@ -352,7 +361,7 @@ public class Control {
         DlgUsuario dlgUsuario;
         List<Usuario> listaUsuarios;
         String numCredencial = "";
-        
+
         try {
             // Obten el libro del catalogo de libros
             listaUsuarios = persistencia.consultarUsuarios();
@@ -363,7 +372,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         if (listaUsuarios.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay usuarios registrados.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -376,15 +385,15 @@ public class Control {
                 JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
         }
-        
+
         // Crea un objeto Usuario con solo el numero de credencial
         usuario = new Usuario(numCredencial);
-        
+
         try {
             // Obten el usuario del catalogo de usuarios
             usuario = persistencia.obten(usuario);
@@ -395,7 +404,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         // Si el usuario no existe, despliega un mensaje de error
         if (usuario == null) {
             JOptionPane.showMessageDialog(frame, "El usuario no está registrado.", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -408,7 +417,7 @@ public class Control {
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
         }
-        
+
         // Actualiza el usuario del catálogo de usuarios
         try {
             persistencia.actualizar(usuario);
@@ -436,7 +445,7 @@ public class Control {
         DlgUsuario dlgUsuario;
         List<Usuario> listaUsuarios;
         String numCredencial = "";
-        
+
         try {
             // Obten el libro del catalogo de libros
             listaUsuarios = persistencia.consultarUsuarios();
@@ -447,7 +456,7 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+
         if (listaUsuarios.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay usuarios registrados.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -460,12 +469,12 @@ public class Control {
                 JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
         }
-        
+
         // Crea un objeto Usuario con solo el numero de credencial
         usuario = new Usuario(numCredencial);
         try {
@@ -797,8 +806,8 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
-        if(listaLibros.isEmpty()) {
+
+        if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
 
@@ -816,7 +825,7 @@ public class Control {
     public Tabla getTablaLibrosAutor(JFrame frame) {
         List<Libro> listaLibrosAutor, listaLibros;
         String autor = "";
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibros = persistencia.consultarLibros();
@@ -827,26 +836,26 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Captura el autor del libro
         while (autor != null && autor.equals("")) {
             autor = JOptionPane.showInputDialog(frame, "Autor del libro:",
-                "Libro a buscar por autor:",
-                JOptionPane.QUESTION_MESSAGE);
+                    "Libro a buscar por autor:",
+                    JOptionPane.QUESTION_MESSAGE);
             if (autor != null && autor.equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduce un autor válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (autor == null) {
             return null;
         }
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibrosAutor = persistencia.consultarLibrosAutor(autor);
@@ -858,7 +867,7 @@ public class Control {
             return null;
         }
 
-        if(listaLibrosAutor.isEmpty()) {
+        if (listaLibrosAutor.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros del autor.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosAutor", null);
@@ -879,7 +888,7 @@ public class Control {
     public Tabla getTablaLibrosEditorial(JFrame frame) {
         List<Libro> listaLibrosEditorial, listaLibros;
         String editorial = "";
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibros = persistencia.consultarLibros();
@@ -890,26 +899,26 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Captura el autor del libro
         while (editorial != null && editorial.equals("")) {
             editorial = JOptionPane.showInputDialog(frame, "Editorial del libro:",
-                "Libro a buscar por editorial:",
-                JOptionPane.QUESTION_MESSAGE);
+                    "Libro a buscar por editorial:",
+                    JOptionPane.QUESTION_MESSAGE);
             if (editorial != null && editorial.equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduce una editorial válida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (editorial == null) {
             return null;
         }
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibrosEditorial = persistencia.consultarLibrosEditorial(editorial);
@@ -921,7 +930,7 @@ public class Control {
             return null;
         }
 
-        if(listaLibrosEditorial.isEmpty()) {
+        if (listaLibrosEditorial.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros de la editorial.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosEditorial", null);
@@ -942,7 +951,7 @@ public class Control {
     public Tabla getTablaLibrosClasificacion(JFrame frame) {
         List<Libro> listaLibrosClasificacion, listaLibros;
         String clasificacion = "";
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibros = persistencia.consultarLibros();
@@ -953,26 +962,26 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Captura el autor del libro
         while (clasificacion != null && clasificacion.equals("")) {
             clasificacion = JOptionPane.showInputDialog(frame, "Clasificación del libro:",
-                "Libro a buscar por clasificación:",
-                JOptionPane.QUESTION_MESSAGE);
+                    "Libro a buscar por clasificación:",
+                    JOptionPane.QUESTION_MESSAGE);
             if (clasificacion != null && clasificacion.equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduce una clasificación válida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         // Si el usuario presionó el botón Cancelar
         if (clasificacion == null) {
             return null;
         }
-        
+
         try {
             // Obtiene la lista de libros por el autor
             listaLibrosClasificacion = persistencia.consultarLibrosClasificacion(clasificacion);
@@ -984,7 +993,7 @@ public class Control {
             return null;
         }
 
-        if(listaLibrosClasificacion.isEmpty()) {
+        if (listaLibrosClasificacion.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros con esa clasificación.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosClasificacion", null);
@@ -1012,11 +1021,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
-        if(listaUsuarios.isEmpty()) {
+
+        if (listaUsuarios.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
     }
@@ -1039,11 +1048,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         if (listaInventario.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista del Inventario", conversiones.inventarioLibrosTableModel(listaInventario));
     }
@@ -1066,6 +1075,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+
+        if (librosPrestados.isEmpty()) {
+            return new Tabla("", null);
+        }
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de libros prestados", conversiones.inventarioLibrosTableModel(librosPrestados));
     }
@@ -1088,6 +1102,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+
+        if (librosDisponibles.isEmpty()) {
+            return new Tabla("", null);
+        }
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de libros disponibles", conversiones.inventarioLibrosTableModel(librosDisponibles));
     }
@@ -1110,11 +1129,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         if (listaPrestamos.isEmpty()) {
             return new Tabla("", null);
         }
-        
+
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Préstamos", conversiones.prestamosTableModel(listaPrestamos));
     }
@@ -1127,14 +1146,51 @@ public class Control {
      * hay un error
      */
     public Tabla getTablaPrestamosLibrosUsuario(JFrame frame) {
-        List<Prestamo> listaPrestamosUsuario;
+        List<Prestamo> listaPrestamosUsuario, listaPrestamos;
+        Usuario usuario;
+        String numCredencial = "";
 
-        // Captura el número de credencial del usuario del préstamo
-        String numCred = JOptionPane.showInputDialog(frame, "Número de credencial del usuario:",
-                "Préstamo a buscar por usuario:",
-                JOptionPane.QUESTION_MESSAGE);
+        try {
+            // Obtiene la lista de libros por el autor
+            listaPrestamos = persistencia.consultarPrestamosLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
-        Usuario usuario = persistencia.obten(new Usuario(numCred));
+        if (listaPrestamos.isEmpty()) {
+            return new Tabla("", null);
+        }
+
+        // Captura el autor del libro
+        while (numCredencial != null && numCredencial.equals("")) {
+            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:",
+                    "Préstamo a buscar por usuario:",
+                    JOptionPane.QUESTION_MESSAGE);
+            if (numCredencial != null && numCredencial.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Si el usuario presionó el botón Cancelar
+        if (numCredencial == null) {
+            return null;
+        }
+
+        // Crea un objeto Usuario con solo el num de credencial
+        try {
+            // Obten el usuario del catálogo de usuarios
+            usuario = persistencia.obten(new Usuario(numCredencial));
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
         try {
             // Obtiene la lista de libros por el autor
@@ -1148,12 +1204,11 @@ public class Control {
         }
 
         if (listaPrestamosUsuario.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No se ha hecho ningún préstamo al usuario.", "¡Error!",
+            JOptionPane.showMessageDialog(frame, "No hay préstamos de ese usuario.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noPrestamosUsuario", null);
         }
+
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por usuario:", conversiones.prestamosTableModel(listaPrestamosUsuario));
     }
@@ -1166,14 +1221,51 @@ public class Control {
      * hay un error
      */
     public Tabla getTablaPrestamosLibro(JFrame frame) {
-        List<Prestamo> listaPrestamosLibro;
+        List<Prestamo> listaPrestamosLibro, listaPrestamos;
+        Libro libro;
+        String isbn = "";
 
-        // Captura el número de credencial del usuario del préstamo
-        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
-                "Préstamo a buscar por libro:",
-                JOptionPane.QUESTION_MESSAGE);
+        try {
+            // Obtiene la lista de libros por el autor
+            listaPrestamos = persistencia.consultarPrestamosLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
-        Libro libro = persistencia.obten(new Libro(isbn));
+        if (listaPrestamos.isEmpty()) {
+            return new Tabla("", null);
+        }
+
+        // Captura el autor del libro
+        while (isbn != null && isbn.equals("")) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
+                    "Préstamo a buscar por libro:",
+                    JOptionPane.QUESTION_MESSAGE);
+            if (isbn != null && isbn.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Si el usuario presionó el botón Cancelar
+        if (isbn == null) {
+            return null;
+        }
+
+        // Crea un objeto Usuario con solo el num de credencial
+        try {
+            // Obten el usuario del catálogo de usuarios
+            libro = persistencia.obten(new Libro(isbn));
+        } catch (Exception e) {
+            // Si ocurrio un error al leer del catalogo de usuarios,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
 
         try {
             // Obtiene la lista de libros por el autor
@@ -1187,12 +1279,11 @@ public class Control {
         }
 
         if (listaPrestamosLibro.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No se ha prestado ese libro.", "¡Error!",
+            JOptionPane.showMessageDialog(frame, "No hay préstamos de ese libro.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noPrestamosLibro", null);
         }
+
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por libro:", conversiones.prestamosTableModel(listaPrestamosLibro));
     }
@@ -1207,7 +1298,22 @@ public class Control {
     public Tabla getTablaPrestamosLibrosPeriodo(JFrame frame) {
         Periodo periodo = new Periodo(new Fecha(), new Fecha());
         DlgPeriodo dlgPeriodo;
-        List<Prestamo> listaPrestamosLibroPeriodo;
+        List<Prestamo> listaPrestamosLibroPeriodo, listaPrestamos;
+
+        try {
+            // Obtiene la lista de libros por el autor
+            listaPrestamos = persistencia.consultarPrestamosLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+
+        if (listaPrestamos.isEmpty()) {
+            return new Tabla("", null);
+        }
 
         dlgPeriodo = new DlgPeriodo(frame, "Captura Datos Periodo", true, periodo, ConstantesGUI.AGREGAR);
 
@@ -1223,12 +1329,11 @@ public class Control {
         }
 
         if (listaPrestamosLibroPeriodo.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay préstamos de ese periodo.", "¡Error!",
+            JOptionPane.showMessageDialog(frame, "No hay préstamos dentro del periodo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noPrestamosPeriodo", null);
         }
+
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Préstamos por periodo:", conversiones.prestamosTableModel(listaPrestamosLibroPeriodo));
     }

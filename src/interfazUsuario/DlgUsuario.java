@@ -132,6 +132,12 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         campoTextoDireccion.setToolTipText("");
 
+        campoTextoTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoTelefonoKeyTyped(evt);
+            }
+        });
+
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +265,15 @@ public class DlgUsuario extends javax.swing.JDialog {
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void campoTextoTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoTelefonoKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') ||
+           (c == evt.VK_BACK_SPACE) ||
+           (c == evt.VK_DELETE))) {
+            evt.consume(); // ignorar el evento de tecla
+        }
+    }//GEN-LAST:event_campoTextoTelefonoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;

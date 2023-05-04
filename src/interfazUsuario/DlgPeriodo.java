@@ -2,6 +2,7 @@ package interfazUsuario;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import javax.swing.JOptionPane;
 import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 
@@ -21,8 +22,8 @@ public class DlgPeriodo extends javax.swing.JDialog {
      * diálogo, false en caso contrario
      * @param periodo Contiene la información del periodo vinculado a los libros
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
-     * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
-     * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
+     * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3; ACEPTAR = "Aceptar",
+     * CANCELAR = "Cancelar".
      */
     public DlgPeriodo(java.awt.Frame parent, String title, boolean modal, Periodo periodo, int operacion) {
         super(parent, title, modal);
@@ -152,12 +153,22 @@ public class DlgPeriodo extends javax.swing.JDialog {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // Toma los valores capturados en los campos de texto y en la caja
         // combinada y almacénalos en el parámetro cancion.
-        periodo.setDesde(new Fecha(campoTextoDesde.getText()));
-        periodo.setHasta(new Fecha(campoTextoHasta.getText()));
-
-        dispose();
+        String desde, hasta;
+        do {
+            desde = campoTextoDesde.getText();
+            hasta = campoTextoHasta.getText();
+            if (!desde.matches("\\d{2}/\\d{2}/\\d{4}") || !hasta.matches("\\d{2}/\\d{2}/\\d{4}")) {
+                JOptionPane.showMessageDialog(this, "Introduzca una fecha en el formato dd/mm/aaaa.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+                break;
+            }
+        } while (!desde.matches("\\d{2}/\\d{2}/\\d{4}") || !hasta.matches("\\d{2}/\\d{2}/\\d{4}"));
+        if (desde.matches("\\d{2}/\\d{2}/\\d{4}") && hasta.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            periodo.setDesde(new Fecha(desde));
+            periodo.setHasta(new Fecha(hasta));
+            dispose();
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
-    
+
     /**
      * Método oyente del botón botonRestaurar
      *
