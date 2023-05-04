@@ -436,13 +436,12 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarLibroActionPerformed
+        // Actualiza el libro
         if (control.eliminarLibro(this)) {
             // Obtiene la lista de libros
             Tabla tablaLibros = control.getTablaLibros(this);
             // Despliega la lista de libros
-            if (tablaLibros != null) {
-                despliegaTabla(tablaLibros);
-            }
+            despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
@@ -535,6 +534,11 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcionMenuPrestarLibroActionPerformed
 
+    /**
+     * Método oyente que presta un libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuDevolverLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDevolverLibroActionPerformed
         // Devuelve el nuevo libro
         if (control.devolverLibro(this)) {
@@ -554,11 +558,10 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de libros
         Tabla tablaLibros = control.getTablaLibros(this);
         // Despliega la lista de libros
-        if (tablaLibros != null) {
-            despliegaTabla(tablaLibros);
+        if(tablaLibros.getTitulo().equals("")) {
+            JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
+            despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
     
@@ -573,7 +576,13 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         Tabla tablaLibrosAutor = control.getTablaLibrosAutor(this);
         // Despliega la lista de libros por autor
         if (tablaLibrosAutor != null) {
-            despliegaTabla(tablaLibrosAutor);
+            if(tablaLibrosAutor.getTitulo().equals("")) {
+                JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            } else if (tablaLibrosAutor.getTitulo().equals("noLibrosAutor")) {
+                tablaLibrosAutor.setTitulo("");
+            } else {
+                despliegaTabla(tablaLibrosAutor);
+            }
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosAutorActionPerformed
  
@@ -587,7 +596,15 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de libros por clasificación
         Tabla tablaLibrosClasificacion = control.getTablaLibrosClasificacion(this);
         // Despliega la lista de libros por clasificación 
-        despliegaTabla(tablaLibrosClasificacion);
+        if (tablaLibrosClasificacion != null) {
+            if(tablaLibrosClasificacion.getTitulo().equals("")) {
+                JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            } else if (tablaLibrosClasificacion.getTitulo().equals("noLibrosClasificacion")) {
+                tablaLibrosClasificacion.setTitulo("");
+            } else {
+                despliegaTabla(tablaLibrosClasificacion);
+            }
+        }
     }//GEN-LAST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
 
     /**
@@ -597,16 +614,32 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaLibrosEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosEditorialActionPerformed
-//         Obtiene la lista de libros por editorial
+        // Obtiene la lista de libros por editorial
         Tabla tablaLibrosEditorial = control.getTablaLibrosEditorial(this);
-//             Despliega la lista de libros por editorial
-        despliegaTabla(tablaLibrosEditorial);
+        // Despliega la lista de libros por editorial
+        if (tablaLibrosEditorial != null) {
+            if(tablaLibrosEditorial.getTitulo().equals("")) {
+                JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+            } else if (tablaLibrosEditorial.getTitulo().equals("noLibrosEditorial")) {
+                tablaLibrosEditorial.setTitulo("");
+            } else {
+                despliegaTabla(tablaLibrosEditorial);
+            }
+        }
     }//GEN-LAST:event_opcionMenuConsultaLibrosEditorialActionPerformed
 
+    /**
+     * Método oyente que presta un libro
+     *
+     * @param evt Evento al que escucha
+     */
     private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
         // Obtiene la lista de libros por editorial
         Tabla tablaInventario = control.getTablaInventarioLibros(this);
         // Despliega la lista de libros por editorial
+        if(tablaInventario.getTitulo().equals("")) {
+            JOptionPane.showMessageDialog(this, "No hay libros en el inventario.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+        }
         despliegaTabla(tablaInventario);
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
 
@@ -616,10 +649,14 @@ public class FrmBiblioteca extends javax.swing.JFrame {
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaUsuariosActionPerformed
-        // Obtiene la lista de usuarios
+        // Obtiene la lista de libros
         Tabla tablaUsuarios = control.getTablaUsuarios(this);
-        // Despliega la lista de usuarios
-        despliegaTabla(tablaUsuarios);
+        // Despliega la lista de libros
+        if(tablaUsuarios.getTitulo().equals("")) {
+            JOptionPane.showMessageDialog(this, "No hay usuarios registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            despliegaTabla(tablaUsuarios);
+        }
     }//GEN-LAST:event_opcionMenuConsultaUsuariosActionPerformed
 
     /**
@@ -658,6 +695,9 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         // Obtiene la lista de libros por editorial
         Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
         // Despliega la lista de libros por editorial
+        if(tablaPrestamos.getTitulo().equals("")) {
+            JOptionPane.showMessageDialog(this, "No hay préstamos registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+        }
         despliegaTabla(tablaPrestamos);
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
 

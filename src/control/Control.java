@@ -45,14 +45,13 @@ public class Control {
         Libro libro, bLibro;
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
-        List<Libro> listaLibros;
         String isbn = "";
 
         // Captura el ISBN del libro
         while (isbn != null && isbn.equals("")) {
             isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
             if (isbn != null && isbn.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduce un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -60,14 +59,12 @@ public class Control {
         if (isbn == null) {
             return false;
         }
+        
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
             // Obten el libro del catálogo de libros
             bLibro = persistencia.obten(libro);
-
-            // Obtiene la lista de libros
-            listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -116,15 +113,37 @@ public class Control {
         StringBuffer respuesta = new StringBuffer("");
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        String isbn = "";
+        
+        try {
+            // Obten el libro del catalogo de libros
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrió un error al leer del catálogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay líbros en el catálogo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         // Captura el ISBN del libro
-        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
-                "Actualizar libro",
-                JOptionPane.QUESTION_MESSAGE);
-        // Si el usuario presiono el boton Cancelar
+        while (isbn != null && isbn.equals("")) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Actualiza Libro", JOptionPane.QUESTION_MESSAGE);
+            if (isbn != null && isbn.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
         }
+        
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
@@ -139,9 +158,7 @@ public class Control {
         }
         // Si el libro no existe, despliega un mensaje de error
         if (libro == null) {
-            JOptionPane.showMessageDialog(frame,
-                    "El libro no existe", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "No se encontró el libro en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
@@ -155,10 +172,8 @@ public class Control {
             return false;
         }
 
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
         // Si el libro existe, edita los datos del libro
-        dlgLibro = new DlgLibro(frame, "Editar Datos Libro", true, libro,
-                ConstantesGUI.ACTUALIZAR, respuesta);
+        dlgLibro = new DlgLibro(frame, "Editar Datos Libro", true, libro, ConstantesGUI.ACTUALIZAR, respuesta);
         // Si el usuario presionó el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
@@ -189,15 +204,37 @@ public class Control {
         StringBuffer respuesta = new StringBuffer();
         DlgLibro dlgLibro;
         List<Libro> listaLibros;
-        DefaultComboBoxModel<Libro> todosLibrosComboBoxModel;
+        String isbn = "";
+        
+        try {
+            // Obten el libro del catalogo de libros
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrió un error al leer del catálogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay líbros en el catálogo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         // Captura el ISBN del libro
-        String isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
-                "Eliminar libro",
-                JOptionPane.QUESTION_MESSAGE);
+        while (isbn != null && isbn.equals("")) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Elimina Libro", JOptionPane.QUESTION_MESSAGE);
+            if (isbn != null && isbn.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
         // Si el usuario presionó el botón Cancelar
         if (isbn == null) {
             return false;
         }
+        
         // Crea un objeto Libro con solo el ISBN
         libro = new Libro(isbn);
         try {
@@ -210,26 +247,16 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
         // Si el libro no existe en el catalogo de libros
         if (libro == null) {
             // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "El libro no existe",
-                    "¡Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "No se encontró el libro en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        try {
-            // Obtiene la lista de libros
-            listaLibros = persistencia.consultarLibros();
-        } catch (Exception e) {
-            // Si ocurrió un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        todosLibrosComboBoxModel = conversiones.librosComboBoxModel(listaLibros);
+                
         // Si existe el libro, despliega los datos del libro
-        dlgLibro = new DlgLibro(frame, "Libro a borrar", true, libro, ConstantesGUI.ELIMINAR, respuesta);
+        dlgLibro = new DlgLibro(frame, "Borrar Libro", true, libro, ConstantesGUI.ELIMINAR, respuesta);
         // Si el usuario presionó el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
@@ -259,12 +286,16 @@ public class Control {
         Usuario usuario, bUsuario;
         StringBuffer respuesta = new StringBuffer("");
         DlgUsuario dlgUsuario;
-        List<Usuario> listaUsuarios;
-        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
-        // Captura el Num Credencial del usuario
-        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
-                "Agrega Usuario",
-                JOptionPane.QUESTION_MESSAGE);
+        String numCredencial = "";
+
+        // Captura el ISBN del libro
+        while (numCredencial != null && numCredencial.equals("")) {
+            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+            if (numCredencial != null && numCredencial.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
         // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
@@ -274,9 +305,6 @@ public class Control {
         try {
             // Obten el usuario del catálogo de usuarios
             bUsuario = persistencia.obten(usuario);
-
-            // Obtiene la lista de usuarios
-            listaUsuarios = persistencia.consultarUsuarios();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de usuarios,
             // despliega mensaje de error
@@ -285,18 +313,14 @@ public class Control {
             return false;
         }
 
-        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
         // Si el usuario existe, despliega sus datos
         if (bUsuario != null) {
-            dlgUsuario = new DlgUsuario(frame,
-                    "El Usuario ya está en el catalogo",
-                    true, bUsuario,
-                    ConstantesGUI.DESPLEGAR, respuesta);
+            dlgUsuario = new DlgUsuario(frame, "El Usuario ya está registrado.", true, bUsuario, ConstantesGUI.DESPLEGAR, respuesta);
             return false;
         }
+        
         // Si el usuario no existe captura los datos del nuevo usuario
-        dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true,
-                usuario, ConstantesGUI.AGREGAR, respuesta);
+        dlgUsuario = new DlgUsuario(frame, "Captura Datos Usuario", true, usuario, ConstantesGUI.AGREGAR, respuesta);
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
@@ -327,17 +351,40 @@ public class Control {
         StringBuffer respuesta = new StringBuffer("");
         DlgUsuario dlgUsuario;
         List<Usuario> listaUsuarios;
-        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
-        // Captura el Num de Credencial del usuario
-        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
-                "Actualizar usuario",
-                JOptionPane.QUESTION_MESSAGE);
-        // Si el usuario presiono el boton Cancelar
+        String numCredencial = "";
+        
+        try {
+            // Obten el libro del catalogo de libros
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrió un error al leer del catálogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (listaUsuarios.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay usuarios registrados.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Captura el ISBN del libro
+        while (numCredencial != null && numCredencial.equals("")) {
+            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Actualiza Usuario", JOptionPane.QUESTION_MESSAGE);
+            if (numCredencial != null && numCredencial.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
         }
+        
         // Crea un objeto Usuario con solo el numero de credencial
         usuario = new Usuario(numCredencial);
+        
         try {
             // Obten el usuario del catalogo de usuarios
             usuario = persistencia.obten(usuario);
@@ -348,32 +395,20 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
         // Si el usuario no existe, despliega un mensaje de error
         if (usuario == null) {
-            JOptionPane.showMessageDialog(frame,
-                    "El usuario no existe", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        try {
-            // Obtiene la lista de usuarios
-            listaUsuarios = persistencia.consultarUsuarios();
-        } catch (Exception e) {
-            // Si ocurrió un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "El usuario no está registrado.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
         // Si el usuario existe, edita los datos del libro
-        dlgUsuario = new DlgUsuario(frame, "Editar Datos Usuario", true, usuario,
-                ConstantesGUI.ACTUALIZAR, respuesta);
+        dlgUsuario = new DlgUsuario(frame, "Editar Datos Usuario", true, usuario, ConstantesGUI.ACTUALIZAR, respuesta);
         // Si el usuario presionó el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
             return false;
         }
+        
         // Actualiza el usuario del catálogo de usuarios
         try {
             persistencia.actualizar(usuario);
@@ -400,15 +435,37 @@ public class Control {
         StringBuffer respuesta = new StringBuffer("");
         DlgUsuario dlgUsuario;
         List<Usuario> listaUsuarios;
-        DefaultComboBoxModel<Usuario> todosUsuariosComboBoxModel;
-        // Captura el Num de Credencial del usuario
-        String numCredencial = JOptionPane.showInputDialog(frame, "Num Credencial del usuario:",
-                "Eliminar usuario",
-                JOptionPane.QUESTION_MESSAGE);
-        // Si el usuario presiono el boton Cancelar
+        String numCredencial = "";
+        
+        try {
+            // Obten el libro del catalogo de libros
+            listaUsuarios = persistencia.consultarUsuarios();
+        } catch (Exception e) {
+            // Si ocurrió un error al leer del catálogo de libros,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if (listaUsuarios.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay usuarios registrados.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Captura el ISBN del libro
+        while (numCredencial != null && numCredencial.equals("")) {
+            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Elimina Usuario", JOptionPane.QUESTION_MESSAGE);
+            if (numCredencial != null && numCredencial.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
         if (numCredencial == null) {
             return false;
         }
+        
         // Crea un objeto Usuario con solo el numero de credencial
         usuario = new Usuario(numCredencial);
         try {
@@ -417,28 +474,16 @@ public class Control {
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de usuarios
             // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         // Si el usuario no existe en el catalogo de usuarios
         if (usuario == null) {
             // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "El usuario no existe",
-                    "¡Error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "El usuario no está registrado.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        try {
-            // Obtiene la lista de usurios
-            listaUsuarios = persistencia.consultarUsuarios();
-        } catch (Exception e) {
-            // Si ocurrió un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        todosUsuariosComboBoxModel = conversiones.usuariosComboBoxModel(listaUsuarios);
+
         // Si existe el usuario, despliega los datos del usuario
         dlgUsuario = new DlgUsuario(frame, "Usuario a borrar", true, usuario, ConstantesGUI.ELIMINAR, respuesta);
         // Si el usuario presionó el boton Cancelar
@@ -533,13 +578,13 @@ public class Control {
         PublicacionED publicacionED = new PublicacionED();
         StringBuffer respuesta = new StringBuffer("");
         DlgInventario dlgInventario;
-        List<PublicacionED> listaInventarioLibros;
+        List<PublicacionED> inventarioLibros;
         DefaultComboBoxModel<PublicacionED> inventarioLibrosComboBoxModel;
         int cantidad;
 
         try {
             // Obtiene la lista de libros
-            listaInventarioLibros = persistencia.consultarInventarioLibros();
+            inventarioLibros = persistencia.consultarInventarioLibros();
         } catch (Exception e) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
@@ -548,23 +593,18 @@ public class Control {
             return false;
         }
 
-        if (listaInventarioLibros.isEmpty()) {
+        if (inventarioLibros.isEmpty()) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay libros en el inventario.", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "No hay libros en el inventario.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        inventarioLibrosComboBoxModel = conversiones.inventarioComboBoxModel(listaInventarioLibros);
+        inventarioLibrosComboBoxModel = conversiones.inventarioComboBoxModel(inventarioLibros);
         dlgInventario = new DlgInventario(frame, "Desinventaria Libro", true, publicacionED, inventarioLibrosComboBoxModel, ConstantesGUI.ELIMINAR, respuesta);
 
         libro = (Libro) publicacionED.getPublicacion();
         cantidad = publicacionED.getExistencia();
-
-        if (libro == null) {
-            return false;
-        }
 
         // Si el usuario presiono el boton Cancelar
         if (respuesta.substring(0).equals(ConstantesGUI.CANCELAR)) {
@@ -620,7 +660,7 @@ public class Control {
         if (librosDisponibles.isEmpty() && listaUsuarios.isEmpty()) {
             // Si ocurrio un error al leer del catalogo de libros,
             // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay libros en el inventario ni usuarios registrados.", "¡Error!",
+            JOptionPane.showMessageDialog(frame, "No hay libros disponibles ni usuarios registrados.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (librosDisponibles.isEmpty()) {
@@ -759,7 +799,7 @@ public class Control {
         }
         
         if(listaLibros.isEmpty()) {
-            return null;
+            return new Tabla("", null);
         }
 
         // Regresa el objeto Tabla con todos los libros
@@ -789,9 +829,7 @@ public class Control {
         }
         
         if (listaLibros.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "No hay libros en el catálogo.", "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("", null);
         }
         
         // Captura el autor del libro
@@ -809,7 +847,6 @@ public class Control {
             return null;
         }
         
-
         try {
             // Obtiene la lista de libros por el autor
             listaLibrosAutor = persistencia.consultarLibrosAutor(autor);
@@ -821,10 +858,10 @@ public class Control {
             return null;
         }
 
-        if (listaLibrosAutor.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "No hay ningún libro del autor en el catálogo.", "¡Error!",
+        if(listaLibrosAutor.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay libros del autor.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noLibrosAutor", null);
         }
 
         // Regresa el objeto Tabla con todos los libros que coinciden en el autor
@@ -840,15 +877,41 @@ public class Control {
      * si hay un error
      */
     public Tabla getTablaLibrosEditorial(JFrame frame) {
-        List<Libro> listaLibrosEditorial;
-
-        // Captura la editorial del libro
-        String editorial = JOptionPane.showInputDialog(frame, "Editorial del libro:",
+        List<Libro> listaLibrosEditorial, listaLibros;
+        String editorial = "";
+        
+        try {
+            // Obtiene la lista de libros por el autor
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            return new Tabla("", null);
+        }
+        
+        // Captura el autor del libro
+        while (editorial != null && editorial.equals("")) {
+            editorial = JOptionPane.showInputDialog(frame, "Editorial del libro:",
                 "Libro a buscar por editorial:",
                 JOptionPane.QUESTION_MESSAGE);
-
+            if (editorial != null && editorial.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce una editorial válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
+        if (editorial == null) {
+            return null;
+        }
+        
         try {
-            // Obtiene la lista de libros por la editorial
+            // Obtiene la lista de libros por el autor
             listaLibrosEditorial = persistencia.consultarLibrosEditorial(editorial);
         } catch (Exception e) {
             // Si ocurrio un error al obtener la lista de la base de datos,
@@ -858,15 +921,13 @@ public class Control {
             return null;
         }
 
-        if (listaLibrosEditorial.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa editorial en el catálogo.", "¡Error!",
+        if(listaLibrosEditorial.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay libros de la editorial.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noLibrosEditorial", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que tienen una misma editorial
+        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Libros por editorial:", conversiones.librosTableModel(listaLibrosEditorial));
     }
 
@@ -879,15 +940,41 @@ public class Control {
      * null si hay un error
      */
     public Tabla getTablaLibrosClasificacion(JFrame frame) {
-        List<Libro> listaLibrosClasificacion;
-
-        // Captura la clasificación del libro
-        String clasificacion = JOptionPane.showInputDialog(frame, "Clasificación del libro:",
+        List<Libro> listaLibrosClasificacion, listaLibros;
+        String clasificacion = "";
+        
+        try {
+            // Obtiene la lista de libros por el autor
+            listaLibros = persistencia.consultarLibros();
+        } catch (Exception e) {
+            // Si ocurrio un error al obtener la lista de la base de datos,
+            // despliega mensaje de error
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
+                    JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        
+        if (listaLibros.isEmpty()) {
+            return new Tabla("", null);
+        }
+        
+        // Captura el autor del libro
+        while (clasificacion != null && clasificacion.equals("")) {
+            clasificacion = JOptionPane.showInputDialog(frame, "Clasificación del libro:",
                 "Libro a buscar por clasificación:",
                 JOptionPane.QUESTION_MESSAGE);
-
+            if (clasificacion != null && clasificacion.equals("")) {
+                JOptionPane.showMessageDialog(frame, "Introduce una clasificación válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Si el usuario presionó el botón Cancelar
+        if (clasificacion == null) {
+            return null;
+        }
+        
         try {
-            // Obtiene la lista de libros por la clasificación
+            // Obtiene la lista de libros por el autor
             listaLibrosClasificacion = persistencia.consultarLibrosClasificacion(clasificacion);
         } catch (Exception e) {
             // Si ocurrio un error al obtener la lista de la base de datos,
@@ -897,15 +984,13 @@ public class Control {
             return null;
         }
 
-        if (listaLibrosClasificacion.isEmpty()) {
-            // Si ocurrio un error al leer del catalogo de libros,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, "No hay ningún libro con esa clasificación en el catálogo.", "¡Error!",
+        if(listaLibrosClasificacion.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay libros con esa clasificación.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
-            return null;
+            return new Tabla("noLibrosClasificacion", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que tienen una misma clasificación
+        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
         return new Tabla("Lista de Libros por clasificación:", conversiones.librosTableModel(listaLibrosClasificacion));
     }
 
@@ -927,6 +1012,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        
+        if(listaUsuarios.isEmpty()) {
+            return new Tabla("", null);
+        }
+        
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Usuarios", conversiones.usuariosTableModel(listaUsuarios));
     }
@@ -949,6 +1039,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        
+        if (listaInventario.isEmpty()) {
+            return new Tabla("", null);
+        }
+        
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista del Inventario", conversiones.inventarioLibrosTableModel(listaInventario));
     }
@@ -1015,6 +1110,11 @@ public class Control {
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
+        
+        if (listaPrestamos.isEmpty()) {
+            return new Tabla("", null);
+        }
+        
         // Regresa el objeto Tabla con todos los libros
         return new Tabla("Lista de Préstamos", conversiones.prestamosTableModel(listaPrestamos));
     }

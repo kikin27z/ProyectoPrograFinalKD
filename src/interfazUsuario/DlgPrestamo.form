@@ -169,6 +169,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="campoTextoTiempo">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoTextoTiempoKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

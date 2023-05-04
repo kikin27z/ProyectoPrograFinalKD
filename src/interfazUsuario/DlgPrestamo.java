@@ -1,9 +1,9 @@
-
 package interfazUsuario;
 
 import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import objetosNegocio.Prestamo;
 import objetosNegocio.PublicacionED;
 import objetosNegocio.Usuario;
@@ -23,15 +23,16 @@ public class DlgPrestamo extends javax.swing.JDialog {
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
-     * @param prestamo Contiene la información del prestamo para agregar o eliminar del catálogo de prestamos
+     * @param prestamo Contiene la información del prestamo para agregar o
+     * eliminar del catálogo de prestamos
      * @param listaLibros Es la lista de libros del catálogo de libros
-     * @param listaUsuarios  Es la lista de usuarios del catálogo de usuarios
+     * @param listaUsuarios Es la lista de usuarios del catálogo de usuarios
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
-    public DlgPrestamo(java.awt.Frame parent,String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
+    public DlgPrestamo(java.awt.Frame parent, String title, boolean modal, Prestamo prestamo, DefaultComboBoxModel listaUsuarios, DefaultComboBoxModel listaLibros, int operacion, StringBuffer respuesta) {
         super(parent, title, modal);
         this.prestamo = prestamo;
         this.listaUsuarios = listaUsuarios;
@@ -40,7 +41,6 @@ public class DlgPrestamo extends javax.swing.JDialog {
         this.respuesta = respuesta;
         initComponents();
 
-        
         if (operacion == ConstantesGUI.AGREGAR) {
             botonAceptar.setText("Prestar");
         } // Si la operación es actualizar
@@ -49,7 +49,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
             campoTextoTiempo.hide();
             etiquetaTiempo.hide();
         }
-        
+
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
         respuesta.append(ConstantesGUI.CANCELAR);
@@ -60,7 +60,7 @@ public class DlgPrestamo extends javax.swing.JDialog {
         // Muestra el cuadro de diálogo
         setVisible(true);
     }
-    
+
     /**
      * Este método centra el cuadro de dialogo sobre la ventana de la
      * aplicación.
@@ -136,6 +136,12 @@ public class DlgPrestamo extends javax.swing.JDialog {
             }
         });
 
+        campoTextoTiempo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoTiempoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -206,23 +212,36 @@ public class DlgPrestamo extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es prestar o devolver
+        String tiempo = campoTextoTiempo.getText();
         if (operacion == ConstantesGUI.AGREGAR) {
-            prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
-            PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
-            prestamo.setPublicacion(pubED.getPublicacion());
-            prestamo.setFechaPrestamo(new Fecha());
-            prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
+            if (!tiempo.equals("")) {
+                prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
+                PublicacionED pubEDtmp = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
+                prestamo.setPublicacion(pubEDtmp.getPublicacion());
+                prestamo.setFechaPrestamo(new Fecha());
+                prestamo.setTiempoPrestamo(Integer.parseInt(campoTextoTiempo.getText()));
+            
+                // Borra el contenido de respuesta
+                respuesta.delete(0, respuesta.length());
+                // Establece que se presionó el botón botonAceptar
+                respuesta.append(ConstantesGUI.ACEPTAR);
+                // Destruye el cuadro de díalogo
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Introduzca una cantidad válida.", "¡Error!", JOptionPane.ERROR_MESSAGE);
+                campoTextoTiempo.setText("");
+            }
         } else if (operacion == ConstantesGUI.ELIMINAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
             PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
+            // Borra el contenido de respuesta
+            respuesta.delete(0, respuesta.length());
+            // Establece que se presionó el botón botonAceptar
+            respuesta.append(ConstantesGUI.ACEPTAR);
+            // Destruye el cuadro de díalogo
+            dispose();
         }
-        // Borra el contenido de respuesta
-        respuesta.delete(0, respuesta.length());
-        // Establece que se presionó el botón botonAceptar
-        respuesta.append(ConstantesGUI.ACEPTAR);
-        // Destruye el cuadro de díalogo
-        dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
@@ -236,10 +255,18 @@ public class DlgPrestamo extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void campoTextoTiempoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoTiempoKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9')
+                || (c == evt.VK_BACK_SPACE)
+                || (c == evt.VK_DELETE))) {
+            evt.consume(); // ignorar el evento de tecla
+        }
+    }//GEN-LAST:event_campoTextoTiempoKeyTyped
+
     /**
      * @param args the command line arguments
      */
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;

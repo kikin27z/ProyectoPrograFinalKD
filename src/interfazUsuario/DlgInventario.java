@@ -99,6 +99,12 @@ public class DlgInventario extends javax.swing.JDialog {
 
         jLabel2.setText("Cantidad:");
 
+        campoTextoCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTextoCantidadKeyTyped(evt);
+            }
+        });
+
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,8 +178,8 @@ public class DlgInventario extends javax.swing.JDialog {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Si la opcion es inventariar o desinventariar
-        int cantidad = Integer.parseInt(campoTextoCantidad.getText());
-        if (cantidad > 0) {
+        String cantidad = campoTextoCantidad.getText();
+        if (!cantidad.equals("")) {
             if (operacion == ConstantesGUI.AGREGAR) {
                 publicacionED.setPublicacion((Publicacion) cajaCombinadaLibros.getSelectedItem());
                 publicacionED.setExistencia(Integer.parseInt(campoTextoCantidad.getText()));
@@ -204,6 +210,15 @@ public class DlgInventario extends javax.swing.JDialog {
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void campoTextoCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoCantidadKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9') ||
+           (c == evt.VK_BACK_SPACE) ||
+           (c == evt.VK_DELETE))) {
+            evt.consume(); // ignorar el evento de tecla
+        }
+    }//GEN-LAST:event_campoTextoCantidadKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
