@@ -119,7 +119,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Biblioteca");
 
-        tituloTabla.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tituloTabla.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
 
         jScrollPane1.setBorder(null);
 
@@ -378,8 +378,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tituloTabla)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,7 +780,8 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
 
     private void opcionMenuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAcercaDeActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "José Karim Franco Valencia: 00000245138\n"
+                + "Diego Valenzuela Parra: 00000247700", "Acerca de", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_opcionMenuAcercaDeActionPerformed
 
     /**

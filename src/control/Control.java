@@ -48,13 +48,17 @@ public class Control {
         String isbn = "";
 
         // Captura el ISBN del libro
-        while (isbn != null && isbn.equals("")) {
+        while (true) {
             isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
-            if (isbn != null && isbn.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (isbn == null) {
+                // El usuario ha cerrado el cuadro de diálogo, salimos del bucle
+                break;
             }
             if (isbn.trim().equals("")) {
-                isbn = "";
+                JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // El ISBN es válido, salimos del bucle
+                break;
             }
         }
 
@@ -135,10 +139,17 @@ public class Control {
         }
 
         // Captura el ISBN del libro
-        while (isbn != null && isbn.equals("")) {
-            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Actualiza Libro", JOptionPane.QUESTION_MESSAGE);
-            if (isbn != null && isbn.equals("")) {
+        while (true) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
+            if (isbn == null) {
+                // El usuario ha cerrado el cuadro de diálogo, salimos del bucle
+                break;
+            }
+            if (isbn.trim().equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // El ISBN es válido, salimos del bucle
+                break;
             }
         }
 
@@ -226,10 +237,17 @@ public class Control {
         }
 
         // Captura el ISBN del libro
-        while (isbn != null && isbn.equals("")) {
-            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Elimina Libro", JOptionPane.QUESTION_MESSAGE);
-            if (isbn != null && isbn.equals("")) {
+        while (true) {
+            isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:", "Agrega Libro", JOptionPane.QUESTION_MESSAGE);
+            if (isbn == null) {
+                // El usuario ha cerrado el cuadro de diálogo, salimos del bucle
+                break;
+            }
+            if (isbn.trim().equals("")) {
                 JOptionPane.showMessageDialog(frame, "Introduzca un ISBN válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // El ISBN es válido, salimos del bucle
+                break;
             }
         }
 
@@ -291,20 +309,18 @@ public class Control {
         DlgUsuario dlgUsuario;
         String numCredencial = "";
 
-        // Captura el ISBN del libro
+        // Captura el número de credencial de un usuario
         while (numCredencial != null && numCredencial.equals("")) {
             do {
                 numCredencial = JOptionPane.showInputDialog(null, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
                 if (numCredencial == null) {
+                    // Si el usuario cierra el cuadro de diálogo
                     break;
-                }
-                if (!numCredencial.matches("\\d+")) {
+                } else if (!numCredencial.matches("\\d+")) {
+                    // Si el usuario introduce algo que no sean números
                     JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } while (!numCredencial.matches("\\d+"));
-            if (numCredencial != null && numCredencial.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
         }
 
         // Si el usuario presionó el botón Cancelar
@@ -381,12 +397,18 @@ public class Control {
             return false;
         }
 
-        // Captura el ISBN del libro
+        // Captura el número de credencial de un usuario
         while (numCredencial != null && numCredencial.equals("")) {
-            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Actualiza Usuario", JOptionPane.QUESTION_MESSAGE);
-            if (numCredencial != null && numCredencial.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            do {
+                numCredencial = JOptionPane.showInputDialog(null, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+                if (numCredencial == null) {
+                    // Si el usuario cierra el cuadro de diálogo
+                    break;
+                } else if (!numCredencial.matches("\\d+")) {
+                    // Si el usuario introduce algo que no sean números
+                    JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } while (!numCredencial.matches("\\d+"));
         }
 
         // Si el usuario presionó el botón Cancelar
@@ -465,12 +487,18 @@ public class Control {
             return false;
         }
 
-        // Captura el ISBN del libro
+        // Captura el número de credencial de un usuario
         while (numCredencial != null && numCredencial.equals("")) {
-            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:", "Elimina Usuario", JOptionPane.QUESTION_MESSAGE);
-            if (numCredencial != null && numCredencial.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            do {
+                numCredencial = JOptionPane.showInputDialog(null, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+                if (numCredencial == null) {
+                    // Si el usuario cierra el cuadro de diálogo
+                    break;
+                } else if (!numCredencial.matches("\\d+")) {
+                    // Si el usuario introduce algo que no sean números
+                    JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } while (!numCredencial.matches("\\d+"));
         }
 
         // Si el usuario presionó el botón Cancelar

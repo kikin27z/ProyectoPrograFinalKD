@@ -121,39 +121,54 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel1.setText("Núm. Credencial:");
 
+        jLabel2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel2.setText("Nombre:");
 
+        jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setText("Dirección:");
 
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel4.setText("Teléfono:");
 
         campoTextoNumCredencial.setEditable(false);
+        campoTextoNumCredencial.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        campoTextoNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        campoTextoDireccion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         campoTextoDireccion.setToolTipText("");
 
+        campoTextoTelefono.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         campoTextoTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 campoTextoTelefonoKeyTyped(evt);
             }
         });
 
+        botonAceptar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonAceptar.setText("Aceptar");
+        botonAceptar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAceptarActionPerformed(evt);
             }
         });
 
+        botonCancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonCancelar.setText("Cancelar");
+        botonCancelar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCancelarActionPerformed(evt);
             }
         });
 
+        botonRestaurar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonRestaurar.setText("Restaurar");
+        botonRestaurar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRestaurarActionPerformed(evt);
@@ -165,7 +180,7 @@ public class DlgUsuario extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -176,11 +191,11 @@ public class DlgUsuario extends javax.swing.JDialog {
                             .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoTextoNombre)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAceptar)
-                        .addGap(56, 56, 56)
-                        .addComponent(botonRestaurar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(botonCancelar))
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(botonRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -190,12 +205,12 @@ public class DlgUsuario extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoTextoTelefono)
                             .addComponent(campoTextoDireccion))))
-                .addGap(31, 31, 31))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(campoTextoNumCredencial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,12 +226,12 @@ public class DlgUsuario extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(campoTextoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAceptar)
-                    .addComponent(botonCancelar)
-                    .addComponent(botonRestaurar))
-                .addGap(26, 26, 26))
+                    .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,8 +244,8 @@ public class DlgUsuario extends javax.swing.JDialog {
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // Si la operación es Agregar o Actualizar
-        if (!campoTextoNombre.getText().equals("") && !campoTextoDireccion.getText().equals("")
-                && !campoTextoTelefono.getText().equals("")) {
+        if (!campoTextoNombre.getText().trim().equals("") && !campoTextoDireccion.getText().trim().equals("")
+            && !campoTextoTelefono.getText().trim().equals("")) {
             if ((operacion == ConstantesGUI.AGREGAR) || (operacion == ConstantesGUI.ACTUALIZAR)) {
                 // Toma los valores capturados en los campos de texto y en la caja
                 // combinada y almacénalos en el parámetro usuario.

@@ -129,38 +129,63 @@ public class DlgLibro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel1.setText("ISBN:");
 
+        jLabel2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel2.setText("Título:");
         jLabel2.setToolTipText("");
 
+        jLabel3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel3.setText("Autor:");
 
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel4.setText("Editorial:");
 
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel5.setText("Edición:");
 
+        jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel6.setText("Clasificación:");
 
         campoTextoISBN.setEditable(false);
+        campoTextoISBN.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        campoTextoTitulo.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        campoTextoAutor.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         campoTextoAutor.setToolTipText("");
 
+        campoTextoEditorial.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        campoTextoEdicion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        campoTextoClasificacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        botonAceptar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonAceptar.setText("Aceptar");
+        botonAceptar.setInheritsPopupMenu(true);
+        botonAceptar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAceptarActionPerformed(evt);
             }
         });
 
+        botonCancelar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonCancelar.setText("Cancelar");
+        botonCancelar.setInheritsPopupMenu(true);
+        botonCancelar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonCancelarActionPerformed(evt);
             }
         });
 
+        botonRestaurar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         botonRestaurar.setText("Restaurar");
+        botonRestaurar.setInheritsPopupMenu(true);
+        botonRestaurar.setPreferredSize(new java.awt.Dimension(90, 30));
         botonRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRestaurarActionPerformed(evt);
@@ -172,14 +197,14 @@ public class DlgLibro extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAceptar)
-                        .addGap(56, 56, 56)
-                        .addComponent(botonRestaurar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(botonCancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(botonRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -190,19 +215,20 @@ public class DlgLibro extends javax.swing.JDialog {
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(campoTextoTitulo)
-                                .addComponent(campoTextoAutor)
-                                .addComponent(campoTextoEditorial)
-                                .addComponent(campoTextoEdicion)
-                                .addComponent(campoTextoClasificacion)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(campoTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(campoTextoTitulo)
+                            .addComponent(campoTextoAutor)
+                            .addComponent(campoTextoEditorial)
+                            .addComponent(campoTextoEdicion)
+                            .addComponent(campoTextoClasificacion))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(campoTextoISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -228,10 +254,10 @@ public class DlgLibro extends javax.swing.JDialog {
                     .addComponent(campoTextoClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonAceptar)
-                    .addComponent(botonCancelar)
-                    .addComponent(botonRestaurar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -244,9 +270,9 @@ public class DlgLibro extends javax.swing.JDialog {
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // Si la operación es Agregar o Actualizar
-        if (!campoTextoTitulo.getText().equals("") && !campoTextoAutor.getText().equals("")
-                && !campoTextoEditorial.getText().equals("") && !campoTextoEdicion.getText().equals("")
-                && !campoTextoClasificacion.getText().equals("")) {
+        if (!campoTextoTitulo.getText().trim().equals("") && !campoTextoAutor.getText().trim().equals("")
+            && !campoTextoEditorial.getText().trim().equals("") && !campoTextoEdicion.getText().trim().equals("")
+            && !campoTextoClasificacion.getText().trim().equals("")) {
             if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ACTUALIZAR) {
                 // Toma los valores capturados en los campos de texto y en la caja
                 // combinada y almacénalos en el parámetro cancion.
