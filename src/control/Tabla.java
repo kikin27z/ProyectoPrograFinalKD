@@ -12,7 +12,7 @@ public class Tabla {
     private DefaultTableModel modeloTabla;
 
     /**
-     * Constructor sin parametros
+     * Constructor por defecto.
      */
     public Tabla() {
     }

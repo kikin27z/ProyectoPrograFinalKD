@@ -44,6 +44,8 @@ public class DlgInventario extends javax.swing.JDialog {
         else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Desinventariar");
         }
+        
+        campoTextoCantidad.setTransferHandler(null);
 
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
@@ -219,7 +221,11 @@ public class DlgInventario extends javax.swing.JDialog {
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
-
+    
+    /**
+    * Evento para prevenir que el usuario ingrese letras en la cantidad.
+    * @param evt Evento.
+    */
     private void campoTextoCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoCantidadKeyTyped
         char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9') ||

@@ -69,6 +69,8 @@ public class DlgUsuario extends javax.swing.JDialog {
             campoTextoDireccion.setEditable(false);
             campoTextoTelefono.setEditable(false);
         }
+        
+        campoTextoTelefono.setTransferHandler(null);
 
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar

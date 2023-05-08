@@ -1,7 +1,3 @@
-/*
- * Conversiones.java
- *
- */
 package control;
 
 import java.util.List;
@@ -15,7 +11,6 @@ import objetosNegocio.PublicacionED;
 /**
  * Esta clase contiene métodos que generan objetos del tipo DefaultTableModel y
  * DefaultComboBoxModel para crear instancias de Jtable y JComboBox.
- *
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class Conversiones {
@@ -29,7 +24,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * libros.
-     *
      * @param listaLibros Lista de libros a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
@@ -57,7 +51,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * usuarios.
-     *
      * @param listaUsuarios Lista de usuarios a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los
      * usuarios.
@@ -83,7 +76,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de la lista de libros
      * del inventario.
-     *
      * @param listaInventarioLibros Lista de libros a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los libros.
      */
@@ -111,7 +103,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
      * prestamos.
-     *
      * @param listaPrestamos Lista de prestamos a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los
      * prestamos.
@@ -142,7 +133,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * libros.
-     *
      * @param listaLibros Lista de libros
      * @return Regresa el defaultComboBoxModel con los libros agregados o null.
      */
@@ -162,7 +152,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de una lista de
      * usuarios.
-     *
      * @param listaUsuarios Lista de usuarios
      * @return Regresa el defaultComboBoxModel con los usuarios agregados o
      * null.
@@ -183,7 +172,6 @@ public class Conversiones {
     /**
      * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
      * inventario.
-     *
      * @param listaInventario Lista del inventario
      * @return Regresa el defaultComboBoxModel con los libros del inventario o
      * null.
@@ -202,11 +190,10 @@ public class Conversiones {
     }
 
     /**
-     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
-     * inventario.
-     *
-     * @param librosDisponibles Lista del inventario
-     * @return Regresa el defaultComboBoxModel con los libros del inventario o
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista de libros
+     * disponibles.
+     * @param librosDisponibles Lista de libros disponibles
+     * @return Regresa el defaultComboBoxModel con los libros disponibles o
      * null.
      */
     public DefaultComboBoxModel<PublicacionED> librosDisponiblesComboBoxModel(List<PublicacionED> librosDisponibles) {
@@ -223,11 +210,10 @@ public class Conversiones {
     }
     
     /**
-     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista del
-     * inventario.
-     *
-     * @param librosPrestados Lista del inventario
-     * @return Regresa el defaultComboBoxModel con los libros del inventario o
+     * Genera un objeto de tipo DefaultComboBoxModel a partir de la lista de libros
+     * prestados.
+     * @param librosPrestados Lista de libros prestados
+     * @return Regresa el defaultComboBoxModel con los libros prestados o
      * null.
      */
     public DefaultComboBoxModel<PublicacionED> librosPrestadosComboBoxModel(List<PublicacionED> librosPrestados) {
