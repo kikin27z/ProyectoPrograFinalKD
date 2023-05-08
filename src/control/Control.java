@@ -802,42 +802,42 @@ public class Control {
             return null;
         }
 
-        // Si la lista está vacía, devuelve una tabla nula.
+        // Si la lista está vacía, devuelve una tabla especial.
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros
+        // Regresa el objeto Tabla con todos los libros.
         return new Tabla("Lista de Libros", conversiones.librosTableModel(listaLibros));
     }
 
     /**
-     * Regresa un objeto Tabla con todos los libros que coinciden con un autor
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * Regresa un objeto Tabla con todos los libros que coinciden con un autor.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
      * @return Objeto Tabla con los libros que coinciden con el autor, null si
-     * hay un error
+     * hay un error.
      */
     public Tabla getTablaLibrosAutor(JFrame frame) {
         List<Libro> listaLibrosAutor, listaLibros;
         String autor = "";
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de libros del catálogo.
             listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista del catálogo,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de libros está vacía, desplegar mensaje.
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Captura el autor del libro
+        // Captura el autor del libro, validando que no introduzcan cadenas vacías.
         while (autor != null && autor.equals("")) {
             autor = JOptionPane.showInputDialog(frame, "Autor del libro:",
                     "Libro a buscar por autor:",
@@ -847,60 +847,61 @@ public class Control {
             }
         }
 
-        // Si el usuario presionó el botón Cancelar
+        // Si el usuario presionó el botón cancelar.
         if (autor == null) {
             return null;
         }
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de libros del autor.
             listaLibrosAutor = persistencia.consultarLibrosAutor(autor);
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
+            // Si ocurrió un error al obtener la lista del catálogo,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista está vacía, desplegar mensaje.
         if (listaLibrosAutor.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros del autor.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosAutor", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        // Regresa el objeto Tabla con todos los libros que coinciden en el autor.
         return new Tabla("Lista de Libros por autor:", conversiones.librosTableModel(listaLibrosAutor));
     }
 
     /**
      * Regresa un objeto Tabla con todos los libros que coinciden con una
-     * editorial
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * editorial.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
      * @return Objeto Tabla con los libros que coinciden con la editorial, null
-     * si hay un error
+     * si hay un error.
      */
     public Tabla getTablaLibrosEditorial(JFrame frame) {
         List<Libro> listaLibrosEditorial, listaLibros;
         String editorial = "";
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de todos los libros del catálogo.
             listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista del catálogo,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de libros está vacía, devolver una tabla especial.
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Captura el autor del libro
+        // Captura la editorial del libro validando que no hayan espacios en blanco.
         while (editorial != null && editorial.equals("")) {
             editorial = JOptionPane.showInputDialog(frame, "Editorial del libro:",
                     "Libro a buscar por editorial:",
@@ -910,60 +911,61 @@ public class Control {
             }
         }
 
-        // Si el usuario presionó el botón Cancelar
+        // Si el usuario presionó el botón cancelar.
         if (editorial == null) {
             return null;
         }
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de libros de la editorial.
             listaLibrosEditorial = persistencia.consultarLibrosEditorial(editorial);
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista del catálogo,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de libros de la misma editorial está vacía, devolver una tabla especial.
         if (listaLibrosEditorial.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros de la editorial.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosEditorial", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        // Regresa el objeto Tabla con todos los libros que coinciden en la editorial.
         return new Tabla("Lista de Libros por editorial:", conversiones.librosTableModel(listaLibrosEditorial));
     }
 
     /**
      * Regresa un objeto Tabla con todos los libros que coinciden con una
-     * clasificación
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
+     * clasificación.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
      * @return Objeto Tabla con los libros que coinciden con la clasificación,
-     * null si hay un error
+     * null si hay un error.
      */
     public Tabla getTablaLibrosClasificacion(JFrame frame) {
         List<Libro> listaLibrosClasificacion, listaLibros;
         String clasificacion = "";
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de todos los libros del catálogo.
             listaLibros = persistencia.consultarLibros();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
+            // Si ocurrió un error al obtener la lista del catálog.o,
             // despliega mensaje de error
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de todos los libros está vacía, devolver una tabla especial.
         if (listaLibros.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Captura el autor del libro
+        // Captura la clasificación, validando que no haya espacios en blanco.
         while (clasificacion != null && clasificacion.equals("")) {
             clasificacion = JOptionPane.showInputDialog(frame, "Clasificación del libro:",
                     "Libro a buscar por clasificación:",
@@ -973,29 +975,30 @@ public class Control {
             }
         }
 
-        // Si el usuario presionó el botón Cancelar
+        // Si el usuario presionó el botón cancelar.
         if (clasificacion == null) {
             return null;
         }
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de libros de la clasificación.
             listaLibrosClasificacion = persistencia.consultarLibrosClasificacion(clasificacion);
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista del catálogo,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de los libros de la clasificación está vacía, mostrar mensaje.
         if (listaLibrosClasificacion.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay libros con esa clasificación.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noLibrosClasificacion", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        // Regresa el objeto Tabla con todos los libros que coinciden en la clasificación.
         return new Tabla("Lista de Libros por clasificación:", conversiones.librosTableModel(listaLibrosClasificacion));
     }
 
@@ -1017,7 +1020,7 @@ public class Control {
             return null;
         }
 
-        // Si la lista de usuarios está vacía, devuelve una tabla nula.
+        // Si la lista de usuarios está vacía, devuelve una tabla especial.
         if (listaUsuarios.isEmpty()) {
             return new Tabla("", null);
         }
@@ -1044,7 +1047,7 @@ public class Control {
             return null;
         }
 
-        // Si la lista de libros inventariados está vacía, devuelve una tabla nula.
+        // Si la lista de libros inventariados está vacía, devuelve una tabla especial.
         if (listaInventario.isEmpty()) {
             return new Tabla("", null);
         }
@@ -1125,7 +1128,7 @@ public class Control {
             return null;
         }
 
-        // Si la lista de préstamos está vacía, devuelve una tabla nula.
+        // Si la lista de préstamos está vacía, devuelve una tabla especial.
         if (listaPrestamos.isEmpty()) {
             return new Tabla("", null);
         }
@@ -1306,7 +1309,7 @@ public class Control {
             return null;
         }
 
-        // Si la lista de préstamos está vacía, devuelve una tabla nula.
+        // Si la lista de préstamos está vacía, devuelve una tabla especial.
         if (listaPrestamos.isEmpty()) {
             return new Tabla("", null);
         }
@@ -1330,7 +1333,7 @@ public class Control {
             return null;
         }
 
-        // Si la lista de préstamos del periodo está vacía, devuelve una tabla nula.
+        // Si la lista de préstamos del periodo está vacía, devuelve una tabla especial.
         if (listaPrestamosLibroPeriodo.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay préstamos dentro del periodo.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
