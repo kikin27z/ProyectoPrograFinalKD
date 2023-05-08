@@ -1057,56 +1057,56 @@ public class Control {
     }
 
     /**
-     * Regresa un objeto Tabla con todos los libros
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
-     * @return Objeto Tabla con todos los libros, null si hay un error
+     * Regresa un objeto Tabla con los libros prestados.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
+     * @return Objeto Tabla con todos los libros prestados, null si hay un error
      */
     public Tabla getTablaLibrosPrestados(JFrame frame) {
         List<PublicacionED> librosPrestados;
         try {
-            // Obtiene la lista de libros
+            // Obtiene la lista de libros prestados.
             librosPrestados = persistencia.consultarLibrosPrestados();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista está vacía, devuelve una tabla especial.
         if (librosPrestados.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros
+        // Regresa el objeto Tabla con los libros prestados
         return new Tabla("Lista de libros prestados", conversiones.inventarioLibrosTableModel(librosPrestados));
     }
 
     /**
-     * Regresa un objeto Tabla con todos los libros
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
-     * @return Objeto Tabla con todos los libros, null si hay un error
+     * Regresa un objeto Tabla con los libros disponibles.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
+     * @return Objeto Tabla con los libros disponibles, null si hay un error.
      */
     public Tabla getTablaLibrosDisponibles(JFrame frame) {
         List<PublicacionED> librosDisponibles;
         try {
-            // Obtiene la lista de libros
+            // Obtiene la lista de libros disponibles.
             librosDisponibles = persistencia.consultarLibrosDisponibles();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista está vacía, devuelve una tabla especial.
         if (librosDisponibles.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros
+        // Regresa el objeto Tabla con todos los libros disponibles.
         return new Tabla("Lista de libros disponibles", conversiones.inventarioLibrosTableModel(librosDisponibles));
     }
 
@@ -1138,10 +1138,9 @@ public class Control {
     }
 
     /**
-     * Regresa un objeto Tabla con todos los libros que coinciden con un autor
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
-     * @return Objeto Tabla con los libros que coinciden con el autor, null si
+     * Regresa un objeto Tabla con los préstamos a un usuario.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
+     * @return Objeto Tabla con los préstamos que coinciden con el usuario, null si
      * hay un error
      */
     public Tabla getTablaPrestamosLibrosUsuario(JFrame frame) {
@@ -1150,73 +1149,69 @@ public class Control {
         String numCredencial = "";
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de todos los préstamos.
             listaPrestamos = persistencia.consultarPrestamosLibros();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la ista de todos los préstamos está vacía, devolver una tabla especial.
         if (listaPrestamos.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Captura el autor del libro
+        // Captura el número de credencial de un usuario permitiendo sólo ingresar números.
         while (numCredencial != null && numCredencial.equals("")) {
-            numCredencial = JOptionPane.showInputDialog(frame, "Número de credencial:",
-                    "Préstamo a buscar por usuario:",
-                    JOptionPane.QUESTION_MESSAGE);
-            if (numCredencial != null && numCredencial.equals("")) {
-                JOptionPane.showMessageDialog(frame, "Introduce un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            do {
+                numCredencial = JOptionPane.showInputDialog(null, "Número de credencial:", "Agrega Usuario", JOptionPane.QUESTION_MESSAGE);
+                if (numCredencial == null) {
+                    // Si el usuario cierra el cuadro de diálogo.
+                    break;
+                } else if (!numCredencial.matches("\\d+")) {
+                    // Si el usuario introduce algo que no sean números.
+                    JOptionPane.showMessageDialog(frame, "Introduzca un número de credencial válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } while (!numCredencial.matches("\\d+"));
         }
 
-        // Si el usuario presionó el botón Cancelar
+        // Si el usuario presionó el botón cancelar.
         if (numCredencial == null) {
             return null;
         }
 
-        // Crea un objeto Usuario con solo el num de credencial
-        try {
-            // Obten el usuario del catálogo de usuarios
-            usuario = persistencia.obten(new Usuario(numCredencial));
-        } catch (Exception e) {
-            // Si ocurrio un error al leer del catalogo de usuarios,
-            // despliega mensaje de error
-            JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
-                    JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
+        // Crea un objeto Usuario con el número de credencial.
+        usuario = persistencia.obten(new Usuario(numCredencial));
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de préstamos por usuario.
             listaPrestamosUsuario = persistencia.consultarPrestamosLibros(usuario);
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista está vacía, desplegar mensaje y devolver una tabla especial.
         if (listaPrestamosUsuario.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay préstamos de ese usuario.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noPrestamosUsuario", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        // Regresa el objeto Tabla con los préstamos al mismo usuario.
         return new Tabla("Lista de Préstamos por usuario:", conversiones.prestamosTableModel(listaPrestamosUsuario));
     }
 
     /**
-     * Regresa un objeto Tabla con todos los libros que coinciden con un autor
-     *
-     * @param frame Ventana sobre la que se despliega el mensaje de error
-     * @return Objeto Tabla con los libros que coinciden con el autor, null si
+     * Regresa un objeto Tabla con los préstamos de un mismo libro.
+     * @param frame Ventana sobre la que se despliega el mensaje de error.
+     * @return Objeto Tabla con los préstamos que coinciden con el libro, null si
      * hay un error
      */
     public Tabla getTablaPrestamosLibro(JFrame frame) {
@@ -1225,21 +1220,22 @@ public class Control {
         String isbn = "";
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de todos los préstamos.
             listaPrestamos = persistencia.consultarPrestamosLibros();
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista de todos los préstamos está vacía, devolver una tabla especial.
         if (listaPrestamos.isEmpty()) {
             return new Tabla("", null);
         }
 
-        // Captura el autor del libro
+        // Captura el ISBN del libro, validando que no haya espacios en blanco.
         while (isbn != null && isbn.equals("")) {
             isbn = JOptionPane.showInputDialog(frame, "ISBN del libro:",
                     "Préstamo a buscar por libro:",
@@ -1249,41 +1245,42 @@ public class Control {
             }
         }
 
-        // Si el usuario presionó el botón Cancelar
+        // Si el usuario presionó el botón cancelar.
         if (isbn == null) {
             return null;
         }
 
-        // Crea un objeto Usuario con solo el num de credencial
+        // Crea un objeto Libro con el ISBN capturado.
         try {
             // Obten el usuario del catálogo de usuarios
             libro = persistencia.obten(new Libro(isbn));
         } catch (Exception e) {
-            // Si ocurrio un error al leer del catalogo de usuarios,
-            // despliega mensaje de error
+            // Si ocurrió un error al leer del registro de préstamos,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
         try {
-            // Obtiene la lista de libros por el autor
+            // Obtiene la lista de préstamos del libro.
             listaPrestamosLibro = persistencia.consultarPrestamos(libro);
         } catch (Exception e) {
-            // Si ocurrio un error al obtener la lista de la base de datos,
-            // despliega mensaje de error
+            // Si ocurrió un error al obtener la lista,
+            // despliega mensaje de error.
             JOptionPane.showMessageDialog(frame, e.getMessage(), "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return null;
         }
 
+        // Si la lista está vacía, mostrar mensaje y devolver una tabla especial.
         if (listaPrestamosLibro.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "No hay préstamos de ese libro.", "¡Error!",
                     JOptionPane.ERROR_MESSAGE);
             return new Tabla("noPrestamosLibro", null);
         }
 
-        // Regresa el objeto Tabla con todos los libros que coinciden en el autor
+        // Regresa el objeto Tabla con los préstamos del libro.
         return new Tabla("Lista de Préstamos por libro:", conversiones.prestamosTableModel(listaPrestamosLibro));
     }
 
