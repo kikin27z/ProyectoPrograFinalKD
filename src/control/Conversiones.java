@@ -102,7 +102,7 @@ public class Conversiones {
 
     /**
      * Genera un objeto de tipo DefaultTableModel a partir de una lista de
-     * prestamos.
+     * préstamos.
      * @param listaPrestamos Lista de prestamos a convertir
      * @return Objeto de tipo DefaultTableModel con los atributos de los
      * prestamos.

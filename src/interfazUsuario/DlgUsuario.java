@@ -290,7 +290,7 @@ public class DlgUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
     /**
-     * Método oyente del botón botonEliminar.
+     * Método oyente del botón botonCancelar.
      * @param evt Evento al que escucha.
      */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed

@@ -25,7 +25,7 @@ public class Control {
     Conversiones conversiones;
 
     /**
-     * Constructor por ausencia.
+     * Constructor por ausencia que inicializa los atributos de la clase.
      */
     public Control() {
         // Crea un objeto del tipo persistencia y otro de tipo conversiones.

@@ -196,7 +196,7 @@ public class DlgPeriodo extends javax.swing.JDialog {
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
     /**
-     * Método oyente del botón botonAceptar
+     * Método oyente del botón botonCancelar
      * @param evt Evento al que se escucha.
      */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
