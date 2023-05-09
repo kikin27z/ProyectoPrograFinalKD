@@ -1,12 +1,8 @@
-/*
- * ConstantesGUI.java
- *
- * @author Diego Valenzuela Parra
- */
 package interfazUsuario;
 
 /**
- * Esta clase define constantes empleadas en los cuadros de dialogo
+ * Esta clase define constantes empleadas en los cuadros de dialogo.
+ * Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class ConstantesGUI {
     // Tipos de operaciones en los que se van a usar los cuadros de dialogos

@@ -6,15 +6,14 @@ import javax.swing.JOptionPane;
 import objetosNegocio.Libro;
 
 /**
- *
+ * Cuadro de diálogo donde se capturan o despliegan los datos de un libro.
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class DlgLibro extends javax.swing.JDialog {
 
     /**
      * Constructor que establece las características del cuadro de diálogo y la
-     * operación a realizar con él
-     *
+     * operación a realizar con él.
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
@@ -22,7 +21,7 @@ public class DlgLibro extends javax.swing.JDialog {
      * @param libro Libro a capturar, editar o desplegar
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
      * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
-     * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
+     * @param respuesta Boton presionado al salir de los cuadros de diálogo:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
     public DlgLibro(java.awt.Frame parent, String title, boolean modal, Libro libro, int operacion, StringBuffer respuesta) {
@@ -34,7 +33,7 @@ public class DlgLibro extends javax.swing.JDialog {
         
         // Modifica el título del botón botonAceptar y establece si los
         // botones botonRestaurar y botonCancelar estarán habilitados.
-        // Si la operación es agregar
+        // Si la operación es agregar.
         if (operacion == ConstantesGUI.AGREGAR) {
             botonAceptar.setText("Guardar");
         } // Si la operación es actualizar
@@ -53,6 +52,7 @@ public class DlgLibro extends javax.swing.JDialog {
 
         // Despliega el ISBN del libro
         campoTextoISBN.setText(libro.getIsbn());
+        campoTextoISBN.enable(false);
 
         // Si la operación es de actualizar, eliminar o desplegar,
         if ((operacion == ConstantesGUI.ELIMINAR) || (operacion == ConstantesGUI.ACTUALIZAR) || (operacion == ConstantesGUI.DESPLEGAR)) {
@@ -77,6 +77,7 @@ public class DlgLibro extends javax.swing.JDialog {
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
         respuesta.append(ConstantesGUI.CANCELAR);
+        
         // centra el cuadro de dialogo sobre la ventana de la aplicación
         centraCuadroDialogo(parent);
 
@@ -87,7 +88,6 @@ public class DlgLibro extends javax.swing.JDialog {
     /**
      * Este método centra el cuadro de dialogo sobre la ventana de la
      * aplicación.
-     *
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      */
     private void centraCuadroDialogo(java.awt.Frame parent) {
@@ -264,38 +264,43 @@ public class DlgLibro extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Método oyente del botón botonAceptar
-     *
+     * Método oyente del botón botonAceptar.
      * @param evt Evento al que escucha
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // Si la operación es Agregar o Actualizar
+        // Validación para que no se introduzcan espacios en blanco.
         if (!campoTextoTitulo.getText().trim().equals("") && !campoTextoAutor.getText().trim().equals("")
             && !campoTextoEditorial.getText().trim().equals("") && !campoTextoEdicion.getText().trim().equals("")
             && !campoTextoClasificacion.getText().trim().equals("")) {
+            // Si la operación es Agregar o Actualizar
             if (operacion == ConstantesGUI.AGREGAR || operacion == ConstantesGUI.ACTUALIZAR) {
                 // Toma los valores capturados en los campos de texto y en la caja
-                // combinada y almacénalos en el parámetro cancion.
+                // combinada y almacénalos en el parámetro libro.
                 libro.setTitulo(campoTextoTitulo.getText());
                 libro.setAutor(campoTextoAutor.getText());
                 libro.setEditorial(campoTextoEditorial.getText());
                 libro.setEdicion(campoTextoEdicion.getText());
                 libro.setClasificacion(campoTextoClasificacion.getText());
             }
-            // Borra el contenido de respuesta
+            // Borra el contenido de respuesta.
             respuesta.delete(0, respuesta.length());
-            // Establece que se presionó el botón botonAceptar
+            // Establece que se presionó el botón botonAceptar.
             respuesta.append(ConstantesGUI.ACEPTAR);
-            // Destruye el cuadro de díalogo
+            // Destruye el cuadro de díalogo.
             dispose();
         } else {
+            // Si hay datos con puros espacios en blanco, mostrar mensaje de error.
             JOptionPane.showMessageDialog(this, "Favor de llenar todos los campos de texto.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Método oyente del botón botonRestaurar.
+     * @param evt Evento al que escucha.
+     */
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
-        // Restaura el contenido de los campos de texto a su valor original
-        // Si la operación es Agregar
+        // Restaura el contenido de los campos de texto a su valor original.
+        // Si la operación es Agregar.
         if (operacion == ConstantesGUI.AGREGAR) {
             campoTextoTitulo.setText("");
             campoTextoAutor.setText("");
@@ -304,7 +309,7 @@ public class DlgLibro extends javax.swing.JDialog {
             campoTextoClasificacion.setText("");
         }
 
-        // Si la operación es Actualizar
+        // Si la operación es Actualizar.
         if (operacion == ConstantesGUI.ACTUALIZAR) {
             campoTextoTitulo.setText(libro.getTitulo());
             campoTextoAutor.setText(libro.getAutor());
@@ -314,6 +319,10 @@ public class DlgLibro extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
+    /**
+     * Método oyente del botón botonCancelar.
+     * @param evt Evento al que escucha.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // Destruye el cuadro de díalogo
         dispose();

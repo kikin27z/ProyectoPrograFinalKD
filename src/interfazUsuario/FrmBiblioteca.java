@@ -7,13 +7,13 @@ import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Diego Valenzuela Parra
+ * Ventana principal del programa.
+ * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
-     * Creates new form FrmBiblioteca
+     * Constructor por ausencia que inicializa los componentes y centra la ventana.
      */
     public FrmBiblioteca() {
         initComponents();
@@ -21,7 +21,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }
 
     /**
-     * Este método centra la ventana de la aplicación sobre la pantalla
+     * Este método centra la ventana de la aplicación sobre la pantalla.
      */
     private void centraVentana() {
         //Obtiene el tamaño de la pantalla
@@ -47,8 +47,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     /**
      * Este método crea un objeto del tipo JTable dentro de un panel con barras
      * de deslizamiento y la despliega.
-     *
-     * @param tabla objeto TableModel con los datos de una tabla
+     * @param tabla Objeto TableModel con los datos de una tabla
      */
     public void despliegaTabla(Tabla tabla) {
         // Crea la tabla a partir del modelo de la tabla con los valores
@@ -398,382 +397,371 @@ public class FrmBiblioteca extends javax.swing.JFrame {
 
     /**
      * Método oyente que cierra el programa si el usuario da clic en salir.
-     *
-     * @param evt Evento al que escucha
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_opcionMenuSalirActionPerformed
 
     /**
-     * Método oyente que agrega un libro al catálogo de libros
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que agrega un libro al catálogo de libros.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarLibroActionPerformed
-        // Agrega el nuevo libro
+        // Agrega el nuevo libro.
         if (control.agregarLibro(this)) {
-            // Obtiene la lista de libros
+            // Obtiene la lista de libros.
             Tabla tablaLibros = control.getTablaLibros(this);
-            // Despliega la lista de libros
+            // Despliega la lista de libros.
             despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuAgregarLibroActionPerformed
 
     /**
-     * Método oyente que actualiza un libro del catálogo de libros
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que actualiza un libro del catálogo de libros.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuActualizarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarLibroActionPerformed
-        // Actualiza el libro
+        // Actualiza el libro.
         if (control.actualizarLibro(this)) {
-            // Obtiene la lista de libros
+            // Obtiene la lista de libros.
             Tabla tablaLibros = control.getTablaLibros(this);
-            // Despliega la lista de libros
+            // Despliega la lista de libros.
             despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuActualizarLibroActionPerformed
 
     /**
-     * Método oyente que elimina un libro del catálogo de libros
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que elimina un libro del catálogo de libros.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarLibroActionPerformed
-        // Actualiza el libro
+        // Elimina el libro
         if (control.eliminarLibro(this)) {
-            // Obtiene la lista de libros
+            // Obtiene la lista de libros.
             Tabla tablaLibros = control.getTablaLibros(this);
-            // Despliega la lista de libros
+            // Despliega la lista de libros.
             despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuEliminarLibroActionPerformed
 
     /**
-     * Método oyente que agrega un usuario al catálogo de usuarios
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que agrega un usuario al catálogo de usuarios.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuAgregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuAgregarUsuarioActionPerformed
-        // Agrega el nuevo usuario
+        // Agrega el nuevo usuario.
         if (control.agregarUsuario(this)) {
-            // Obtiene la lista de usuarios
+            // Obtiene la lista de usuarios.
             Tabla tablaUsuarios = control.getTablaUsuarios(this);
-            // Despliega la lista de libros
+            // Despliega la lista de usuarios.
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuAgregarUsuarioActionPerformed
 
     /**
-     * Método oyente que actualiza un usuario del catálogo de usuarios
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que actualiza un usuario del catálogo de usuarios.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuActualizarUsuarioActionPerformed
-        // Actualiza el usuario
+        // Actualiza el usuario.
         if (control.actualizarUsuario(this)) {
-            // Obtiene la lista de usuarios
+            // Obtiene la lista de usuarios.
             Tabla tablaUsuarios = control.getTablaUsuarios(this);
-            // Despliega la lista de libros
+            // Despliega la lista de usuarios.
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuActualizarUsuarioActionPerformed
 
     /**
-     * Método oyente que elimina un usuario del catálogo de usuarios
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que elimina un usuario del catálogo de usuarios.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuEliminarUsuarioActionPerformed
+        // Elimina el usuario.
         if (control.eliminarUsuario(this)) {
-            // Obtiene la lista de usuarios
+            // Obtiene la lista de usuarios.
             Tabla tablaUsuarios = control.getTablaUsuarios(this);
-            // Despliega la lista de libros
+            // Despliega la lista de usuarios.
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuEliminarUsuarioActionPerformed
 
     /**
-     * Método oyente que inventaría un libro en el inventario
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que inventaría un libro en el inventario.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuInventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuInventariarLibroActionPerformed
-        // Inventaría el nuevo libro
+        // Inventaría el nuevo libro.
         if (control.inventariarLibro(this)) {
-            // Obtiene la lista del inventario
+            // Obtiene la lista del inventario.
             Tabla tablaInventario = control.getTablaInventarioLibros(this);
-            // Despliega la lista del inventario
+            // Despliega la lista del inventario.
             despliegaTabla(tablaInventario);
         }
     }//GEN-LAST:event_opcionMenuInventariarLibroActionPerformed
 
     /**
-     * Método oyente que desinventaría un libro del inventario
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que desinventaría un libro del inventario.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuDesinventariarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDesinventariarLibroActionPerformed
-        // Desinventaría el nuevo libro
+        // Desinventaría el libro.
         if (control.desinventariarLibro(this)) {
-            // Obtiene la lista del inventario
+            // Obtiene la lista del inventario.
             Tabla tablaInventario = control.getTablaInventarioLibros(this);
-            // Despliega la lista del inventario
+            // Despliega la lista del inventario.
             despliegaTabla(tablaInventario);
         }
     }//GEN-LAST:event_opcionMenuDesinventariarLibroActionPerformed
 
     /**
-     * Método oyente que presta un libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que presta un libro a un usuario.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuPrestarLibroActionPerformed
-        // Presta el nuevo libro
+        // Presta el libro a un usuario.
         if (control.prestarLibro(this)) {
-            // Obtiene la lista de los préstamos
+            // Obtiene la lista de préstamos.
             Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
-            // Despliega la lista de los préstamos
+            // Despliega la lista de los préstamos.
             despliegaTabla(tablaPrestamos);
         }
     }//GEN-LAST:event_opcionMenuPrestarLibroActionPerformed
 
     /**
-     * Método oyente que presta un libro
-     *
+     * Método oyente que devuelve un libro.
      * @param evt Evento al que escucha
      */
     private void opcionMenuDevolverLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuDevolverLibroActionPerformed
-        // Devuelve el nuevo libro
+        // Devuelve el libro.
         if (control.devolverLibro(this)) {
-            // Obtiene la lista de los préstamos
+            // Obtiene la lista de préstamos.
             Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
-            // Despliega la lista de los préstamos
+            // Despliega la lista de préstamos.
             despliegaTabla(tablaPrestamos);
         }
     }//GEN-LAST:event_opcionMenuDevolverLibroActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de libros.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosActionPerformed
-        // Obtiene la lista de libros
+        // Obtiene la lista de libros.
         Tabla tablaLibros = control.getTablaLibros(this);
-        // Despliega la lista de libros
         if(tablaLibros.getTitulo().equals("")) {
+            // Despliega un mensaje si no hay libros en el catálogo.
             JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de libros.
             despliegaTabla(tablaLibros);
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosActionPerformed
     
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * un autor del libro
-     *
+     * Método oyente que obtiene y despliega la lista de libros de un mismo autor.
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaLibrosAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosAutorActionPerformed
-        // Obtiene la lista de libros por autor
+        // Obtiene la lista de libros de un mismo autor.
         Tabla tablaLibrosAutor = control.getTablaLibrosAutor(this);
-        // Despliega la lista de libros por autor
         if (tablaLibrosAutor != null) {
             if(tablaLibrosAutor.getTitulo().equals("")) {
+                // Si no hay libros en el catálogo, despliega mensaje.
                 JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaLibrosAutor.getTitulo().equals("noLibrosAutor")) {
+                // Si no hay libros del autor, no mostrar nada.
                 tablaLibrosAutor.setTitulo("");
             } else {
+                // Despliega la lista de libros de un mismo autor.
                 despliegaTabla(tablaLibrosAutor);
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosAutorActionPerformed
  
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una clasificacion del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de libros de una misma clasificacion.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaLibrosClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
-        // Obtiene la lista de libros por clasificación
+        // Obtiene la lista de libros de una misma clasificación.
         Tabla tablaLibrosClasificacion = control.getTablaLibrosClasificacion(this);
-        // Despliega la lista de libros por clasificación 
         if (tablaLibrosClasificacion != null) {
             if(tablaLibrosClasificacion.getTitulo().equals("")) {
+                // Si no hay libros en el catálogo, despliega mensaje.
                 JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaLibrosClasificacion.getTitulo().equals("noLibrosClasificacion")) {
+                // Si no hay libros de la clasificación, no mostrar nada.
                 tablaLibrosClasificacion.setTitulo("");
             } else {
+                // Despliegala lista de libros de una misma clasificación.
                 despliegaTabla(tablaLibrosClasificacion);
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosClasificacionActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de libros de una misma editorial.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaLibrosEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaLibrosEditorialActionPerformed
-        // Obtiene la lista de libros por editorial
+        // Obtiene la lista de libros de una misma editorial.
         Tabla tablaLibrosEditorial = control.getTablaLibrosEditorial(this);
-        // Despliega la lista de libros por editorial
         if (tablaLibrosEditorial != null) {
             if(tablaLibrosEditorial.getTitulo().equals("")) {
+                // Si no hay libros en el catálogo, despliega mensaje.
                 JOptionPane.showMessageDialog(this, "No hay libros en el catálogo.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaLibrosEditorial.getTitulo().equals("noLibrosEditorial")) {
+                // Si no hay libros de la editorial, no mostrar nada.
                 tablaLibrosEditorial.setTitulo("");
             } else {
+                // Despliega la lista de libros de una misma editorial.
                 despliegaTabla(tablaLibrosEditorial);
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaLibrosEditorialActionPerformed
 
     /**
-     * Método oyente que presta un libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de los libros inventariados.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaInventarioLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosActionPerformed
-        // Obtiene la lista de libros
+        // Obtiene la lista de libros inventariados.
         Tabla tablaInventario = control.getTablaInventarioLibros(this);
-        // Despliega la lista de libros
         if(tablaInventario.getTitulo().equals("")) {
+            // Si no hay libros en el inventario, mostrar mensaje.
             JOptionPane.showMessageDialog(this, "No hay libros en el inventario.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de libros inventariados.
             despliegaTabla(tablaInventario);
         }
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de usuarios
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de usuarios.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaUsuariosActionPerformed
-        // Obtiene la lista de libros
+        // Obtiene la lista de usuarios.
         Tabla tablaUsuarios = control.getTablaUsuarios(this);
-        // Despliega la lista de libros
         if(tablaUsuarios.getTitulo().equals("")) {
+            // Si no hay usuarios registrados, mostrar mensaje.
             JOptionPane.showMessageDialog(this, "No hay usuarios registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de usuarios.
             despliegaTabla(tablaUsuarios);
         }
     }//GEN-LAST:event_opcionMenuConsultaUsuariosActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de libros que han sido prestados.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaInventarioLibrosPrestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
-        // Obtiene la lista de libros
+        // Obtiene la lista de libros prestados.
         Tabla tablaLibrosPrestados = control.getTablaLibrosPrestados(this);
-        // Despliega la lista de libros
         if(tablaLibrosPrestados.getTitulo().equals("")) {
+            // Si no hay libros prestados, mostrar mensaje.
             JOptionPane.showMessageDialog(this, "No hay libros prestados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de libros prestados.
             despliegaTabla(tablaLibrosPrestados);
         }
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosPrestadosActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de libros disponibles.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
-        // Obtiene la lista de libros por editorial
+        // Obtiene la lista de libros disponibles.
         Tabla tablaLibrosDisponibles = control.getTablaLibrosDisponibles(this);
-        // Despliega la lista de libros por editorial
         if(tablaLibrosDisponibles.getTitulo().equals("")) {
+            // Si no hay libros disponibles, despliega mensaje.
             JOptionPane.showMessageDialog(this, "No hay libros disponibles.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de libros disponibles.
             despliegaTabla(tablaLibrosDisponibles);
         }
     }//GEN-LAST:event_opcionMenuConsultaInventarioLibrosDisponiblesActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de préstamos.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaPrestamosLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
-        // Obtiene la lista de libros por editorial
+        // Obtiene la lista de préstamos.
         Tabla tablaPrestamos = control.getTablaPrestamosLibros(this);
         // Despliega la lista de libros por editorial
         if(tablaPrestamos.getTitulo().equals("")) {
+            // Si no hay préstamos, despliega mensaje.
             JOptionPane.showMessageDialog(this, "No hay préstamos registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Despliega la lista de préstamos.
             despliegaTabla(tablaPrestamos);
         }
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de préstamos de un mismo usuario.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
-        // Obtiene la lista de libros por autor
+        // Obtiene la lista de préstamos de un mismo usuario.
         Tabla tablaPrestamosUsuario = control.getTablaPrestamosLibrosUsuario(this);
         // Despliega la lista de libros por autor
         if (tablaPrestamosUsuario != null) {
             if(tablaPrestamosUsuario.getTitulo().equals("")) {
+                // Si no hay préstamos, mostrar mensaje.
                 JOptionPane.showMessageDialog(this, "No hay préstamos registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaPrestamosUsuario.getTitulo().equals("noPrestamosUsuario")) {
+                // Si no hay préstamos de ese usuario en particular, no mostrar nada.
                 tablaPrestamosUsuario.setTitulo("");
             } else {
+                // Despliega la lista de préstamos de un mismo usuario.
                 despliegaTabla(tablaPrestamosUsuario);
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibrosUsuarioActionPerformed
 
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
-     * @param evt Evento al que escucha
+     * Método oyente que obtiene y despliega la lista de préstamos de un mismo libro.
+     * @param evt Evento al que escucha.
      */
     private void opcionMenuConsultaPrestamosLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibroActionPerformed
-        // Obtiene la lista de libros por autor
+        // Obtiene la lista de préstamos de un mismo libro.
         Tabla tablaPrestamosLibro = control.getTablaPrestamosLibro(this);
-        // Despliega la lista de libros por autor
         if (tablaPrestamosLibro != null) {
             if(tablaPrestamosLibro.getTitulo().equals("")) {
+                // Si no hay préstamos, mostrar mensaje-
                 JOptionPane.showMessageDialog(this, "No hay préstamos registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaPrestamosLibro.getTitulo().equals("noPrestamosLibro")) {
+                // Si no hay préstamos de ese libro, no mostrar nada.
                 tablaPrestamosLibro.setTitulo("");
             } else {
+                // Despliega la lista de préstamos de un mismo libro.
                 despliegaTabla(tablaPrestamosLibro);
             }
         }
     }//GEN-LAST:event_opcionMenuConsultaPrestamosLibroActionPerformed
     
     /**
-     * Método oyente que obtiene y despliega la lista de libros con respecto a
-     * una editorial del libro
-     *
+     * Método oyente que obtiene y despliega la lista de préstamos dentro de un periodo.
      * @param evt Evento al que escucha
      */
     private void opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuConsultaPrestamosLibrosPeriodoActionPerformed
-        // Obtiene la lista de usuarios
+        // Obtiene la lista de préstamos dentro de un periodo.
         Tabla tablaPrestamosPeriodo = control.getTablaPrestamosLibrosPeriodo(this);
-        // Despliega la lista de libros
         if (tablaPrestamosPeriodo != null) {
             if(tablaPrestamosPeriodo.getTitulo().equals("")) {
+                // Si no hay préstamos, mostrar mensaje.
                 JOptionPane.showMessageDialog(this, "No hay préstamos registrados.", "¡Error!", JOptionPane.ERROR_MESSAGE);
             } else if (tablaPrestamosPeriodo.getTitulo().equals("noPrestamosPeriodo")) {
+                // Si no hay préstamos dentro del periodo, no mostrar nada.
                 tablaPrestamosPeriodo.setTitulo("");
             } else {
+                // Despliega la lista de préstamos dentro del periodo.
                 despliegaTabla(tablaPrestamosPeriodo);
             }
         }
@@ -785,6 +773,7 @@ public class FrmBiblioteca extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionMenuAcercaDeActionPerformed
 
     /**
+     * Clase main.
      * @param args the command line arguments
      */
     public static void main(String args[]) {

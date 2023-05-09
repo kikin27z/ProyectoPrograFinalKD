@@ -10,25 +10,24 @@ import objetosNegocio.Usuario;
 import objetosServicio.Fecha;
 
 /**
- *
+ * Cuadro de diálogo donde se selecciona el usuario y el libro de un préstamo.
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class DlgPrestamo extends javax.swing.JDialog {
 
     /**
      * Constructor que establece las características del cuadro de diálogo y la
-     * operación a realizar con él
-     *
+     * operación a realizar con él.
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
      * diálogo, false en caso contrario
      * @param prestamo Contiene la información del prestamo para agregar o
-     * eliminar del catálogo de prestamos
+     * eliminar del catálogo de prestamos.
      * @param listaLibros Es la lista de libros del catálogo de libros
      * @param listaUsuarios Es la lista de usuarios del catálogo de usuarios
      * @param operacion Operación a realizar en el cuadro de diálogo: AGREGAR =
-     * 0, ACTUALIZAR = 1, ELIMINAR = 2, DESPLEGAR = 3;
+     * 0, ACTUALIZAR = 1, ELIMINAR = 2;
      * @param respuesta Boton presionado al salir de los cuadros de * diálogos:
      * ACEPTAR = "Aceptar", CANCELAR = "Cancelar".
      */
@@ -41,9 +40,10 @@ public class DlgPrestamo extends javax.swing.JDialog {
         this.respuesta = respuesta;
         initComponents();
 
+        // Si la operación es agregar
         if (operacion == ConstantesGUI.AGREGAR) {
             botonAceptar.setText("Prestar");
-        } // Si la operación es actualizar
+        } // Si la operación es eliminar
         else if (operacion == ConstantesGUI.ELIMINAR) {
             botonAceptar.setText("Devolver");
             campoTextoTiempo.hide();
@@ -53,10 +53,10 @@ public class DlgPrestamo extends javax.swing.JDialog {
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
         respuesta.append(ConstantesGUI.CANCELAR);
-
+        
         // centra el cuadro de dialogo sobre la ventana de la aplicación
         centraCuadroDialogo(parent);
-
+        
         // Muestra el cuadro de diálogo
         setVisible(true);
     }
@@ -64,7 +64,6 @@ public class DlgPrestamo extends javax.swing.JDialog {
     /**
      * Este método centra el cuadro de dialogo sobre la ventana de la
      * aplicación.
-     *
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      */
     private void centraCuadroDialogo(java.awt.Frame parent) {
@@ -208,10 +207,15 @@ public class DlgPrestamo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método oyente del botón botonAceptar.
+     * @param evt Evento al que escucha.
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        //Si la opcion es prestar o devolver
         String tiempo = campoTextoTiempo.getText();
+        // Si la opcion es agregar.
         if (operacion == ConstantesGUI.AGREGAR) {
+            // Validación para prevenir que el tiempo sea un espacio en blanco.
             if (!tiempo.equals("")) {
                 prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
                 PublicacionED pubEDtmp = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
@@ -221,55 +225,70 @@ public class DlgPrestamo extends javax.swing.JDialog {
             
                 // Borra el contenido de respuesta
                 respuesta.delete(0, respuesta.length());
+                
                 // Establece que se presionó el botón botonAceptar
                 respuesta.append(ConstantesGUI.ACEPTAR);
+                
                 // Destruye el cuadro de díalogo
                 dispose();
             } else {
+                // Mostrar error de mensaje
                 JOptionPane.showMessageDialog(this, "Introduzca una cantidad válida.", "¡Error!", JOptionPane.ERROR_MESSAGE);
                 campoTextoTiempo.setText("");
             }
-        } else if (operacion == ConstantesGUI.ELIMINAR) {
+        } // Si la operación es eliminar.
+        else if (operacion == ConstantesGUI.ELIMINAR) {
             prestamo.setUsuario((Usuario) cajaCombinadaUsuarios.getSelectedItem());
             PublicacionED pubED = (PublicacionED) cajaCombinadaLibros.getSelectedItem();
             prestamo.setPublicacion(pubED.getPublicacion());
+            
             // Borra el contenido de respuesta
             respuesta.delete(0, respuesta.length());
+            
             // Establece que se presionó el botón botonAceptar
             respuesta.append(ConstantesGUI.ACEPTAR);
+            
             // Destruye el cuadro de díalogo
             dispose();
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Método oyente del botón botonRestaurar.
+     * @param evt Evento al que escucha.
+     */
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
+        // Si la operación es agregar.
         if (operacion == ConstantesGUI.AGREGAR) {
             cajaCombinadaUsuarios.setSelectedIndex(0);
             cajaCombinadaLibros.setSelectedIndex(0);
             campoTextoTiempo.setText("");
-        } else if (operacion == ConstantesGUI.ELIMINAR) {
+        } // Si la operación es eliminar.
+        else if (operacion == ConstantesGUI.ELIMINAR) {
             cajaCombinadaUsuarios.setSelectedIndex(0);
             cajaCombinadaLibros.setSelectedIndex(0);
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
+    /**
+     * Método oyente del botón botonCancelar.
+     * @param evt Evento al que escucha.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+    * Evento para prevenir que el usuario ingrese letras en el tiempo.
+    * @param evt Evento al que escucha.
+    */
     private void campoTextoTiempoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoTiempoKeyTyped
         char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9')
-                || (c == evt.VK_BACK_SPACE)
-                || (c == evt.VK_DELETE))) {
+        if (!((c >= '0') && (c <= '9') || (c == evt.VK_BACK_SPACE) || (c == evt.VK_DELETE))) {
             evt.consume(); // ignorar el evento de tecla
         }
     }//GEN-LAST:event_campoTextoTiempoKeyTyped
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;

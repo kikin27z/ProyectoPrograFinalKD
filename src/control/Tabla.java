@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * Esta clase encapsula el titulo de una tabla y un objeto TableModel con los
  * datos de una tabla que seran desplegados en una tabla del tipo JTable
- * @author Diego Valenzuela Parra
+ * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class Tabla {
     private String titulo;

@@ -6,15 +6,14 @@ import javax.swing.JOptionPane;
 import objetosNegocio.Usuario;
 
 /**
- *
+ * Cuadro de diálogo donde se capturan o despliegan los datos de un usuario.
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class DlgUsuario extends javax.swing.JDialog {
 
     /**
      * Constructor que establece las características del cuadro de diálogo y la
-     * operación a realizar con él
-     *
+     * operación a realizar con él.
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
@@ -53,6 +52,7 @@ public class DlgUsuario extends javax.swing.JDialog {
 
         // Despliega el número de credencial del usuario
         campoTextoNumCredencial.setText(usuario.getNumCredencial());
+        campoTextoNumCredencial.enable(false);
 
         // Si la operación es de actualizar, eliminar o desplegar,
         if ((operacion == ConstantesGUI.ELIMINAR) || (operacion == ConstantesGUI.ACTUALIZAR) || (operacion == ConstantesGUI.DESPLEGAR)) {
@@ -70,14 +70,16 @@ public class DlgUsuario extends javax.swing.JDialog {
             campoTextoTelefono.setEditable(false);
         }
         
+        // Línea para prevenir el pegado de texto.
         campoTextoTelefono.setTransferHandler(null);
 
         // Establece el valor por omisión para respuesta, por si se cierra el
         // cuadro de diálogo presionando el botón cerrar o el botón cancelar
         respuesta.append(ConstantesGUI.CANCELAR);
+        
         // centra el cuadro de dialogo sobre la ventana de la aplicación
         centraCuadroDialogo(parent);
-
+        
         // Muestra el cuadro de diálogo
         setVisible(true);
     }
@@ -85,7 +87,6 @@ public class DlgUsuario extends javax.swing.JDialog {
     /**
      * Este método centra el cuadro de dialogo sobre la ventana de la
      * aplicación.
-     *
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      */
     private void centraCuadroDialogo(java.awt.Frame parent) {
@@ -240,14 +241,14 @@ public class DlgUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Método oyente del botón botonAceptar
-     *
-     * @param evt Evento al que escucha
+     * Método oyente del botón botonAceptar.
+     * @param evt Evento al que escucha.
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // Si la operación es Agregar o Actualizar
+        // Validación para prevenir el ingreso de puros espacios en blanco.
         if (!campoTextoNombre.getText().trim().equals("") && !campoTextoDireccion.getText().trim().equals("")
             && !campoTextoTelefono.getText().trim().equals("")) {
+            // Si la operación es Agregar o Actualizar
             if ((operacion == ConstantesGUI.AGREGAR) || (operacion == ConstantesGUI.ACTUALIZAR)) {
                 // Toma los valores capturados en los campos de texto y en la caja
                 // combinada y almacénalos en el parámetro usuario.
@@ -262,10 +263,15 @@ public class DlgUsuario extends javax.swing.JDialog {
             // Destruye el cuadro de díalogo
             dispose();
         } else {
+            // Mostrar mensaje de error.
            JOptionPane.showMessageDialog(this, "Favor de llenar todos los campos de texto.", "¡Error!", JOptionPane.ERROR_MESSAGE);
        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Método oyente del botón botonRestaurar.
+     * @param evt Evento al que escucha.
+     */
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
         // Restaura el contenido de los campos de texto a su valor original
         // Si la operación es Agregar
@@ -283,16 +289,22 @@ public class DlgUsuario extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_botonRestaurarActionPerformed
 
+    /**
+     * Método oyente del botón botonEliminar.
+     * @param evt Evento al que escucha.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // Destruye el cuadro de díalogo
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+    * Evento para prevenir que el usuario ingrese letras en el teléfono.
+    * @param evt Evento al que escucha.
+    */
     private void campoTextoTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTextoTelefonoKeyTyped
         char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9') ||
-           (c == evt.VK_BACK_SPACE) ||
-           (c == evt.VK_DELETE))) {
+        if (!((c >= '0') && (c <= '9') || (c == evt.VK_BACK_SPACE) || (c == evt.VK_DELETE))) {
             evt.consume(); // ignorar el evento de tecla
         }
     }//GEN-LAST:event_campoTextoTelefonoKeyTyped

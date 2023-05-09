@@ -7,7 +7,7 @@ import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 
 /**
- *
+ * Cuadro de diálogo donde se capturan los datos de un periodo.
  * @author Diego Valenzuela Parra y José Karim Franco Valencia
  */
 public class DlgPeriodo extends javax.swing.JDialog {
@@ -15,7 +15,6 @@ public class DlgPeriodo extends javax.swing.JDialog {
     /**
      * Constructor que establece las características del cuadro de diálogo y la
      * operación a realizar con él
-     *
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      * @param title Título del cuadro de diálogo
      * @param modal true si permite acceder fuera de los límites del cuadro de
@@ -41,7 +40,6 @@ public class DlgPeriodo extends javax.swing.JDialog {
     /**
      * Este método centra el cuadro de dialogo sobre la ventana de la
      * aplicación.
-     *
      * @param parent Ventana sobre la que aparecerá el cuadro de diálogo
      */
     private void centraCuadroDialogo(java.awt.Frame parent) {
@@ -152,12 +150,11 @@ public class DlgPeriodo extends javax.swing.JDialog {
 
     /**
      * Método oyente del botón botonAceptar
-     *
+     * @param evt Evento al que se escucha.
      */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // Toma los valores capturados en los campos de texto y en la caja
-        // combinada y almacénalos en el parámetro cancion.
         String desde, hasta;
+        // Captura las fechas hasta que se introduzcan en el formato dd/mm/aaaa.
         do {
             desde = campoTextoDesde.getText();
             hasta = campoTextoHasta.getText();
@@ -166,12 +163,18 @@ public class DlgPeriodo extends javax.swing.JDialog {
                 break;
             }
         } while (!desde.matches("\\d{2}/\\d{2}/\\d{4}") || !hasta.matches("\\d{2}/\\d{2}/\\d{4}"));
+        
+        // Si la fecha está en el formato correcto continuar.
         if (desde.matches("\\d{2}/\\d{2}/\\d{4}") && hasta.matches("\\d{2}/\\d{2}/\\d{4}")) {
             Fecha desdeFecha = new Fecha(desde);
             Fecha hastaFecha = new Fecha(hasta);
+            
+            // Si la fecha desde está antes de ahora, guardarlas en el periodo.
             if (desdeFecha.before(hastaFecha)) {
                 periodo.setDesde(new Fecha(desde));
                 periodo.setHasta(new Fecha(hasta));
+                
+                // Destruye el cuadro de diálogo.
                 dispose();
             } else if (desdeFecha.equals(hastaFecha)) {
                 JOptionPane.showMessageDialog(this, "Las fechas son iguales.", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -183,7 +186,7 @@ public class DlgPeriodo extends javax.swing.JDialog {
 
     /**
      * Método oyente del botón botonRestaurar
-     *
+     * @param evt Evento al que se escucha.
      */
     private void botonRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRestaurarActionPerformed
         // Restaura el contenido de los campos de texto a su valor original
@@ -194,7 +197,7 @@ public class DlgPeriodo extends javax.swing.JDialog {
 
     /**
      * Método oyente del botón botonAceptar
-     *
+     * @param evt Evento al que se escucha.
      */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // Destruye el cuadro de díalogo
